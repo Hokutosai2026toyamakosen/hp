@@ -2,459 +2,76 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <title>北斗祭2026 | 富山高専</title>
-        <meta name="description" content="２年に１度の富山高等専門学校・射水キャンパスで開催される高専祭">
+        <title>WCB Cafe</title>
+        <meta name="description" content="ブレンドコーヒーとヘルシーなオーガニックフードを提供するカフェ">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ファビコン -->
+        <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- リセットCSS -->
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- Googleフォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+    
+    <!-- オリジナルCSS -->
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
-        <header>
-  <p data-ja="第18回 北斗祭" data-en="18th Hokuto Festival">第18回 北斗祭</p>
-  <h1 data-ja="再煌" data-en="Re-sparkle">再煌</h1>
-  <h1 data-ja="〜REIGNITION〜" data-en="〜REIGNITION〜">〜REIGNITION〜</h1>
-</header>
-
-<button id="hamburger-button">☰</button>
-<button id="backToTop">Top</button>
-<button id="lang-switch">EN</button>
-
-<nav id="nav-menu">
-  <a href="#basic" data-ja="基本情報" data-en="Basic Info">基本情報</a>
-  <a href="#exhibition" data-ja="展示" data-en="Exhibition">展示</a>
-  <a href="#food" data-ja="模擬店" data-en="Food Stalls">模擬店</a>
-  <a href="#stage" data-ja="ステージ発表" data-en="Stage Performances">ステージ発表</a>
-  <a href="#map" data-ja="校内地図" data-en="Campus Map">校内地図</a>
-  <a href="#access" data-ja="交通" data-en="Access">交通</a>
-</nav>
-
-<div class="container">
-  <section id="basic">
-    <h2 data-ja="基本情報" data-en="Basic Information">基本情報</h2>
-    <div class="table-container">
-      <table>
-        <colgroup>
-          <col style="width: 30%;">
-          <col style="width: 70%;">
-        </colgroup>
-        <tbody>
-          <tr>
-            <td data-ja="開催日" data-en="Date">開催日</td>
-            <td data-ja="2026年 X月XX日(土) - XX日(日)" data-en="XX Month XX-XX, 2026 (Sat-Sun)">2026年 X月XX日(土) - XX日(日)</td>
-          </tr>
-          <tr>
-            <td data-ja="開催時間" data-en="Time">開催時間</td>
-            <td data-ja="YY:YY - YY:YY" data-en="YY:YY - YY:YY">YY:YY - YY:YY</td>
-          </tr>
-          <tr>
-            <td data-ja="場所" data-en="Location">場所</td>
-            <td data-ja="国立富山高等専門学校射水キャンパス<br>〒933-0293 富山県射水市海老江練合1-2"
-                data-en="Toyama National College of Technology, Imizu Campus<br>1-2 Ebie Tatenami, Imizu, Toyama 933-0293">
-                国立富山高等専門学校射水キャンパス<br>〒933-0293 富山県射水市海老江練合1-2</td>
-          </tr>
-          <tr>
-              <td>・・・</td>
-              <td>・・・</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="exhibition">
-    <h2 data-ja="展示" data-en="Exhibition">展示</h2>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th data-ja="企画団体" data-en="Group">企画団体</th>
-            <th data-ja="展示内容" data-en="Exhibit">展示内容</th>
-            <th data-ja="場所" data-en="Location">場所</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-ja="1年生" data-en="1st Year">1年生</td>
-            <td data-ja="フォトスポット" data-en="Photo Spot">フォトスポット</td>
-            <td data-ja="第1専門棟2階" data-en="Building 1, 2F">第1専門棟2階</td>
-          </tr>
-          <tr>
-            <td data-ja="2年生" data-en="2nd Year">2年生</td>
-            <td data-ja="謎解きすごろく" data-en="Puzzle Board Game">謎解きすごろく</td>
-            <td data-ja="第3専門棟1階" data-en="Building 3, 1F">第3専門棟1階</td>
-          </tr>
-          <tr>
-            <td data-ja="電子3年生" data-en="Electronics 3rd Year">電子3年生</td>
-            <td data-ja="ゲームセンター" data-en="Game Center">ゲームセンター</td>
-            <td data-ja="第3専門棟2階" data-en="Building 3, 2F">第3専門棟2階</td>
-          </tr>
-          <tr>
-            <td data-ja="国際3年生" data-en="International 3rd Year">国際3年生</td>
-            <td data-ja="魔法学校（迷路）" data-en="Magic School (Maze)">魔法学校（迷路）</td>
-            <td data-ja="第3専門棟2階" data-en="Building 3, 2F">第3専門棟2階</td>
-          </tr>
-          <tr>
-            <td data-ja="商船3年生" data-en="Maritime 3rd Year">商船3年生</td>
-            <td data-ja="お化け屋敷" data-en="Haunted House">お化け屋敷</td>
-            <td data-ja="第3専門棟2階" data-en="Building 3, 2F">第3専門棟2階</td>
-          </tr>
-          <tr>
-              <td>・・・</td>
-              <td>・・・</td>
-              <td>・・・</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="food">
-    <h2 data-ja="模擬店" data-en="Food Stalls">模擬店</h2>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th data-ja="企画団体" data-en="Group">企画団体</th>
-            <th data-ja="模擬店内容" data-en="Menu">模擬店内容</th>
-            <th data-ja="場所" data-en="Location">場所</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-ja="北斗祭実行委員会" data-en="Festival Committee">北斗祭実行委員会</td>
-            <td data-ja="ドリンク" data-en="Drinks">ドリンク</td>
-            <td>・・・</td>
-          </tr>
-          <tr>
-            <td data-ja="後援会" data-en="Supporters Association">後援会</td>
-            <td data-ja="イカ焼き<br>アイスクレープ<br>おにぎり<br>飲み物<br>どんどん焼き"
-                data-en="Grilled Squid<br>Ice Crepes<br>Rice Balls<br>Drinks<br>Dondon-yaki">
-                イカ焼き<br>アイスクレープ<br>おにぎり<br>飲み物<br>どんどん焼き</td>
-            <td>・・・</td>
-          </tr>
-          <tr>
-            <td data-ja="テニス部" data-en="Tennis Club">テニス部</td>
-            <td data-ja="焼きそば" data-en="Fried Noodles (Yakisoba)">焼きそば</td>
-            <td data-ja="・・・" data-en="・・・">・・・</td>
-          </tr>
-          <tr>
-            <td data-ja="ラグビー同好会" data-en="Rugby Club">ラグビー同好会</td>
-            <td data-ja="ポテト" data-en="Potato Fries">ポテト</td>
-            <td data-ja="・・・" data-en="・・・">・・・</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="stage">
-    <h2 data-ja="ステージ発表" data-en="Stage Performances">ステージ発表</h2>
-    
-    <div class="schedule-container">
-      <div class="schedule-day-title" data-ja="1日目" data-en="Day 1">1日目</div>
-      
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">10:00</span>
-          <span class="time-end">~ 10:20</span>
+        <div class="cover cover-home">
+            <header class="page-header wrapper">
+                <h1 class="align-center">
+                    <a href="index.html"><img class="logo" src="images/logo.svg" alt="WCBカフェ ホーム"></a>
+                </h1>
+                <nav>
+                    <ul class="main-nav font-english">
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <h2 class="page-title font-english">We'll Make Your Day</h2>
         </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="オープニング・大正琴 演奏" data-en="Opening & Taisho-koto Performance">オープニング・大正琴 演奏</span>
-        </div>
-      </div>
 
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">10:50</span>
-          <span class="time-end">~ 11:10</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="仮装コスプレコンテスト" data-en="Costume Contest">仮装コスプレコンテスト</span>
-        </div>
-      </div>
+        <section class="about">
+            <h3 class="heading-large font-english">About Cafe</h3>
+            <p>
+                WCB CAFEは無添加の厳選食材とおしゃれな店内が魅力のカフェです。心と体に優しい、それでいて飽きのこない空間をご用意しています。
+                素材の本来の美味しさを引き出したメニューを楽しみながら、癒しの時間をお過ごしください。
+            </p>
+            <div class="align-center">
+                <a class="btn" href="menu.html">メニューを見る</a>
+            </div>
+        </section>
 
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">11:10</span>
-          <span class="time-end">~ 11:30</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="Nice Voiceコンテスト" data-en="Nice Voice Contest">Nice Voiceコンテスト</span>
-        </div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">11:30</span>
-          <span class="time-end">~ 11:50</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="筋肉マンコンテスト" data-en="Muscle Man Contest">筋肉マンコンテスト</span>
-        </div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">12:00</span>
-          <span class="time-end">~ 12:40</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="フリースタイルダンス部" data-en="Freestyle Dance Club">フリースタイルダンス部</span>
-        </div>
-      </div>
-
-
-      <div class="schedule-day-title" data-ja="2日目" data-en="Day 2">2日目</div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">10:00</span>
-          <span class="time-end">~ 10:20</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="オープニング・吹奏楽部" data-en="Opening & Brass Band">オープニング・吹奏楽部</span>
-        </div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">10:30</span>
-          <span class="time-end">~ 11:40</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="一芸発表会" data-en="Talent Show">一芸発表会</span>
-        </div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">12:10</span>
-          <span class="time-end">~ 14:10</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="軽音楽同好会" data-en="Light Music Club">軽音楽同好会</span>
-        </div>
-      </div>
-
-      <div class="schedule-item">
-        <div class="time-col">
-          <span class="time-start">14:20</span>
-          <span class="time-end">~ 14:30</span>
-        </div>
-        <div class="content-col">
-          <span class="event-name" data-ja="エンディング・順位発表" data-en="Ending & Results Announcement">エンディング・順位発表</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="map">
-    <h2 data-ja="校内地図" data-en="Campus Map">校内地図</h2>
-    <p data-ja="下の地図で各施設の場所を確認できます。" data-en="You can check the location of each facility on the map below.">下の地図で各施設の場所を確認できます。</p>
-    <img src="https://via.placeholder.com/800x600.png?text=ここに校内地図の画像を挿入"
-         alt="校内地図">
-  </section>
-
-  <section id="access">
-    <h2 data-ja="交通" data-en="Access">交通</h2>
-    <p data-ja="文化祭当日は、無料のシャトルバスが運行される予定です。<br>時刻表をご確認の上、ご来場ください。"
-       data-en="On the festival day, free shuttle buses will run.<br>Please check the timetable.">
-       文化祭当日は、無料のシャトルバスが運行される予定です。<br>時刻表をご確認の上、ご来場ください。</p>
-
-    <h3 data-ja="【XX日(土)行き】<br>富山駅 → 射水キャンパス" data-en="[XXth Sat] <br>Toyama Station → Imizu Campus">【XX日(土)行き】<br>富山駅 → 射水キャンパス</h3>
-    <div class="table-container">
-      <table>
-          <thead>
-              <tr>
-                  <th data-ja="富山駅 発" data-en="Depart Toyama Station">富山駅 発</th>
-                  <th data-ja="射水キャンパス 着" data-en="Arrive Imizu Campus">射水キャンパス 着</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>08:15</td>
-                  <td>08:45</td>
-              </tr>
-              <tr>
-                  <td>09:30</td>
-                  <td>10:00</td>
-              </tr>
-              <tr>
-                  <td>11:30</td>
-                  <td>12:00</td>
-              </tr>
-          </tbody>
-      </table>
-    </div>
-
-    <h3 data-ja="【XX日(土)行き】<br>本郷キャンパス → 富山駅 →<br>射水キャンパス" data-en="[XXth Sat] <br>Hongou Campus → Toyama Station<br>→ Imizu Campus">【XX日(土)行き】<br>本郷キャンパス → 富山駅<br>→ 射水キャンパス</h3>
-    <div class="table-container">
-      <table>
-          <thead>
-              <tr>
-                  <th data-ja="本郷キャンパス 発" data-en="Depart<br>Hongou Campus">本郷キャンパス 発</th>
-                  <th data-ja="富山駅 発" data-en="Depart<br>Toyama Station">富山駅 発</th>
-                  <th data-ja="射水キャンパス 着" data-en="Arrive<br>Imizu Campus">射水キャンパス 着</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>08:30</td>
-                  <td>09:00</td>
-                  <td>09:30</td>
-              </tr>
-              <tr>
-                  <td>10:50</td>
-                  <td>11:20</td>
-                  <td>11:50</td>
-              </tr>
-          </tbody>
-      </table>
-    </div>
-
-    <h3 data-ja="【XX日(土)帰り】<br>射水キャンパス → 富山駅" data-en="[XXth Sat] <br>Imizu Campus → Toyama Station">【XX日(土)帰り】<br>射水キャンパス → 富山駅</h3>
-    <div class="table-container">
-      <table>
-          <thead>
-              <tr>
-                  <th data-ja="射水キャンパス 発" data-en="Depart Imizu Campus">射水キャンパス 発</th>
-                  <th data-ja="富山駅 着" data-en="Arrive Toyama Station">富山駅 着</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>15:00</td>
-                  <td>15:30</td>
-              </tr>
-              <tr>
-                  <td>15:15</td>
-                  <td>15:45</td>
-              </tr>
-          </tbody>
-      </table>
-    </div>
-
-    <h3 data-ja="【XX日(土)帰り】<br>射水キャンパス → 富山駅<br>→ 本郷キャンパス" data-en="[XXth Sat] <br>Imizu Campus → Toyama Station<br>→ Hongou Campus">【XX日(土)帰り】<br>射水キャンパス → 富山駅<br>→ 本郷キャンパス</h3>
-    <div class="table-container">
-      <table>
-          <thead>
-              <tr>
-                  <th data-ja="射水キャンパス 発" data-en="Depart<br>Imizu Campus">射水キャンパス 発</th>
-                  <th data-ja="富山駅 発" data-en="Depart<br>Toyama Station">富山駅 発</th>
-                  <th data-ja="本郷キャンパス 着" data-en="Arrive<br>Hongou Campus">本郷キャンパス 着</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td>16:15</td>
-                  <td>16:45</td>
-                  <td>17:15</td>
-              </tr>
-          </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section>
-      <h3 data-ja="【XX日(日)行き】<br>富山駅 → 射水キャンパス" data-en="[XXth Sun] <br>Toyama Station → Imizu Campus">【XX日(日)行き】<br>富山駅 → 射水キャンパス</h3>
-      <div class="table-container">
-        <table>
-            <thead>
+        <footer class="page-footer">
+            <h3 class="heading-large font-english">Information</h3>
+            <table class="info">
                 <tr>
-                    <th data-ja="富山駅 発" data-en="Depart Toyama Station">富山駅 発</th>
-                    <th data-ja="射水キャンパス 着" data-en="Arrive Imizu Campus">射水キャンパス 着</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>08:15</td>
-                    <td>08:45</td>
+                    <th>住所</th>
+                    <td>東京都港区六本木 0-0 ◯◯◯</td>
                 </tr>
                 <tr>
-                    <td>10:00</td>
-                    <td>10:30</td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-
-      <h3 data-ja="【XX日(日)行き】<br>本郷キャンパス → 富山駅<br>→ 射水キャンパス" data-en="[XXth Sun] <br>Hongou Campus → Toyama Station<br>→ Imizu Campus">【XX日(日)行き】<br>本郷キャンパス → 富山駅<br>→ 射水キャンパス</h3>
-      <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th data-ja="本郷キャンパス 発" data-en="Depart<br>Hongou Campus">本郷キャンパス 発</th>
-                    <th data-ja="富山駅 発" data-en="Depart<br>Toyama Station">富山駅 発</th>
-                    <th data-ja="射水キャンパス 着" data-en="Arrive<br>Imizu Campus">射水キャンパス 着</th>
-                </tr>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>08:30</td>
-                    <td>09:00</td>
-                    <td>09:30</td>
+                    <th>電話</th>
+                    <td>03-1111-XXXX</td>
                 </tr>
                 <tr>
-                    <td>10:50</td>
-                    <td>11:20</td>
-                    <td>11:50</td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-
-      <h3 data-ja="【XX日(日)帰り】<br>射水キャンパス → 富山駅" data-en="[XXth Sun] <br>Imizu Campus → Toyama Station">【XX日(日)帰り】<br>射水キャンパス → 富山駅</h3>
-      <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th data-ja="射水キャンパス 発" data-en="Depart Imizu Campus">射水キャンパス 発</th>
-                    <th data-ja="富山駅 着" data-en="Arrive Toyama Station">富山駅 着</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>15:00</td>
-                    <td>15:30</td>
+                    <th>営業時間</th>
+                    <td>10:00〜20:00</td>
                 </tr>
                 <tr>
-                    <td>15:15</td>
-                    <td>15:45</td>
+                    <th>店休日</th>
+                    <td>水曜</td>
                 </tr>
-            </tbody>
-        </table>
-      </div>
-
-      <h3 data-ja="【XX日(日)帰り】<br>射水キャンパス → 富山駅<br>→ 本郷キャンパス" data-en="[XXth Sun] <br>Imizu Campus → Toyama Station<br>→ Hongou Campus">【XX日(日)帰り】<br>射水キャンパス → 富山駅<br>→ 本郷キャンパス</h3>
-      <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th data-ja="射水キャンパス 発" data-en="Depart<br>Imizu Campus">射水キャンパス 発</th>
-                    <th data-ja="富山駅 発" data-en="Depart<br>Toyama Station">富山駅 発</th>
-                    <th data-ja="本郷キャンパス 着" data-en="Arrive<br>Hongou Campus">本郷キャンパス 着</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>16:30</td>
-                    <td>17:00</td>
-                    <td>17:30</td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-  </section>
-</div>
-
-<footer>
-  <p data-ja="&copy; 2026 富山高等専門学校 北斗祭実行委員会"
-     data-en="&copy; 2026 Toyama National College of Technology Hokuto Festival Committee">
-     &copy; 2026 富山高等専門学校 北斗祭実行委員会
-  </p>
-</footer> 
+            </table>
+            <div class="copyright">
+                <small>&copy; 2010 WCB Cafe</small>
+            </div>
+        </footer>
     </body>
 </html>
-
-
