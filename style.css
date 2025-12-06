@@ -265,8 +265,8 @@ footer {
 
 #lang-switch {
   position: fixed;
-  bottom: 15px;
-  left: 20px;
+  top: 15px;
+  right: 20px;
   background: #00ffff;
   color: #121212;
   border: none;
@@ -299,11 +299,11 @@ footer {
     justify-content: center;
     align-items: center;
     transition: left 0.3s ease-in-out;
-    padding: 10px 15px;
+    padding: 0;
     white-space: normal;
   }
   nav.active { left: 0; }
-  nav a { font-size: 1.2rem; margin: 20px 0; }
+  nav a { font-size: 1.5rem; margin: 20px 0; }
 
   .container { padding: 0 15px; }
   section { padding: 40px 10px; }
@@ -345,3 +345,4 @@ footer {
 
 
 }
+
