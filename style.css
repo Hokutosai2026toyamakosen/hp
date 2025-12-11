@@ -41,6 +41,29 @@ body {
   padding-top: 70px;
 }
 
+/* ロゴを中央揃え */
+.logo-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.logo-container img {
+  width: 300px;   /* 必要に応じてサイズ調整 */
+  height: auto;
+}
+
+/* 文字を中央揃え */
+.main-title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2rem;
+}
+
+.main-desc {
+  text-align: center;
+  margin-top: 10px;
+}
+
 /* スマホ対応 */
 @media (max-width: 600px) {
   .nav-links {
@@ -52,4 +75,5 @@ body {
     padding: 6px 10px;
   }
 }
+
 
