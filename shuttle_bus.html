@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シャトルバス時刻表</title>
+    <style>
+        body {
+            font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+            background: #f7f9fc;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ccc;
+            transition: 0.3s;
+        }
+
+        .tab-buttons button.active {
+            background: #007BFF;
+            color: white;
+        }
+
+        .timetable {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #aaa;
+            text-align: center;
+        }
+
+        th {
+            background: #e9f1ff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>シャトルバス時刻表</h1>
+
+    <div class="tab-buttons">
+        <button class="active" onclick="showDay('day1')">1日目</button>
+        <button onclick="showDay('day2')">2日目</button>
+    </div>
+
+    <!-- ▼▼ 1日目 ▼▼ -->
+    <div id="day1" class="timetable" style="display:block;">
+        <h2>本郷キャンパス／富山駅から射水キャンパスへ</h2>
+        <p>今のところ、1日目2日目でシャトルバス時刻の変化はないです。</p>
+        <table>
+            <tr>
+                <th>本郷キャンパス 発</th>
+                <td></td><td>8:20</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <th>富山駅北口 発</th>
+                <td>8:20</td><td>9:00</td><td>9:30</td><td>10:10</td><td>11:20</td>
+            </tr>
+            <tr>
+                <th>射水キャンパス 着</th>
+                <td>8:50</td><td>9:30</td><td>10:00</td><td>10:40</td><td>11:50</td>
+            </tr>
+        </table>
+
+        <br><br>
+
+        <h2>射水キャンパスから富山駅／本郷キャンパスへ</h2>
+
+        <table>
+            <tr>
+                <th>射水キャンパス 発</th>
+                <td>15:00</td><td>15:30</td><td>16:40</td><td>17:20</td><td>17:50</td>
+            </tr>
+            <tr>
+                <th>富山駅北口 着</th>
+                <td>15:30</td><td>16:00</td><td>17:10</td><td>17:50</td><td>18:20</td>
+            </tr>
+            <tr>
+                <th>本郷キャンパス 着</th>
+                <td></td><td></td><td></td><td>18:30</td><td></td>
+            </tr>
+        </table>
+        <p>射水キャンパスからの乗り場は管理棟前の噴水付近です。</p>
+    </div>
+
+    <!-- ▼▼ 2日目 ▼▼ -->
+    <div id="day2" class="timetable">
+        <h2>本郷キャンパス／富山駅から射水キャンパスへ</h2>
+        <p>今のところ、1日目2日目でシャトルバス時刻の変化はないです。</p>
+        <table>
+            <tr>
+                <th>本郷キャンパス 発</th>
+                <td></td><td>8:20</td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <th>富山駅北口 発</th>
+                <td>8:20</td><td>9:00</td><td>9:30</td><td>10:10</td><td>11:20</td>
+            </tr>
+            <tr>
+                <th>射水キャンパス 着</th>
+                <td>8:50</td><td>9:30</td><td>10:00</td><td>10:40</td><td>11:50</td>
+            </tr>
+        </table>
+
+        <br><br>
+
+        <h2>射水キャンパスから富山駅／本郷キャンパスへ</h2>
+
+        <table>
+            <tr>
+                <th>射水キャンパス 発</th>
+                <td>15:00</td><td>15:30</td><td>16:40</td><td>17:20</td><td>17:50</td>
+            </tr>
+            <tr>
+                <th>富山駅北口 着</th>
+                <td>15:30</td><td>16:00</td><td>17:10</td><td>17:50</td><td>18:20</td>
+            </tr>
+            <tr>
+                <th>本郷キャンパス 着</th>
+                <td></td><td></td><td></td><td>18:30</td><td></td>
+            </tr>
+        </table>
+        <p>射水キャンパスからの乗り場は管理棟前の噴水付近です。</p>
+    </div>
+
+    <script>
+        function showDay(dayId) {
+            document.querySelectorAll('.timetable').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(dayId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
