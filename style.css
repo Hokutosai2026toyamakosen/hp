@@ -5,7 +5,7 @@ body {
 
 /* ナビバー */
 .navbar {
-  position: fixed; /* ←固定 */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -14,7 +14,7 @@ body {
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   display: flex;
-  justify-content: space-around;
+  justify-content: center; /* ← ナビ中央寄せ */
 }
 
 .nav-links {
@@ -38,103 +38,128 @@ body {
   border-radius: 5px;
 }
 
-/* ページ内容がナビバーの裏に入らないように */
+/* ページ内容がナビバーに隠れないように */
 .main {
   padding-top: 70px;
 }
 
-/* ロゴを中央揃え */
-.logo-container {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.logo-container img {
-  width: 300px;   /* 必要に応じてサイズ調整 */
-  height: auto;
-}
-
-/* 文字を中央揃え */
-.main-title {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 2rem;
-}
-
-.main-desc {
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* 全体を左右2カラムにする */
+/* 2カラム（ロゴ＋タイトル）のメインビジュアル */
 .hero-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* 全体を中央に維持 */
-  gap: 40px;               /* カラム間のスペース */
+  justify-content: center;
+  gap: 40px;
   margin-top: 60px;
   padding: 0 40px;
 }
 
 /* 左：ロゴ */
 .hero-logo img {
-  width: 260px;     /* 大きさ微調整OK */
+  width: 260px;
   height: auto;
   display: block;
-  margin-left: -40px; /* ← 左へ少し寄せる（調整可） */
+  margin-left: -40px; /* 左寄せ調整 */
 }
 
 /* 右：タイトル＋文章 */
 .hero-text {
-  max-width: 380px; /* テキストの幅を安定させる */
+  max-width: 380px;
 }
 
-/* タイトル */
 .festival-title {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-/* 説明文 */
 .festival-desc {
   line-height: 1.6;
   font-size: 1.05rem;
 }
 
-/* カードを横に並べる */
+/* カード2つ（開催日時＋アクセス）を横に並べる */
 .info-cards {
   display: flex;
   justify-content: center;
   gap: 40px;
   margin-top: 40px;
-  flex-wrap: wrap; /* 画面幅が狭いときは折り返し */
+  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
 }
 
-/* カードの共通デザイン */
+/* カード共通デザイン */
 .card {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px 25px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  width: 260px;  /* カード幅 */
+  width: 260px;
   text-align: center;
 }
 
-/* 見出し */
+/* カードの見出し */
 .card h2 {
   margin-bottom: 12px;
   font-size: 1.3rem;
   font-weight: bold;
 }
 
-/* 地図画像（アクセスカード用） */
+/* 地図画像（アクセスカード） */
 .map-image {
   width: 100%;
   height: auto;
   border-radius: 8px;
   margin-top: 10px;
 }
+
+.shuttle-info {
+  position: absolute;
+  left: 460px;           /* 開催日時カードの左端にぴったり */
+  top: 100%;         /* info-cards の下に位置する */
+  width: 260px;      /* カード幅に揃える */
+  margin-top: 10px;  /* カードとの距離だけ調整 */
+  text-align: left;
+}
+
+
+.shuttle-text {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.shuttle-btn {
+  display: block;
+  padding: 10px 18px;
+  background: #0078ff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.25s;
+  width: fit-content;
+  margin-top: 10px;
+}
+
+.shuttle-btn:hover {
+  background: #005fcc;
+  transform: translateY(-2px);
+}
+
+.map-card {
+  height: 360px;   /* 好みで調整可能 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+}
+
+.map-image {
+  height: auto;
+  max-height: 380px;   /* 地図画像の縦サイズ調整（任意） */
+  object-fit: cover;
+}
+
 
 /* スマホ対応 */
 @media (max-width: 600px) {
@@ -146,5 +171,11 @@ body {
     font-size: 14px;
     padding: 6px 10px;
   }
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-logo img {
+    margin-left: 0;
+  }
 }
-
