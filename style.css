@@ -102,6 +102,40 @@ body {
   font-size: 1.05rem;
 }
 
+/* カードを横に並べる */
+.info-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap; /* 画面幅が狭いときは折り返し */
+}
+
+/* カードの共通デザイン */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  width: 260px;  /* カード幅 */
+  text-align: center;
+}
+
+/* 見出し */
+.card h2 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* 地図画像（アクセスカード用） */
+.map-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
 /* スマホ対応 */
 @media (max-width: 600px) {
   .nav-links {
@@ -113,7 +147,4 @@ body {
     padding: 6px 10px;
   }
 }
-
-
-
 
