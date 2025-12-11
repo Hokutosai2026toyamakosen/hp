@@ -66,6 +66,42 @@ body {
   margin-top: 10px;
 }
 
+/* 全体を左右2カラムにする */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 全体を中央に維持 */
+  gap: 40px;               /* カラム間のスペース */
+  margin-top: 60px;
+  padding: 0 40px;
+}
+
+/* 左：ロゴ */
+.hero-logo img {
+  width: 260px;     /* 大きさ微調整OK */
+  height: auto;
+  display: block;
+  margin-left: -40px; /* ← 左へ少し寄せる（調整可） */
+}
+
+/* 右：タイトル＋文章 */
+.hero-text {
+  max-width: 380px; /* テキストの幅を安定させる */
+}
+
+/* タイトル */
+.festival-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 説明文 */
+.festival-desc {
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
 /* スマホ対応 */
 @media (max-width: 600px) {
   .nav-links {
@@ -77,6 +113,7 @@ body {
     padding: 6px 10px;
   }
 }
+
 
 
 
