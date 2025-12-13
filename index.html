@@ -8,17 +8,13 @@
 </head>
 <body>
 
-<header></header> <!-- header.html が読み込まれる -->
-
-<div class="main">
+<header></header> <div class="main">
   <div class="hero-container">
     
-    <!-- 左：ロゴ -->
     <div class="hero-logo">
       <img src="ロゴ.jpg" alt="文化祭ロゴ">
     </div>
 
-    <!-- 右：タイトルと説明文 -->
     <div class="hero-text">
       <h1 class="festival-title">第18回 北斗祭</h1>
       <h1 class="festival-title">再煌 ~Reignition~</h1>
@@ -31,34 +27,29 @@
 
   </div>
 
-<div class="info-cards">
+  <div class="info-cards">
 
-  <!-- 開催日時カード -->
-  <div class="card event-card">
-    <h2>開催日時</h2>
-    <p>2026年05月XX日（土）<br>AA:AA〜BB:BB</p>
-    <p>2026年05月YY日（日）<br>CC:CC〜DD:DD</p>
+    <div class="left-column">
+      <div class="card event-card">
+        <h2>開催日時</h2>
+        <p>2026年05月XX日（土）<br>AA:AA〜BB:BB</p>
+        <p>2026年05月YY日（日）<br>CC:CC〜DD:DD</p>
+      </div>
+
+      <div class="shuttle-info">
+        <p class="shuttle-text">当日は無料シャトルバスが走ります。</p>
+        <a href="shuttle_bus.html" class="shuttle-btn">シャトルバス運行表を見る</a>
+      </div>
+    </div>
+
+    <div class="card map-card">
+      <h2>アクセス</h2>
+      <img src="map_sample.jpg" alt="アクセスマップ" class="map-image">
+    </div>
+
   </div>
 
-  <!-- アクセスカード（縦長にする） -->
-  <div class="card map-card">
-    <h2>アクセス</h2>
-    <img src="map_sample.jpg" alt="アクセスマップ" class="map-image">
-  </div>
-
 </div>
-
-<!-- 開催日時カードの下に移動させる部分 -->
-<div class="shuttle-info">
-  <p class="shuttle-text">当日は無料シャトルバスが走ります。</p>
-  <a href="shuttle_bus.html" class="shuttle-btn">シャトルバス運行表を見る</a>
-</div>
-
-
-</div>
-
-</div>
-
 
 <script src="script.js"></script>
 </body>
