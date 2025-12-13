@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化祭タイムテーブル</title>
+    <style>
+        body {
+    font-family: "Yu Gothic", sans-serif;
+    background: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.day-buttons button {
+    padding: 8px 20px;
+    font-size: 16px;
+    margin: 0 5px;
+    border: 2px solid #00aaff;
+    background: #111;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.day-buttons button.active {
+    background: #00aaff;
+    color: black;
+}
+
+/* タイムライン全体 */
+.timeline-container {
+    width: 420px;
+    margin: 40px auto;
+    display: flex;
+}
+
+/* 左の時間軸 */
+.time-axis {
+    width: 60px;
+    padding-right: 10px;
+    position: relative;
+    font-size: 18px;
+}
+
+.time-label {
+    height: 150px;
+    border-top: 1px solid #666;
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* 真ん中の縦ライン */
+.timeline {
+    border-left: 2px solid #aaa;
+    position: relative;
+    height: auto;
+}
+
+/* イベントのカード */
+.event {
+    position: absolute;
+    left: 40px;
+    width: 280px;
+    background: #3a3a3a;
+    padding: 16px 18px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+    height: auto;
+    min-height: 30px;
+    box-sizing: border-box;
+    display: flex;        /* ← 追加 */
+    flex-direction: column;
+    justify-content: center;   /* ← 上下中央寄せ */
+    gap: 6px;
+}
+
+.event-title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.event-time {
+    font-size: 13px;
+    opacity: 0.85;
+    line-height: 1.2;
+}
+
+    </style>
+</head>
+<body>
+
+<h1>文化祭タイムテーブル</h1>
+
+<div class="day-buttons">
+    <button onclick="showDay(1)" class="active" id="btn-day1">1日目</button>
+    <button onclick="showDay(2)" id="btn-day2">2日目</button>
+</div>
+
+<div class="timeline-container">
+    <div class="time-axis" id="time-axis">
+        <!-- 時間表示（JSで生成） -->
+    </div>
+    <div class="timeline" id="timeline">
+        <!-- イベント（JSで生成） -->
+    </div>
+</div>
+
+<script>
+    // タイムテーブルデータ（開始時間と終了時間）
+const timetableData = {
+    1: [
+        { start: "10:00", end: "10:20", title: "オープニング・大正琴 演奏" },
+        { start: "10:20", end: "10:40", title: "模擬店・展示PR" },
+        { start: "10:50", end: "11:10", title: "仮装コスプレコンテスト" },
+        { start: "11:10", end: "11:30", title: "Nice Voiceコンテスト" },
+        { start: "11:30", end: "11:50", title: "筋肉マンコンテスト" },
+        { start: "12:00", end: "12:40", title: "フリースタイルダンス部" },
+        { start: "12:50", end: "13:10", title: "日本舞踊同好会" },
+        { start: "13:20", end: "14:10", title: "カラオケ大会" },
+        { start: "14:20", end: "14:30", title: "エンディング" }
+    ],
+    2: [
+        { start: "10:00", end: "10:20", title: "オープニング・吹奏楽部" },
+        { start: "10:30", end: "11:40", title: "一芸発表会" },
+        { start: "12:10", end: "14:10", title: "軽音楽同好会" },
+        { start: "14:20", end: "14:30", title: "エンディング・順位発表" }
+    ]
+};
+
+// 時間軸の最小・最大
+const START_HOUR = 10;
+const END_HOUR = 14;
+
+// ------------------------------
+// ① 時間軸の生成
+// ------------------------------
+function createTimeAxis() {
+    const timeAxis = document.getElementById("time-axis");
+    timeAxis.innerHTML = "";
+
+    for (let h = START_HOUR; h <= END_HOUR; h++) {
+        const div = document.createElement("div");
+        div.classList.add("time-label");
+        div.style.height = "150px";
+        div.textContent = h;
+        timeAxis.appendChild(div);
+    }
+}
+
+// 時刻（HH:MM）→ 分に変換
+function timeToMinutes(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+}
+
+// ------------------------------
+// ② イベントの配置
+// ------------------------------
+function showDay(day) {
+    // ボタンの見た目
+    document.getElementById("btn-day1").classList.remove("active");
+    document.getElementById("btn-day2").classList.remove("active");
+    document.getElementById(`btn-day${day}`).classList.add("active");
+
+    const container = document.getElementById("timeline");
+    container.innerHTML = "";
+
+    timetableData[day].forEach(event => {
+        const start = timeToMinutes(event.start);
+        const end = timeToMinutes(event.end);
+        const base = START_HOUR * 60;
+
+        const HEIGHT_SCALE = 2.5;
+        const topPos = (start - base) * HEIGHT_SCALE;
+        const height = (end - start) * HEIGHT_SCALE;
+
+        const div = document.createElement("div");
+        div.className = "event";
+        div.style.top = topPos + "px";
+        div.style.height = height + "px";
+
+        div.innerHTML = `
+            <div class="event-title">${event.title}</div>
+            <div class="event-time">${event.start} - ${event.end}</div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+createTimeAxis();
+showDay(1);
+
+</script>
+</body>
+</html>
