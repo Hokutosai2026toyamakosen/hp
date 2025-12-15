@@ -240,6 +240,42 @@ body {
   box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
+/* --- 追加: サポートリンク（お願い・FAQ・お問い合わせ） --- */
+.support-section {
+  text-align: center;
+  margin-top: 40px;     /* 上のセクションとの間隔 */
+  margin-bottom: 60px;  /* ページ最下部の余白 */
+  padding: 0 20px;
+}
+
+.support-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* サブボタン（枠線スタイル）のデザイン */
+.btn-outline {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #fff;        /* 背景は白 */
+  color: #2563EB;          /* 文字色はメインの青 */
+  border: 2px solid #2563EB; /* 青い枠線 */
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.25s;
+  min-width: 180px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.btn-outline:hover {
+  background: #f0f7ff;     /* ホバー時に薄い青色に */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+}
 
 /* スマホ対応 */
 @media (max-width: 768px) {
@@ -266,6 +302,18 @@ body {
   
   .btn-blue {
     width: 100%; /* スマホでは幅いっぱいに */
+    max-width: 280px;
+  }
+
+  .sponsor-buttons,
+  .support-buttons {       /* ここに .support-buttons を追加 */
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-blue,
+  .btn-outline {           /* ここに .btn-outline を追加 */
+    width: 100%;
     max-width: 280px;
   }
 }
