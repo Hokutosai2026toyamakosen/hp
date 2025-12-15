@@ -189,6 +189,58 @@ body {
   box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
+
+/* --- ご協賛セクション --- */
+.sponsorship-section {
+  text-align: center;
+  margin-top: 60px; /* 上のカードとの間隔 */
+  padding: 0 20px;
+  max-width: 600px; /* 横に広がりすぎないように制限 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sponsorship-section h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sponsor-text {
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* ボタンを横並びにするコンテナ */
+.sponsor-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* ボタン同士の間隔 */
+  flex-wrap: wrap; /* スマホで縦並びになるように */
+}
+
+/* 共通ボタンデザイン（シャトルバスのボタンデザインを流用・汎用化） */
+.btn-blue {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #2563EB;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.25s;
+  min-width: 180px; /* ボタンの幅を揃える */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-blue:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+
 /* スマホ対応 */
 @media (max-width: 768px) {
   .hero-container {
@@ -205,5 +257,15 @@ body {
   .hero-logo img {
     width: 80%;        /* スマホでロゴが大きすぎないように調整（お好みで） */
     margin: 0 auto;
+  }
+
+  .sponsor-buttons {
+    flex-direction: column; /* スマホでは縦並び */
+    align-items: center;
+  }
+  
+  .btn-blue {
+    width: 100%; /* スマホでは幅いっぱいに */
+    max-width: 280px;
   }
 }
