@@ -22,16 +22,25 @@ body {
   list-style: none;
   display: flex;
   margin: 0;
-  padding: 10px 20px;
-  gap: 20px;
+  padding: 0;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-around;
+}
+
+.nav-links li {
+  flex: 1;
+  text-align: center;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
   font-size: 16px;
-  padding: 8px 12px;
+  padding: 15px 0;
   transition: 0.2s;
+  display: block;
+  width: 100%
 }
 
 .nav-links a:hover {
@@ -320,4 +329,5 @@ body {
     max-width: 280px;
   }
 }
+
 
