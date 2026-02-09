@@ -207,7 +207,8 @@ body {
   text-align: center;
   margin-top: 60px; /* 上のカードとの間隔 */
   padding: 0 20px;
-  max-width: 1000px; /* 横に広がりすぎないように制限 */
+  width: 100%; /* 横に広がりすぎないように制限 */
+  box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
 }
@@ -222,6 +223,9 @@ body {
   line-height: 1.8;
   color: #333;
   margin-bottom: 30px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ボタンを横並びにするコンテナ */
@@ -230,6 +234,27 @@ body {
   justify-content: center;
   gap: 20px; /* ボタン同士の間隔 */
   flex-wrap: wrap; /* スマホで縦並びになるように */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.support-section {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.support-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* 共通ボタンデザイン（シャトルバスのボタンデザインを流用・汎用化） */
@@ -329,6 +354,7 @@ body {
     max-width: 280px;
   }
 }
+
 
 
 
