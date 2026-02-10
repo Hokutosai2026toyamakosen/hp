@@ -24,7 +24,7 @@ body {
   margin: 0;
   padding: 0 20px;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1400%;
   justify-content: space-between;
 }
 
@@ -209,6 +209,8 @@ body {
   padding: 0 20px;
   width: 100%; /* 横に広がりすぎないように制限 */
   box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sponsorship-section h2 {
@@ -221,7 +223,7 @@ body {
   line-height: 1.8;
   color: #333;
   margin-bottom: 30px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -230,10 +232,10 @@ body {
 .sponsor-buttons {
   display: flex;
   justify-content: center;
-  gap: 40px; /* ボタン同士の間隔 */
+  gap: 20px; /* ボタン同士の間隔 */
   flex-wrap: wrap; /* スマホで縦並びになるように */
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -249,9 +251,9 @@ body {
 .support-buttons {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -312,6 +314,74 @@ body {
   box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
 }
 
+/* 全体のベース */
+footer {
+  background-color: #222; /* ダークグレー */
+  color: #fff;
+  padding: 60px 20px 20px;
+  font-family: sans-serif;
+}
+
+/* 上段のコンテナ（横並び） */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* 画面が狭い時に折り返す */
+}
+
+/* 左側：基本情報 */
+.footer-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.footer-info p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* 右側：ナビゲーション */
+.footer-nav {
+  display: flex;
+  gap: 40px; /* カラム間の隙間 */
+}
+
+.nav-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-column li {
+  margin-bottom: 10px;
+}
+
+.nav-column a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* 下段：コピーライトエリア */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #444; /* 区切り線 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.bottom-links a {
+  color: #fff;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
 /* スマホ対応 */
 @media (max-width: 768px) {
   .hero-container {
@@ -352,8 +422,6 @@ body {
     max-width: 280px;
   }
 }
-
-
 
 
 
