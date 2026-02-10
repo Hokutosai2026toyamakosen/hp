@@ -24,7 +24,7 @@ body {
   margin: 0;
   padding: 0 20px;
   width: 100%;
-  max-width: 1400%;
+  max-width: 1400px;
   justify-content: space-between;
 }
 
@@ -209,8 +209,6 @@ body {
   padding: 0 20px;
   width: 100%; /* 横に広がりすぎないように制限 */
   box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .sponsorship-section h2 {
@@ -223,7 +221,7 @@ body {
   line-height: 1.8;
   color: #333;
   margin-bottom: 30px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -232,10 +230,10 @@ body {
 .sponsor-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px; /* ボタン同士の間隔 */
+  gap: 40px; /* ボタン同士の間隔 */
   flex-wrap: wrap; /* スマホで縦並びになるように */
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -251,9 +249,9 @@ body {
 .support-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   flex-wrap: wrap;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -354,6 +352,7 @@ body {
     max-width: 280px;
   }
 }
+
 
 
 
