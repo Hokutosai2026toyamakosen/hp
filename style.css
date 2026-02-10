@@ -382,6 +382,36 @@ footer {
   text-decoration: none;
 }
 
+/* SNSアイコンを横並びにし、アイコンらしく見せる（style.cssに追記） */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons span {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: #444; /* アイコンの背景 */
+  border-radius: 4px;
+  text-align: center;
+  line-height: 32px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* リンクのホバー効果（任意） */
+.footer-nav a:hover, .bottom-links a:hover {
+  text-decoration: underline;
+}
+
+/* 太字のリンク（来場者の皆様へ など）を画像に合わせる */
+.nav-column li strong a {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 /* スマホ対応 */
 @media (max-width: 768px) {
   .hero-container {
@@ -422,6 +452,7 @@ footer {
     max-width: 280px;
   }
 }
+
 
 
 
