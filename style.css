@@ -1,7 +1,9 @@
 body {
   margin: 0;
   font-family: "Noto Sans JP", sans-serif;
-  background-color: #fff; /* 背景色を明示（必要に応じて変更） */
+  background-color: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  color: #fff;
+  min-height: 100vh;
 }
 
 /* ナビバー */
@@ -10,10 +12,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #222;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
   color: white;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
 }
@@ -24,7 +27,7 @@ body {
   margin: 0;
   padding: 0 20px;
   width: 100%;
-  max-width: 1400%;
+  max-width: 1200px;
   justify-content: space-between;
 }
 
@@ -35,22 +38,22 @@ body {
 }
 
 .nav-links a {
-  color: white;
+  color: #e0e7ff;
   text-decoration: none;
   font-size: 16px;
-  padding: 25px 10px;
+  padding: 20px 10px;
   transition: 0.3s;
   display: block;
-  white-space: nowrap;
 }
 
 .nav-links a:hover {
-  background: #444;
+  color: #fb7185; /* パンフレットのピンク系 */
+  text-shadow: 0 0 8px rgba(251, 113, 133, 0.6);
 }
 
 /* ページ内容がナビバーに隠れないように */
 .main {
-  padding-top: 100px;
+  padding-top: 120px;
   padding-bottom: 50px; /* 下部に少し余裕を持たせる */
 }
 
@@ -86,16 +89,19 @@ body {
 }
 
 .festival-title {
-  font-size: 2rem;
+  font-size: 2.8rem;
   font-weight: bold;
-  margin: 0 0 10px 0; /* マージン調整 */
-  line-height: 1.2;
+  background: linear-gradient(to bottom, #fde68a, #fbbf24); /* ゴールド */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3));
 }
 
 .festival-desc {
-  line-height: 1.6;
-  font-size: 0.92rem;
-  margin-top: 20px;
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.8;
 }
 
 /* コンテンツエリア全体 */
@@ -119,13 +125,13 @@ body {
 
 /* カード共通デザイン */
 .card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 30px; /* パディングを少し広めに */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  text-align: center;
-  box-sizing: border-box; /* paddingを含めた幅計算 */
-  width: 100%; /* 親要素(column)いっぱいに広げる */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  color: #fff;
 }
 
 /* 開催日時カード固有 */
@@ -180,27 +186,6 @@ body {
   margin: 0 0 10px 0;
   color: #333;
 }
-
-.shuttle-btn {
-  display: block;
-  padding: 12px 0; /* 上下padding */
-  background: #2563EB; /* 鮮やかな青（スクリーンショットに近い色） */
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.25s;
-  text-align: center;
-  width: 100%; /* ボタンをカード幅に合わせる */
-  font-size: 0.95rem;
-}
-
-.shuttle-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
-}
-
 
 /* --- ご協賛セクション --- */
 .sponsorship-section {
@@ -258,24 +243,6 @@ body {
 }
 
 /* 共通ボタンデザイン（シャトルバスのボタンデザインを流用・汎用化） */
-.btn-blue {
-  display: inline-block;
-  padding: 12px 30px;
-  background: #2563EB;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.25s;
-  min-width: 180px; /* ボタンの幅を揃える */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.btn-blue:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
-}
 
 /* --- 追加: サポートリンク（お願い・FAQ・お問い合わせ） --- */
 .support-section {
@@ -292,34 +259,45 @@ body {
   flex-wrap: wrap;
 }
 
+.btn-blue, .shuttle-btn {
+  background: linear-gradient(90deg, #6366f1, #ec4899); /* 紫からピンク */
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-blue:hover, .shuttle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+}
+
 /* サブボタン（枠線スタイル）のデザイン */
 .btn-outline {
-  display: inline-block;
+  border: 2px solid #6366f1;
+  background: transparent;
+  color: #fff;
   padding: 12px 30px;
-  background: #fff;        /* 背景は白 */
-  color: #2563EB;          /* 文字色はメインの青 */
-  border: 2px solid #2563EB; /* 青い枠線 */
+  border-radius: 50px;
   text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.25s;
-  min-width: 180px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  text-align: center;
+  transition: 0.3s;
 }
 
 .btn-outline:hover {
-  background: #f0f7ff;     /* ホバー時に薄い青色に */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #fb7185;
 }
 
 /* 全体のベース */
 footer {
-  background-color: #222; /* ダークグレー */
-  color: #fff;
+  background: #020617;
+  border-top: 1px solid rgba(255,255,255,0.1);
   padding: 60px 20px 20px;
-  font-family: sans-serif;
 }
 
 /* 上段のコンテナ（横並び） */
@@ -390,15 +368,24 @@ footer {
 }
 
 .social-icons span {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  background: #444; /* アイコンの背景 */
-  border-radius: 4px;
-  text-align: center;
-  line-height: 32px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  background: linear-gradient(45deg, #1e293b, #334155);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 時刻表（shuttle_bus.html）やタイムライン（stage.html）への適用 */
+.timetable, .event {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+th {
+  background: rgba(99, 102, 241, 0.2) !important;
+  color: #fff !important;
+}
+
+td {
+  border: 1px solid rgba(255,255,255,0.1) !important;
 }
 
 /* リンクのホバー効果（任意） */
@@ -452,6 +439,7 @@ footer {
     max-width: 280px;
   }
 }
+
 
 
 
