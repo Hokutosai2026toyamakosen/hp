@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+.works-list {
+  margin-bottom: 120px;
+}
+.works-list li {
+  display: flex;
+  align-items: center;
+  border-top: solid 1px #1f1f1f;
+}
+.works-list li:last-child {
+  border-bottom: solid 1px #1f1f1f;
+}
+.works-list li .img {
+  width: 50%;
+}
+.works-list li .img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+.works-list li .text {
+  width: 50%;
+  padding: 0 5%;
+}
+.works-list li .text .name {
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+.works-list li .text .info {
+  margin-bottom: 40px;
+}
+.works-list li .text .info .item {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.works-list li .text .info .item dt {
+  margin-right: 5px;
+}
+.works-list li .text .modal-open {
+  width: 130px;
+  background-color: #1f1f1f;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px 15px;
+  position: relative;
+}
+.works-list li .text .modal-open img {
+  max-width: 16px;
+  position: absolute;
+  top: 11px;
+  right: 11px;
+}
+.works-list li .modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 50%);
+  padding: 80px 20px;
+  text-align: center;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 20;
+}
+.works-list li .modal-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+.works-list li .modal-content {
+  width: 100%;
+  max-width: 860px;
+  background-color: #fff;
+  display: inline-block;
+  padding: 80px;
+  position: relative;
+}
+.works-list li .modal-content .modal-name {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.works-list li .modal-content .modal-img img {
+  margin-bottom: 20px;
+}
+.works-list li .modal-content .modal-close {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.works-list li .modal-content .modal-close img {
+  max-width: 25px;
+}
+
+/*-------------------------------------------
+スマートフォン
+-------------------------------------------*/
+@media screen and (max-width: 767px) {
+  .works-list {
+    margin-bottom: 60px;
+  }
+  .works-list li {
+    flex-direction: column;
+  }
+  .works-list li .img {
+    width: 100%;
+  }
+  .works-list li .text {
+    width: 100%;
+    padding: 20px;
+  }
+  .works-list li .modal-content {
+    padding: 40px 20px;
+  }
+}

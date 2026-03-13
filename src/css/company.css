@@ -1,0 +1,314 @@
+@charset "UTF-8";
+
+.wrapper {
+  max-width: 1000px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* セクションタイトル */
+.section-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 60px;
+  position: relative;
+}
+.section-title span {
+  max-width: 1000px;
+  display: block;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+.section-title::before {
+  content: "";
+  width: calc((100% - 1000px) / 2);
+  height: 1px;
+  background-color: #1f1f1f;
+  position: absolute;
+  top: 12px;
+  left: 0;
+}
+
+/*-------------------------------------------
+メニュー
+-------------------------------------------*/
+.pagelink-list {
+  display: flex;
+  margin-bottom: 80px;
+}
+.pagelink-list li {
+  width: calc(100% / 4);
+  border-left: solid 1px #1f1f1f;
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+}
+.pagelink-list li:last-child {
+  border-right: solid 1px #1f1f1f;
+}
+.pagelink-list li::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #1f1f1f;
+  margin: 0 auto;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+}
+.pagelink-list li a {
+  display: block;
+}
+
+/*-------------------------------------------
+Philosophy
+-------------------------------------------*/
+#philosophy {
+  margin-bottom: 120px;
+  overflow: hidden;
+  position: relative;
+}
+#philosophy .img-top {
+  width: clamp(390px, 50vw, 460px);
+  position: absolute;
+  top: 70px;
+  left: 50%;
+}
+#philosophy .text-area {
+  width: 70%;
+  background-color: #fafafa;
+  padding: 7% 0 10% 6%;
+  margin-top: 120px;
+}
+#philosophy .text-area .inner {
+  width: clamp(250px, 34vw, 350px);
+}
+#philosophy .text-area .inner .title {
+  font-family: 'Zen Old Mincho', serif;
+  font-size: 24px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+#philosophy .text-area .inner .text {
+  font-size: 15px;
+  line-height: 2;
+  margin-bottom: 30px;
+}
+#philosophy .img-bottom {
+  max-width: 280px;
+  margin: -60px 0 0 10%;
+}
+
+/*-------------------------------------------
+Service
+-------------------------------------------*/
+#service {
+  margin-bottom: 120px;
+}
+#service .item {
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 5px 25px #ccc;
+  margin-bottom: 40px;
+}
+#service .item.store {
+  flex-direction: row-reverse;
+}
+#service .item .text {
+  width: 44%;
+  padding: 1% 5%;
+}
+#service .item .text .title-ja {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+#service .item .text .title-en {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+#service .item .text .description {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+#service .item .text .view-more {
+  font-size: 14px;
+  text-align: right;
+  text-decoration: underline;
+}
+#service .item .img {
+  width: 56%;
+  overflow: hidden;
+}
+#service .item.interior .img {
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+}
+#service .item.store .img {
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+}
+#service .item .img img {
+  transition: transform 0.8s ease;
+}
+#service .item:hover .img img {
+  transform: scale(1.1);
+}
+
+/*-------------------------------------------
+Overview
+-------------------------------------------*/
+#overview {
+  margin-bottom: 120px;
+}
+#overview .overview-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+#overview .overview-list dt {
+  width: 200px;
+  border-top: solid 1px #1f1f1f;
+  font-size: 15px;
+  padding: 40px 0;
+}
+#overview .overview-list dt:last-of-type {
+  border-bottom: solid 1px #1f1f1f;
+}
+#overview .overview-list dd {
+  width: calc(100% - 200px);
+  border-top: solid 1px #ccc;
+  font-size: 15px;
+  padding: 40px 0;
+  line-height: 1.8;
+}
+#overview .overview-list dd:last-of-type {
+  border-bottom: solid 1px #ccc;
+}
+
+/*-------------------------------------------
+Access
+-------------------------------------------*/
+#access {
+  margin-bottom: 120px;
+}
+#access .info {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+#access .info a {
+  width: 90px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px #1f1f1f;
+  font-size: 12px;
+}
+#access .map iframe {
+  width: 100%;
+  height: 400px;
+}
+
+/*-------------------------------------------
+スマートフォン
+-------------------------------------------*/
+@media screen and (max-width: 767px) {
+  /* セクションタイトル */
+  .section-title {
+    margin-bottom: 10px;
+  }
+  .section-title::before {
+    content: none;
+  }
+
+  /*-------------------------------------------
+  メニュー
+  -------------------------------------------*/
+  .pagelink-list {
+    margin-bottom: 40px;
+  }
+  .pagelink-list li {
+    font-size: 12px;
+  }
+
+  /*-------------------------------------------
+  Philosophy
+  -------------------------------------------*/
+  #philosophy {
+    margin-bottom: 60px;
+    position: static;
+  }
+  #philosophy .img-top {
+    width: 100%;
+    margin-bottom: 20px;
+    position: static;
+  }
+  #philosophy .text-area {
+    width: 100%;
+    padding: 20px;
+    margin: 0 0 20px;
+  }
+  #philosophy .text-area .inner {
+    width: 100%;
+  }
+  #philosophy .img-bottom {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /*-------------------------------------------
+  Service
+  -------------------------------------------*/
+  #service {
+    margin-bottom: 60px;
+  }
+  #service .item {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  #service .item.store {
+    flex-direction: column;
+  }
+  #service .item .text {
+    width: 100%;
+    padding: 20px;
+  }
+  #service .item .text .title-en {
+    font-size: 26px;
+  }
+  #service .item .img {
+    width: 100%;
+  }
+  #service .item.interior .img,
+  #service .item.store .img {
+    clip-path: none;
+  }
+  
+  /*-------------------------------------------
+  Overview
+  -------------------------------------------*/
+  #overview {
+    margin-bottom: 60px;
+  }
+  #overview .overview-list dt {
+    width: 100px;
+    padding: 20px 0;
+  }
+  #overview .overview-list dd {
+    width: calc(100% - 100px);
+    padding: 20px 0;
+  }
+
+  /*-------------------------------------------
+  Access
+  -------------------------------------------*/
+  #access {
+    margin-bottom: 60px;
+  }
+}
