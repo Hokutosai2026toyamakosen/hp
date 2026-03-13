@@ -1,0 +1,427 @@
+@charset "UTF-8";
+
+/* セクションタイトル */
+.section-title {
+  color: rgba(51, 51, 51, 0.9);
+  font-size: clamp(68px, 8vw, 130px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ボタン */
+.btn {
+  max-width: 120px;
+  background-color: #fff;
+  display: block;
+  border: solid 1px #1f1f1f;
+  font-size: 12px;
+  padding: 10px 0;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+.btn::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  background-color: #1f1f1f;
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
+  transition: transform ease 0.3s;
+}
+.btn:hover {
+  color: #fff;
+  opacity: 1;
+}
+.btn:hover::before {
+  transform-origin: 0% 50%;
+  transform: scaleX(1);
+}
+
+/* Inview */
+.fadein {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: all 1s;
+}
+.fadein.inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*-------------------------------------------
+Mainvisual
+-------------------------------------------*/
+.mainvisual {
+  height: 600px;
+  margin-bottom: 120px;
+  position: relative;
+}
+.mainvisual .fade-img img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+}
+.mainvisual .fade-img li {
+  width: 70%;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  animation: fade 15s infinite;
+}
+.mainvisual .fade-img li:nth-child(1) {
+  animation-delay: 0s;
+}
+.mainvisual .fade-img li:nth-child(2) {
+  animation-delay: 5s;
+}
+.mainvisual .fade-img li:nth-child(3) {
+  animation-delay: 10s;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.mainvisual .catchphrase {
+  font-family: 'Zen Old Mincho', serif;
+  font-size: 50px;
+  text-shadow: 1px 1px 3px #fff;
+  position: absolute;
+  top: 210px;
+  left: 6%;
+}
+
+/*-------------------------------------------
+Company
+-------------------------------------------*/
+.company {
+  margin-bottom: 120px;
+}
+.company .section-title {
+  margin: 0 0 -5vw 4vw;
+  position: relative;
+  z-index: 10;
+}
+.company .flex {
+  display: flex;
+  align-items: center;
+}
+.company .flex .img {
+  width: 65%;
+}
+.company .flex .img img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+.company .flex .text {
+  width: 35%;
+  background-color: #fff;
+  padding: 5% 0 5% 5%;
+  margin-left: -8%;
+}
+.company .text .title {
+  font-family: 'Zen Old Mincho', serif;
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.company .text .description {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+/*-------------------------------------------
+Products
+-------------------------------------------*/
+.products {
+  margin-bottom: 120px;
+  position: relative;
+}
+.products::after {
+  content: "";
+  width: 70%;
+  height: 300px;
+  background-color: #fafafa;
+  display: block;
+  position: absolute;
+  top: 6vw;
+  right: 0;
+  z-index: -10;
+}
+.products .text {
+  width: 70%;
+  padding: 0 5%;
+  margin-left: auto;
+}
+.products .text .section-title {
+  margin-bottom: 30px;
+}
+.products .text .description {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 60px;
+}
+.products .products-list-area {
+  display: flex;
+  margin-bottom: 40px;
+  overflow-x: hidden;
+}
+.products .products-list-area .products-list {
+  display: flex;
+  animation: slide-left 60s infinite linear both;
+}
+.products .products-list-area .products-list li {
+  width: calc(100vw / 3);
+}
+.products .products-list-area .products-list li img {
+  width: 100%;
+}
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.products .btn {
+  margin: 0 auto;
+}
+
+/*-------------------------------------------
+Works
+-------------------------------------------*/
+.works {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 120px;
+  position: relative;
+}
+.works::after {
+  content: "";
+  width: 70%;
+  height: 70%;
+  min-height: 420px;
+  background-color: #fafafa;
+  display: block;
+  position: absolute;
+  top: 6vw;
+  left: 0;
+  z-index: -10;
+}
+.works .text {
+  padding: 0 6% 0 4%;
+}
+.works .text .section-title {
+  margin-bottom: 40px;
+}
+.works .text .description {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.works .text .btn {
+  margin-top: 30px;
+}
+.works .works-list {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 170px;
+}
+.works .works-list li {
+  max-width: 500px;
+}
+
+/*-------------------------------------------
+Faq & Contact
+-------------------------------------------*/
+.faq-contact {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5% 80px;
+}
+.faq-contact .item {
+  width: 48%;
+  position: relative;
+}
+.faq-contact .item::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 50%, rgba(0,0,0,1));
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.faq-contact .item .title {
+  color: #fff;
+  position: absolute;
+  left: 25px;
+  bottom: 20px;
+}
+.faq-contact .item .title .en {
+  display: block;
+  font-size: 4vw;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+.faq-contact .item .title .ja {
+  display: block;
+  font-size: 14px;
+}
+.faq-contact .item .arrow {
+  width: clamp(85px, 10vw, 140px);
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+}
+.faq-contact .item .arrow img {
+  width: 100%;
+}
+
+/*-------------------------------------------
+スマートフォン
+-------------------------------------------*/
+@media screen and (max-width: 767px) {
+  .section-title {
+    font-size: 12vw;
+  }
+
+  /*-------------------------------------------
+  Mainvisual
+  -------------------------------------------*/
+  .mainvisual {
+    height: 400px;
+    margin-bottom: 60px;
+  }
+  .mainvisual .fade-img img {
+    height: 400px;
+  }
+  .mainvisual .fade-img li {
+    width: 100%;
+  }
+  .mainvisual .catchphrase {
+    color: #fff;
+    text-shadow: 1px 1px 1px #777;
+    font-size: 28px;
+    top: 300px;
+    left: 6%;
+  }
+
+  /*-------------------------------------------
+  Company
+  -------------------------------------------*/
+  .company {
+    margin-bottom: 60px;
+  }
+  .company .section-title {
+    margin: 0 0 -7vw;
+    text-align: center;
+  }
+  .company .flex {
+    flex-direction: column;
+  }
+  .company .flex .img {
+    width: 100%;
+  }
+  .company .flex .img img {
+    height: 300px;
+  }
+  .company .flex .text {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px 20px 0;
+  }
+  .company .flex .text .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .company .flex .text .description {
+    margin-bottom: 20px;
+  }
+
+  /*-------------------------------------------
+  Products
+  -------------------------------------------*/
+  .products {
+    margin-bottom: 60px;
+  }
+  .products::after {
+    width: 100%;
+    height: 250px;
+    top: 10vw;
+  }
+  .products .text {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .products .text .section-title {
+    text-align: center;
+  }
+  .products .text .description {
+    margin-bottom: 20px;
+  }
+  .products .products-list-area {
+    margin-bottom: 20px;
+  }
+  
+  /*-------------------------------------------
+  Works
+  -------------------------------------------*/
+  .works {
+    flex-direction: column;
+    margin-bottom: 60px;
+  }
+  .works::after {
+    width: 100%;
+    height: 90%;
+    min-height: auto;
+    top: 10vw;
+  }
+  .works .text {
+    padding: 0 20px;
+    margin-bottom: 40px;
+  }
+  .works .text .section-title {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .works .works-list {
+    margin-top: 0;
+  }
+
+  /*-------------------------------------------
+  Faq & Contact
+  -------------------------------------------*/
+  .faq-contact {
+    flex-direction: column;
+    padding: 0 20px 40px;
+  }
+  .faq-contact .item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .faq-contact .item .title .en {
+    font-size: 8vw;
+  }
+}
