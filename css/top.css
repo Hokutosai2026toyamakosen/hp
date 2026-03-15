@@ -56,28 +56,6 @@
 /*-------------------------------------------
 Mainvisual
 -------------------------------------------*/
-.mainvisual {
-  height: 600px;
-  margin-bottom: 120px;
-  position: relative;
-}
-.mainvisual .fade-img img {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-}
-.mainvisual .fade-img li {
-  width: 70%;
-  position: absolute;
-}
-.mainvisual .catchphrase {
-  font-family: 'Zen Old Mincho', serif;
-  font-size: 50px;
-  text-shadow: 1px 1px 3px #fff;
-  position: absolute;
-  top: 210px;
-  left: 6%;
-}
 
 /*-------------------------------------------
 Company
