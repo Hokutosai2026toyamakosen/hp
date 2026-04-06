@@ -2,8 +2,8 @@
 <html lang="ja">
   <head>  
     <meta charset="utf-8">
-    <title>Faq | Interior Design</title>
-    <meta name="description" content="Interior Designのよくある質問ページです。お客様からよくいただく質問についてまとめています。">
+    <title>北斗祭2026 | 富山高専 </title>
+    <meta name="description" content="富山高専で行われる北斗祭2026に関する情報を来場者・関係者に提供します。">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/common/favicon.ico">
     <link rel="apple-touch-icon" href="img/common/apple-touch-icon.png">
@@ -12,8 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/faq.css">
+    <link rel="stylesheet" href="css/top.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/jquery.inview.min.js"></script>
     <script src="js/main.js"></script>
   </head>
 
@@ -21,7 +22,7 @@
     <header id="header">
       <div class="logo">
         <a href="index.html">
-          <img src="img/common/logo.svg" alt="Interior Design">
+          <img src="img/common/logo.svg" alt="第18回北斗祭 HokutoFestival2026">
         </a>
       </div>
 
@@ -34,17 +35,18 @@
       <nav class="navi">
         <ul class="menu">
           <li class="menu-first">
-            <span>会社情報</span>
+            <span>「北斗祭」について</span>
             <ul class="menu-second">
-              <li><a href="company.html#philosophy">企業理念</a></li>
-              <li><a href="company.html#service">事業紹介</a></li>
-              <li><a href="company.html#overview">会社概要</a></li>
+              <li><a href="company.html#philosophy">概要</a></li>
+              <li><a href="company.html#service">ご挨拶</a></li>
+              <li><a href="company.html#overview">テーマ</a></li>
+              <li><a href="company.html#overview">ニュース</a></li>
               <li><a href="company.html#access">アクセス</a></li>
             </ul>
           </li>
-          <li><a href="products.html">商品一覧</a></li>
-          <li><a href="works.html">実績紹介</a></li>
-          <li><a href="faq.html">よくある質問</a></li>
+          <li><a href="products.html">企画情報</a></li>
+          <li><a href="works.html">ご来場の皆様へ</a></li>
+          <li><a href="faq.html">ご協賛企業様</a></li>
           <li class="menu-contact"><a href="contact.html">お問い合わせ</a></li>
         </ul>
       </nav>
@@ -72,88 +74,249 @@
         <div class="item">
           <dt>
             <span class="question">Q</span>
-            <span>インテリアの相談をしたいのですが</span>
+            <span>開催時間はいつですか？</span>
           </dt>
           <dd>
             <span class="answer">A</span>
-            <span>インテリアのことならなんでもご相談ください。<br>
-              お電話または<a href="contact.html">お問い合わせフォーム</a>にてご相談を承っております。</span>
+            <span>第18回 高専祭(北斗祭)の開催時間は09時45分～16時00分となっております。</span>
           </dd>
         </div>
         <div class="item">
           <dt>
             <span class="question">Q</span>
-            <span>見積もりは無料ですか？</span>
+            <span>展示の展示時間は？</span>
           </dt>
           <dd>
             <span class="answer">A</span>
-            <span>はい、無料です。ご予算に合わせたご提案も可能ですのでまずはお気軽にご相談ください。</span>
+            <span>校内展示の展示可能な時間は下記の通りです。<br>23日(土) 10時00分～15時00分<br>24日(日) 10時00分～14時00分</span>
           </dd>
         </div>
         <div class="item">
           <dt>
             <span class="question">Q</span>
-            <span>どんな業種の店舗でも対応していますか？</span>
+            <span>模擬店の営業時間は？</span>
           </dt>
           <dd>
             <span class="answer">A</span>
-            <span>はい、どんな業種の店舗にも対応しています。特にカフェやアパレルは多数の実績があり得意としています。</span>
+            <span>校内展示の展示可能な時間は下記の通りです。<br>23日(土) 10時00分～15時30分<br>24日(日) 10時00分～15時00分</span>
           </dd>
         </div>
         <div class="item">
           <dt>
             <span class="question">Q</span>
-            <span>物件探しからお願いできますか？</span>
+            <span>入場に制限はありますか？</span>
           </dt>
           <dd>
             <span class="answer">A</span>
-            <span>はい、社内に物件探しの専門部署がありますので、お客様のご要望に合った物件をお探しいたします。</span>
+            <span>入場制限は一切ございません。入構・退構は自由となります。</span>
           </dd>
         </div>
         <div class="item">
           <dt>
             <span class="question">Q</span>
-            <span>アフターフォローはどうなっていますか？</span>
+            <span>構内でのマスク着用は必要ですか？</span>
           </dt>
           <dd>
             <span class="answer">A</span>
-            <span>24時間体制のアフターフォローサービスを設けています。<br>
-              お困りごとがございましたらお電話やメールにてお気軽にご相談下さい。</span>
+            <span>マスク着用義務はございません。来場者のみなさんの個人の判断に委ねております。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>ポプリ(購買)は営業時間していますか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>営業しております。両日とも11時30分～13時30分の時短営業となっておりますのでご注意ください。<br>なお。食事系のものやアイス・ドリンク販売は実施しませｎ。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>雨天の場合は開催されますか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>原則として雨天決行となっております。しかし、暴風雨などの運営に支障をきたすような事態が<br>発生した場合には模擬店等が中止になる可能性がございます。予めご了承ください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>キャンパス構内での飲食は可能ですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>屋外は食べ歩き可能となっております。屋内の飲食は飲食スペースをご利用ください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>ペットの同伴は可能ですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>申し訳ございませんが、ペットの同伴はご遠慮ください。なお、補助犬(盲導犬、聴導犬、介助犬)<br>の同伴については受け入れております。ご来場の皆様のご理解・ご協力をお願いいたします。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>キャンパス構内での飲酒は可能ですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>キャンパス内での飲酒並びに酒類の持ち込みは禁止でございます。ノンアルコール飲料も同様に禁止させて頂きます。<br>遵守頂けない場合、ご退構を依頼することがございます。ご理解・ご協力をお願いいたしします。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>キャンパス構内での喫煙は可能ですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>キャンパス内は全面禁煙でございます。喫煙場所もございませんのでご注意をお願い致します。<br>遵守頂けない場合、ご退構を依頼することがございます。ご理解・ご協力をお願いいたしします。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>駐車場はありますか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>お越しの際、キャンパス内への駐車はできません。東明小学校隣の臨時駐車場をご利用ください。<br>周辺の店舗、道路、公園等への駐車はご遠慮ください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>自転車やバイクでの来場は可能ですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>キャンパス構内に駐輪場がございますので、そちらに駐輪をお願いします。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>落とし物をした場合どうすればいいですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>落とし物はインフォメーションでお預かりしております。インフォメーションにお問い合わせください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>落とし物をした場合どうすればいいですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>落とし物を拾った際には、インフォメーションまでお届けをお願いします。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>トイレはどこですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>トイレはキャンパスマップをご覧ください。または近くの北斗祭実行委員までお尋ねください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>北斗祭への行き方は？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>アクセスページをご覧ください。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>近くのコンビニは？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>徒歩5分のところにファミリーマートがあります。</span>
+          </dd>
+        </div>
+         <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>シャトルバスの乗り場はどこですか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>管理棟前の噴水がバス乗り場となっております。</span>
+          </dd>
+        </div>
+        <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>車椅子の用意はありますか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>貸出用の車椅子がありますので、インフォメーションまでお声掛けください。</span>
+          </dd>
+        </div>
+        <div class="item">
+          <dt>
+            <span class="question">Q</span>
+            <span>若潮丸乗船航海に参加したいのですが可能でしょうか？</span>
+          </dt>
+          <dd>
+            <span class="answer">A</span>
+            <span>学生の家族と近隣住民のみの事前案内のみとなっておりますため、当日券はありませｎ。<br>ご了承ください。</span>
           </dd>
         </div>
       </dl>
     </main>
 
-    <footer id="footer">
+     <footer id="footer">
       <div class="info-area">
         <a class="logo" href="index.html">
-          <img src="img/common/logo-w.svg" alt="Interior Design">
+          <img src="img/common/logo-w.png" alt="第18回北斗祭 HokutoFestival2026">
         </a>
         <div class="info">
-          <p>〒999-9999<br>東京都○○○○○○○○○○○○○○</p>
-          <p>TEL: 03-9999-9999</p>
+          <p>富山高等専門学校射水キャンパス
+          <p>〒933-0293<br>富山県射水市海老江練谷1番2</p>
+          <p>TEL: (0766)86-5135</p>
+          <p>FAX: (0766)86-5130</p>
         </div>
-        <p class="copyright">Copyright © Interior Design. All rights reserved.</p>
+        <p class="copyright">© 2026 北斗祭実行委員会 All rights reserved.</p>
       </div>
 
       <div class="menu-area">
         <div class="menu-col">
-          <p class="menu-title"><a href="company.html">会社情報</a></p>
+          <p class="menu-title"><a href="company.html">「北斗祭」について</a></p>
           <ul class="menu-list">
-            <li><a href="company.html#philosophy">企業理念</a></li>
-            <li><a href="company.html#service">事業紹介</a></li>
-            <li><a href="company.html#overview">会社概要</a></li>
+            <li><a href="company.html#philosophy">概要</a></li>
+            <li><a href="company.html#service">ご挨拶</a></li>
+            <li><a href="company.html#overview">テーマ</a></li>
+            <li><a href="company.html#overview">ニュース</a></li>
             <li><a href="company.html#access">アクセス</a></li>
           </ul>
         </div>
 
         <div class="menu-col">
-          <p class="menu-title"><a href="products.html">商品一覧</a></p>
-          <p class="menu-title"><a href="works.html">実績紹介</a></p>
+          <p class="menu-title"><a href="products.html">企画情報</a></p>
+          <p class="menu-title"><a href="works.html">ご来場の皆様へ</a></p>
         </div>
         
         <div class="menu-col">
-          <p class="menu-title"><a href="faq.html">よくある質問</a></p>
+          <p class="menu-title"><a href="faq.html">ご協賛企業様</a></p>
           <p class="menu-title"><a href="contact.html">お問い合わせ</a></p>
         </div>
       </div>
