@@ -142,7 +142,8 @@
 .timeline {
     border-left: 2px solid #aaa;
     position: relative;
-    height: auto;
+    height: 750px; /* ← 追加：中の要素がabsoluteなので高さを明示する */
+    width: 100%;   /* ← 追加：幅をしっかり確保 */
 }
 
 /* イベントのカード */
