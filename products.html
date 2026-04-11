@@ -437,15 +437,107 @@
 
       <section id="access">
         <h2 class="section-title"><span>タイムテーブル</span></h2>
+         <div class="day-buttons">
+    <button onclick="showDay(1)" class="active" id="btn-day1">1日目</button>
+    <button onclick="showDay(2)" id="btn-day2">2日目</button>
+</div>
 
-        <div class="info wrapper">
-          <p>〒933-0293 富山県射水市海老江練谷1番2<br>TEL (0766)86-5135 / FAX (0766)86-5130</p>
-          <a href="https://maps.app.goo.gl/qpgf2kbS3oXDsw3L6" target="_blank">Google Map</a>
-        </div>
+<div class="timeline-container">
+    <div class="time-axis" id="time-axis">
+        <!-- 時間表示（JSで生成） -->
+    </div>
+    <div class="timeline" id="timeline">
+        <!-- イベント（JSで生成） -->
+    </div>
+</div>
 
-        <div class="map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3196.487505609848!2d137.15628597552555!3d36.758870770028636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff79ea9182a709d%3A0x9d311ac5104b9c23!2z5a-M5bGx6auY562J5bCC6ZaA5a2m5qChIOWwhOawtOOCreODo-ODs-ODkeOCuQ!5e0!3m2!1sja!2sjp!4v1775809405908!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+<script>
+    // タイムテーブルデータ（開始時間と終了時間）
+const timetableData = {
+    1: [
+        { start: "10:00", end: "10:20", title: "オープニング・大正琴 演奏" },
+        { start: "10:20", end: "10:40", title: "模擬店・展示PR" },
+        { start: "10:50", end: "11:10", title: "仮装コスプレコンテスト" },
+        { start: "11:10", end: "11:30", title: "Nice Voiceコンテスト" },
+        { start: "11:30", end: "11:50", title: "筋肉マンコンテスト" },
+        { start: "12:00", end: "12:40", title: "フリースタイルダンス部" },
+        { start: "12:50", end: "13:10", title: "日本舞踊同好会" },
+        { start: "13:20", end: "14:10", title: "カラオケ大会" },
+        { start: "14:20", end: "14:30", title: "エンディング" }
+    ],
+    2: [
+        { start: "10:00", end: "10:20", title: "オープニング・吹奏楽部" },
+        { start: "10:30", end: "11:40", title: "一芸発表会" },
+        { start: "12:10", end: "14:10", title: "軽音楽同好会" },
+        { start: "14:20", end: "14:30", title: "エンディング・順位発表" }
+    ]
+};
+
+// 時間軸の最小・最大
+const START_HOUR = 10;
+const END_HOUR = 14;
+
+// ------------------------------
+// ① 時間軸の生成
+// ------------------------------
+function createTimeAxis() {
+    const timeAxis = document.getElementById("time-axis");
+    timeAxis.innerHTML = "";
+
+    for (let h = START_HOUR; h <= END_HOUR; h++) {
+        const div = document.createElement("div");
+        div.classList.add("time-label");
+        div.style.height = "150px";
+        div.textContent = h;
+        timeAxis.appendChild(div);
+    }
+}
+
+// 時刻（HH:MM）→ 分に変換
+function timeToMinutes(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+}
+
+// ------------------------------
+// ② イベントの配置
+// ------------------------------
+function showDay(day) {
+    // ボタンの見た目
+    document.getElementById("btn-day1").classList.remove("active");
+    document.getElementById("btn-day2").classList.remove("active");
+    document.getElementById(`btn-day${day}`).classList.add("active");
+
+    const container = document.getElementById("timeline");
+    container.innerHTML = "";
+
+    timetableData[day].forEach(event => {
+        const start = timeToMinutes(event.start);
+        const end = timeToMinutes(event.end);
+        const base = START_HOUR * 60;
+
+        const HEIGHT_SCALE = 2.5;
+        const topPos = (start - base) * HEIGHT_SCALE;
+        const height = (end - start) * HEIGHT_SCALE;
+
+        const div = document.createElement("div");
+        div.className = "event";
+        div.style.top = topPos + "px";
+        div.style.height = height + "px";
+
+        div.innerHTML = `
+            <div class="event-title">${event.title}</div>
+            <div class="event-time">${event.start} - ${event.end}</div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+createTimeAxis();
+showDay(1);
+
+</script>
       </section>
 
       
