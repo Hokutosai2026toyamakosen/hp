@@ -175,3 +175,11 @@
     opacity: 0.85;
     line-height: 1.2;
 }
+
+/* products.css の一番下などに追記してください */
+
+/* ステージ企画のレイアウト崩れ防止 */
+#overview .products-list.active {
+  display: block; /* gridを上書きして通常の縦並びにする */
+  margin-bottom: 60px;
+}
