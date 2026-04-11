@@ -611,5 +611,35 @@ showDay(1);
         </div>
       </div>
     </footer>
+
+     <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ページ内のすべての <section> を取得
+  const sections = document.querySelectorAll('section');
+
+  sections.forEach(section => {
+    const tabs = section.querySelectorAll('.tab-list li');
+    // そのセクション内の products-list をすべて取得
+    const contents = section.querySelectorAll('.products-list');
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        // ① 同じセクション内のすべてのタブから active を外す
+        tabs.forEach(t => t.classList.remove('active'));
+        // ② クリックされたタブに active を付ける
+        tab.classList.add('active');
+
+        // ③ 同じセクション内のすべてのコンテンツから active を外す
+        contents.forEach(c => c.classList.remove('active'));
+        // ④ クリックされたタブと同じ順番（インデックス番号）のコンテンツを表示する
+        if (contents[index]) {
+          contents[index].classList.add('active');
+        }
+      });
+    });
+  });
+});
+</script>
+     
   </body>
 </html> 
