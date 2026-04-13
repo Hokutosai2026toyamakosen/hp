@@ -468,22 +468,30 @@
 
       <section id="access">
         <h2 class="section-title"><span>タイムテーブル</span></h2>
-         <div class="day-buttons">
-    <button onclick="showDay(1)" class="active" id="btn-day1">1日目</button>
-    <button onclick="showDay(2)" id="btn-day2">2日目</button>
-</div>
+        
+        <div class="wrapper">
+          <ul class="tab-list">
+            <li class="tab-all active">1日目</li>
+            <li class="tab-sofa">2日目</li>
+          </ul>
 
-<div class="timeline-container">
-    <div class="time-axis" id="time-axis">
-        <!-- 時間表示（JSで生成） -->
-    </div>
-    <div class="timeline" id="timeline">
-        <!-- イベント（JSで生成） -->
-    </div>
-</div>
+          <div class="products-list all active">
+            <div class="timeline-container">
+              <div class="time-axis" id="time-axis-1"></div>
+              <div class="timeline" id="timeline-1"></div>
+            </div>
+          </div>
+
+          <div class="products-list sofa">
+            <div class="timeline-container">
+              <div class="time-axis" id="time-axis-2"></div>
+              <div class="timeline" id="timeline-2"></div>
+            </div>
+          </div>
+        </div>
 
 <script>
-    // タイムテーブルデータ（開始時間と終了時間）
+// タイムテーブルデータ
 const timetableData = {
     1: [
         { start: "10:00", end: "10:20", title: "オープニング・大正琴 演奏" },
@@ -504,17 +512,20 @@ const timetableData = {
     ]
 };
 
-// 時間軸の最小・最大
 const START_HOUR = 10;
 const END_HOUR = 14;
 
-// ------------------------------
-// ① 時間軸の生成
-// ------------------------------
-function createTimeAxis() {
-    const timeAxis = document.getElementById("time-axis");
-    timeAxis.innerHTML = "";
+function timeToMinutes(t) {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+}
 
+// 指定された日数のタイムラインを生成する関数
+function createTimeline(day) {
+    const timeAxis = document.getElementById(`time-axis-${day}`);
+    const container = document.getElementById(`timeline-${day}`);
+
+    // 時間軸生成
     for (let h = START_HOUR; h <= END_HOUR; h++) {
         const div = document.createElement("div");
         div.classList.add("time-label");
@@ -522,32 +533,14 @@ function createTimeAxis() {
         div.textContent = h;
         timeAxis.appendChild(div);
     }
-}
 
-// 時刻（HH:MM）→ 分に変換
-function timeToMinutes(t) {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + m;
-}
-
-// ------------------------------
-// ② イベントの配置
-// ------------------------------
-function showDay(day) {
-    // ボタンの見た目
-    document.getElementById("btn-day1").classList.remove("active");
-    document.getElementById("btn-day2").classList.remove("active");
-    document.getElementById(`btn-day${day}`).classList.add("active");
-
-    const container = document.getElementById("timeline");
-    container.innerHTML = "";
-
+    // イベント配置
     timetableData[day].forEach(event => {
         const start = timeToMinutes(event.start);
         const end = timeToMinutes(event.end);
         const base = START_HOUR * 60;
-
         const HEIGHT_SCALE = 2.5;
+
         const topPos = (start - base) * HEIGHT_SCALE;
         const height = (end - start) * HEIGHT_SCALE;
 
@@ -565,9 +558,9 @@ function showDay(day) {
     });
 }
 
-createTimeAxis();
-showDay(1);
-
+// 読み込み時に1日目と2日目の両方のタイムテーブルをあらかじめ作っておく
+createTimeline(1);
+createTimeline(2);
 </script>
       </section>
 
