@@ -1,51 +1,20 @@
 // Animation
 const slideToggle = (el) => {
   el.style.overflow = "hidden";
+  const isHidden = window.getComputedStyle(el).display === "none";
+  if (isHidden) el.style.display = "flex";
 
-  if (window.getComputedStyle(el).display === "none") {
-    el.style.display = "flex";
+  const { paddingTop, paddingBottom } = window.getComputedStyle(el);
+  const keyframes = [
+    { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
+    { height: el.scrollHeight + "px", opacity: 1, paddingTop, paddingBottom },
+  ];
 
-    const style = window.getComputedStyle(el);
-    const pt = style.paddingTop;
-    const pb = style.paddingBottom;
-
-    el.animate(
-      [
-        { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
-        {
-          height: el.scrollHeight + "px",
-          opacity: 1,
-          paddingTop: pt,
-          paddingBottom: pb,
-        },
-      ],
-      { duration: 300, easing: "ease" },
-    ).onfinish = () => {
-      el.style.overflow = "";
-    };
-  } else {
-    const style = window.getComputedStyle(el);
-    const pt = style.paddingTop;
-    const pb = style.paddingBottom;
-
-    const anime = el.animate(
-      [
-        {
-          height: el.scrollHeight + "px",
-          opacity: 1,
-          paddingTop: pt,
-          paddingBottom: pb,
-        },
-        { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
-      ],
-      { duration: 300, easing: "ease" },
-    );
-
-    anime.onfinish = () => {
-      el.style.display = "none";
-      el.style.overflow = "";
-    };
-  }
+  const anime = el.animate(isHidden ? keyframes : keyframes.reverse(), { duration: 300, easing: "ease" });
+  anime.onfinish = () => {
+    if (!isHidden) el.style.display = "none";
+    el.style.overflow = "";
+  };
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -55,17 +24,18 @@ window.addEventListener("DOMContentLoaded", () => {
     /*-------------------------------
     ハンバーガーメニュー
     ---------------------------------*/
-    const hamburger = target.closest(".hamburger");
-    if (hamburger) {
-      hamburger.classList.toggle("active");
-      document.querySelector("#header .navi")?.classList.toggle("active");
-      document.querySelector("#header .mask")?.classList.toggle("active");
-    }
+    const h = document.querySelector(".hamburger");
+    const n = document.querySelector("#header .navi");
+    const m = document.querySelector("#header .mask");
 
-    if (target.closest(".navi a") || target.closest(".mask")) {
-      document.querySelector(".hamburger")?.classList.remove("active");
-      document.querySelector("#header .navi")?.classList.remove("active");
-      document.querySelector("#header .mask")?.classList.remove("active");
+    if (target.closest(".hamburger")) {
+      h?.classList.toggle("active");
+      n?.classList.toggle("active");
+      m?.classList.toggle("active");
+    } else if (target.closest(".navi a") || target.closest(".mask")) {
+      h?.classList.remove("active");
+      n?.classList.remove("active");
+      m?.classList.remove("active");
     }
 
     /*-------------------------------
@@ -84,37 +54,31 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const fadeinElements = document.querySelectorAll(".fadein");
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) entry.target.classList.add("inview");
     });
   });
-  fadeinElements.forEach((el) => observer.observe(el));
+  document.querySelectorAll(".fadein").forEach((el) => observer.observe(el));
 
   /*-------------------------------
   タブ切り替え
   ---------------------------------*/
-  const tabSections = document.querySelectorAll("section");
-
-  tabSections.forEach((section) => {
+  document.querySelectorAll("section").forEach((section) => {
     const tabs = section.querySelectorAll(".tab-list li");
     const contents = section.querySelectorAll(".products-list");
 
     if (tabs.length > 0 && !section.querySelector(".tab-list li.active")) {
       tabs[0].classList.add("active");
-      if (contents[0]) contents[0].classList.add("active");
+      contents[0]?.classList.add("active");
     }
 
     tabs.forEach((tab, index) => {
       tab.addEventListener("click", () => {
         tabs.forEach((t) => t.classList.remove("active"));
         contents.forEach((c) => c.classList.remove("active"));
-
         tab.classList.add("active");
-        if (contents[index]) {
-          contents[index].classList.add("active");
-        }
+        contents[index]?.classList.add("active");
       });
     });
   });
@@ -122,14 +86,13 @@ window.addEventListener("DOMContentLoaded", () => {
   /*-------------------------------
   モーダルウィンドウ
   ---------------------------------*/
-  // オープン
   document.querySelectorAll(".modal-open").forEach((btn) => {
     btn.addEventListener("click", function () {
       document.body.style.overflowY = "hidden";
       this.closest("[class*='work']").querySelector(".modal-container").classList.add("active");
     });
   });
-  // クローズ
+
   document.querySelectorAll(".modal-close").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.body.style.overflowY = "auto";
@@ -138,21 +101,18 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  /*-------------------------------
-  アコーディオン
+/*-------------------------------
+アコーディオン
 ---------------------------------*/
-  function initAccordion() {
-    const faqList = document.querySelector("#faq-list");
-    if (!faqList) return;
+function initAccordion() {
+  const faqList = document.querySelector("#faq-list");
+  if (!faqList) return;
 
-    const dds = faqList.querySelectorAll("dd");
-    const dts = faqList.querySelectorAll("dt");
-
-    dds.forEach((dd) => (dd.style.display = "none"));
-    dts.forEach((dt) => {
-      dt.onclick = function () {
-        slideToggle(this.nextElementSibling);
-        this.classList.toggle("active");
-      };
-    });
-  }
+  faqList.querySelectorAll("dd").forEach((dd) => (dd.style.display = "none"));
+  faqList.querySelectorAll("dt").forEach((dt) => {
+    dt.onclick = function () {
+      slideToggle(this.nextElementSibling);
+      this.classList.toggle("active");
+    };
+  });
+}
