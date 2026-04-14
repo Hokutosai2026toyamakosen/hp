@@ -1,178 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>北斗祭2026 | 富山高専 </title>
-    <meta name="description" content="富山高専で行われる北斗祭2026に関する情報を来場者・関係者に提供します。">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/common/favicon.ico">
-    <link rel="apple-touch-icon" href="img/common/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/company.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/jquery.inview.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>北斗祭2026 | 富山高専</title>
+    <meta
+      name="description"
+      content="富山高専で行われる北斗祭2026に関する情報を来場者・関係者に提供します。"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="img/common/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/common/apple-touch-icon.png" />
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/company.css" />
     <script src="js/main.js"></script>
+    <script src="js/common.js"></script>
     <style>
-        .timetable {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+      .timetable {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #aaa;
-            text-align: center;
-        }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #aaa;
+        text-align: center;
+      }
 
-        th {
-            background: #e9f1ff;
-        }
+      th {
+        background: #e9f1ff;
+      }
     </style>
-</head>
-<body>
-
-    <header id="header">
-      <div class="logo">
-        <a href="index.html">
-          <img src="img/common/logo.png" alt="第18回北斗祭 HokutoFestival2026">
-        </a>
-      </div>
-
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <nav class="navi">
-        <ul class="menu">
-          <li class="menu-first">
-            <span>「北斗祭」について</span>
-            <ul class="menu-second">
-              <li><a href="company.html#service">ご挨拶</a></li>
-              <li><a href="company.html#philosophy">テーマ</a></li>
-              <li><a href="company.html#overview">ニュース</a></li>
-              <li><a href="company.html#access">アクセス</a></li>
-            </ul>
-          </li>
-          <li class="menu-first">
-            <span>企画紹介</span>
-            <ul class="menu-second">
-              <li><a href="products.html#service">展示</a></li>
-              <li><a href="products.html#philosophy">模擬店</a></li>
-              <li><a href="products.html#overview">ステージ企画</a></li>
-              <li><a href="products.html#access">タイムテーブル</a></li>
-            </ul>
-          </li>
-          <li><a href="faq.html">ご来場の皆様へ</a></li>
-          <li><a href="faq.html">ご協賛企業様</a></li>
-          <li class="menu-contact"><a href="contact.html">お問い合わせ</a></li>
-        </ul>
-      </nav>
-      
-      <div class="mask"></div>
-    </header>
+  </head>
+  <body>
+    <div id="header-box"></div>
 
     <h1>シャトルバス時刻表</h1>
 
     <div class="timetable">
-        <h2>本郷キャンパス／富山駅から射水キャンパスへ</h2>
-        <p>※1日目、2日目共通の時刻表です。</p>
-        <table>
-            <tr>
-                <th>本郷キャンパス 発</th>
-                <td></td><td>8:20</td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <th>富山駅北口 発</th>
-                <td>8:20</td><td>9:00</td><td>9:30</td><td>10:10</td><td>10:40</td><td>11:20</td>
-            </tr>
-            <tr>
-                <th>射水キャンパス 着</th>
-                <td>8:50</td><td>9:30</td><td>10:00</td><td>10:40</td><td>11:10</td><td>11:50</td>
-            </tr>
-        </table>
+      <h2>本郷キャンパス／富山駅から射水キャンパスへ</h2>
+      <p>※1日目、2日目共通の時刻表です。</p>
+      <table>
+        <tr>
+          <th>本郷キャンパス 発</th>
+          <td></td>
+          <td>8:20</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>富山駅北口 発</th>
+          <td>8:20</td>
+          <td>9:00</td>
+          <td>9:30</td>
+          <td>10:10</td>
+          <td>10:40</td>
+          <td>11:20</td>
+        </tr>
+        <tr>
+          <th>射水キャンパス 着</th>
+          <td>8:50</td>
+          <td>9:30</td>
+          <td>10:00</td>
+          <td>10:40</td>
+          <td>11:10</td>
+          <td>11:50</td>
+        </tr>
+      </table>
 
-        <br><br>
+      <br /><br />
 
-        <h2>射水キャンパスから富山駅／本郷キャンパスへ</h2>
+      <h2>射水キャンパスから富山駅／本郷キャンパスへ</h2>
 
-        <table>
-            <tr>
-                <th>射水キャンパス 発</th>
-                <td>15:00</td><td>15:30</td><td>16:10</td><td>16:40</td><td>17:20</td><td>17:50</td>
-            </tr>
-            <tr>
-                <th>富山駅北口 着</th>
-                <td>15:30</td><td>16:00</td><td>16:40</td><td>17:10</td><td>17:50</td><td>18:20</td>
-            </tr>
-            <tr>
-                <th>本郷キャンパス 着</th>
-                <td></td><td></td><td></td><td></td><td>18:30</td><td></td>
-            </tr>
-        </table>
-        <p>射水キャンパスからの乗り場は管理棟前の噴水付近です。</p>
+      <table>
+        <tr>
+          <th>射水キャンパス 発</th>
+          <td>15:00</td>
+          <td>15:30</td>
+          <td>16:10</td>
+          <td>16:40</td>
+          <td>17:20</td>
+          <td>17:50</td>
+        </tr>
+        <tr>
+          <th>富山駅北口 着</th>
+          <td>15:30</td>
+          <td>16:00</td>
+          <td>16:40</td>
+          <td>17:10</td>
+          <td>17:50</td>
+          <td>18:20</td>
+        </tr>
+        <tr>
+          <th>本郷キャンパス 着</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>18:30</td>
+          <td></td>
+        </tr>
+      </table>
+      <p>射水キャンパスからの乗り場は管理棟前の噴水付近です。</p>
     </div>
 
-    <footer id="footer">
-      <div class="info-area">
-        <a class="logo" href="index.html">
-          <img src="img/common/logo-w.png" alt="第18回北斗祭 HokutoFestival2026">
-        </a>
-        <div class="info">
-          <p>富山高等専門学校射水キャンパス
-          <p>〒933-0293<br>富山県射水市海老江練谷1番2</p>
-          <p>TEL: (0766)86-5135</p>
-          <p>FAX: (0766)86-5130</p>
-        </div>
-        <p class="copyright">© 2026 北斗祭実行委員会 All rights reserved.</p>
-      </div>
-
-      <div class="menu-area">
-        <div class="menu-col">
-          <p class="menu-title"><a href="company.html">「北斗祭」<br>　について</a></p>
-          <ul class="menu-list">
-            <li><a href="company.html#service">ご挨拶</a></li>
-            <li><a href="company.html#philosophy">テーマ</a></li>
-            <li><a href="company.html#overview">ニュース</a></li>
-            <li><a href="company.html#access">アクセス</a></li>
-          </ul>
-        </div>
-
-         <div class="menu-col">
-          <p class="menu-title"><a href="products.html">企画紹介<br></a></p>
-          <ul class="menu-list">
-            <li><a href="products.html#service">展示</a></li>
-            <li><a href="products.html#philosophy">模擬店</a></li>
-            <li><a href="products.html#overview">ステージ企画</a></li>
-            <li><a href="products.html#access">タイムテーブル</a></li>
-          </ul>
-        </div>
-         
-        <div class="menu-col">
-          <p class="menu-title"><a href="faq.html">ご来場の皆様へ</a></p>
-        </div>
-        
-        <div class="menu-col">
-          <p class="menu-title"><a href="faq.html">ご協賛企業様</a></p>
-          <p class="menu-title"><a href="contact.html">お問い合わせ</a></p>
-        </div>
-      </div>
-    </footer>
-</body>
+    <div id="footer-box"></div>
+  </body>
 </html>

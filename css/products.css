@@ -101,80 +101,83 @@
 }
 
 .day-buttons button {
-    padding: 8px 20px;
-    font-size: 16px;
-    margin: 0 5px;
-    border: 2px solid #00aaff;
-    background: #111;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
+  padding: 8px 20px;
+  font-size: 16px;
+  margin: 0 5px;
+  border: 2px solid #00aaff;
+  background: #111;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .day-buttons button.active {
-    background: #00aaff;
-    color: black;
+  background: #00aaff;
+  color: black;
 }
 
 /* タイムライン全体 */
 .timeline-container {
-    width: 420px;
-    margin: 40px auto;
-    display: flex;
+  width: 420px;
+  margin: 40px auto;
+  display: flex;
 }
 
 /* 左の時間軸 */
 .time-axis {
-    width: 60px;
-    padding-right: 10px;
-    position: relative;
-    font-size: 18px;
+  width: 60px;
+  padding-right: 10px;
+  position: relative;
+  font-size: 18px;
 }
 
 .time-label {
-    height: 150px;
-    border-top: 1px solid #666;
-    text-align: right;
-    padding-right: 5px;
+  height: 150px;
+  border-top: 1px solid #666;
+  text-align: right;
+  padding-right: 5px;
 }
 
 /* 真ん中の縦ライン */
 .timeline {
-    border-left: 2px solid #aaa;
-    position: relative;
-    height: 750px; /* ← 追加：中の要素がabsoluteなので高さを明示する */
-    width: 100%;   /* ← 追加：幅をしっかり確保 */
+  border-left: 2px solid #aaa;
+  position: relative;
+  height: 750px; /* ← 追加：中の要素がabsoluteなので高さを明示する */
+  width: 100%; /* ← 追加：幅をしっかり確保 */
 }
 
 /* イベントのカード */
 .event {
-    position: absolute;
-    left: 40px;
-    width: 280px;
-    background: #ffffff; /* 背景色：白（反転） */
-    padding: 16px 18px;
-    border-radius: 10px;
-    color: #3a3a3a; /* 文字色：濃いグレー（元々の背景色、反転） */
-    box-shadow: 0px 3px 6px rgba(0,0,0,0.1); /* 影を少し薄く調整 */
-    height: auto;
-    min-height: 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
+  position: absolute;
+  left: 40px;
+  width: 280px;
+  background: #ffffff; /* 背景色：白（反転） */
+  padding: 16px 18px;
+  border-radius: 10px;
+  color: #3a3a3a; /* 文字色：濃いグレー（元々の背景色、反転） */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* 影を少し薄く調整 */
+  height: auto;
+  min-height: 30px;
+  box-sizing: border-box;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: left;
+  align-items: center;
+  white-space: nowrap;
+  border: solid #ccc 0.1px;
+  gap: 6px;
 }
 
 .event-title {
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.3;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .event-time {
-    font-size: 13px;
-    opacity: 0.85;
-    line-height: 1.2;
+  font-size: 13px;
+  opacity: 0.85;
+  line-height: 1.2;
 }
 
 /* products.css の一番下などに追記してください */

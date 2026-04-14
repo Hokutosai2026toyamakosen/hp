@@ -1,70 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-  <head>  
-    <meta charset="utf-8">
-    <title>北斗祭2026 | 富山高専 </title>
-    <meta name="description" content="富山高専で行われる北斗祭2026に関する情報を来場者・関係者に提供します。">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/common/favicon.ico">
-    <link rel="apple-touch-icon" href="img/common/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="js/jquery.inview.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <title>北斗祭2026 | 富山高専</title>
+    <meta
+      name="description"
+      content="富山高専で行われる北斗祭2026に関する情報を来場者・関係者に提供します。"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="img/common/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/common/apple-touch-icon.png" />
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/contact.css" />
     <script src="js/main.js"></script>
+    <script src="js/common.js"></script>
   </head>
 
   <body>
-    <header id="header">
-      <div class="logo">
-        <a href="index.html">
-          <img src="img/common/logo.png" alt="第18回北斗祭 HokutoFestival2026">
-        </a>
-      </div>
-
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <nav class="navi">
-        <ul class="menu">
-          <li class="menu-first">
-            <span>「北斗祭」について</span>
-            <ul class="menu-second">
-              <li><a href="company.html#service">ご挨拶</a></li>
-              <li><a href="company.html#philosophy">テーマ</a></li>
-              <li><a href="company.html#overview">ニュース</a></li>
-              <li><a href="company.html#access">アクセス</a></li>
-            </ul>
-          </li>
-          <li class="menu-first">
-            <span>企画紹介</span>
-            <ul class="menu-second">
-              <li><a href="products.html#service">展示</a></li>
-              <li><a href="products.html#philosophy">模擬店</a></li>
-              <li><a href="products.html#overview">ステージ企画</a></li>
-              <li><a href="products.html#access">タイムテーブル</a></li>
-            </ul>
-          </li>
-          <li><a href="faq.html">ご来場の皆様へ</a></li>
-          <li><a href="faq.html">ご協賛企業様</a></li>
-          <li class="menu-contact"><a href="contact.html">お問い合わせ</a></li>
-        </ul>
-      </nav>
-      
-      <div class="mask"></div>
-    </header>
+    <div id="header-box"></div>
 
     <main>
       <div class="page-header">
         <div class="img">
-          <img src="img/contact/mainvisual.jpg" alt="">
+          <img src="img/contact/mainvisual.jpg" alt="" />
         </div>
         <div class="page-title-area">
           <h1 class="page-title">
@@ -74,7 +33,11 @@
         </div>
       </div>
 
-      <p class="head-text">ご不明点やご質問などございましたら、<br class="pc">下記のフォームからお気軽にお問い合わせください。</p>
+      <p class="head-text">
+        ご不明点やご質問などございましたら、<br
+          class="pc"
+        />下記のフォームからお気軽にお問い合わせください。
+      </p>
 
       <div class="form-area">
         <p class="form-title">お問い合わせフォーム</p>
@@ -95,106 +58,87 @@
             </div>
             <div class="item">
               <dt><label for="kind">お名前</label><span class="require">必須</span></dt>
-              <dd><input id="name" type="text" name="name" placeholder="高専　太郎"></dd>
+              <dd>
+                <input id="name" type="text" name="name" placeholder="高専　太郎" />
+              </dd>
             </div>
             <div class="item">
               <dt><label for="mail">メールアドレス</label><span class="require">必須</span></dt>
-              <dd><input id="mail" type="email" name="mail" placeholder="xxxxxxxx@xxx.xxxx"></dd>
+              <dd>
+                <input id="mail" type="email" name="mail" placeholder="xxxxxxxx@xxx.xxxx" />
+              </dd>
             </div>
             <div class="item">
               <dt>どこでお知りになりましたか？</dt>
               <dd class="checkbox-group">
                 <div class="checkbox-item">
-                  <input type="checkbox" name="know[]" id="know-1" value="SNS">
+                  <input type="checkbox" name="know[]" id="know-1" value="SNS" />
                   <label for="know-1">SNS（Instagram, Google検索など）</label>
                 </div>
                 <div class="checkbox-item">
-                  <input type="checkbox" name="know[]" id="know-2" value="Google検索">
+                  <input type="checkbox" name="know[]" id="know-2" value="Google検索" />
                   <label for="know-2">ポスター</label>
                 </div>
                 <div class="checkbox-item">
-                  <input type="checkbox" name="know[]" id="know-3" value="紹介・口コミ">
+                  <input type="checkbox" name="know[]" id="know-3" value="紹介・口コミ" />
                   <label for="know-3">紹介・口コミ</label>
                 </div>
                 <div class="checkbox-item">
-                  <input type="checkbox" name="know[]" id="know-4" value="その他">
+                  <input type="checkbox" name="know[]" id="know-4" value="その他" />
                   <label for="know-4">その他</label>
                 </div>
               </dd>
             </div>
             <div class="item">
-              <dt><label for="message">お問い合わせ内容</label><span class="require">必須</span></dt>
-              <dd><textarea id="message" cols="40" rows="8" name="message"></textarea></dd>
+              <dt>
+                <label for="message">お問い合わせ内容</label><span class="require">必須</span>
+              </dt>
+              <dd>
+                <textarea id="message" cols="40" rows="8" name="message"></textarea>
+              </dd>
             </div>
           </dl>
 
           <div class="privacy-policy">
             <div class="privacy-text">
               <p class="privacy-title">個人情報の取り扱いについて</p>
-              <p>当社は、お客様等の個人情報について、個人情報保護に関する法令およびその他の規範を遵守します。</p>
+              <p>
+                当社は、お客様等の個人情報について、個人情報保護に関する法令およびその他の規範を遵守します。
+              </p>
               <ol>
-                <li>1. 個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります</li>
-                <li>2. 個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります</li>
-                <li>3. 個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります</li>
-                <li>4. 個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります</li>
-                <li>5. 個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります</li>
+                <li>
+                  1.
+                  個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります
+                </li>
+                <li>
+                  2.
+                  個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります
+                </li>
+                <li>
+                  3.
+                  個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります
+                </li>
+                <li>
+                  4.
+                  個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります
+                </li>
+                <li>
+                  5.
+                  個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります個人情報の取り扱いに関するテキストが入ります
+                </li>
               </ol>
             </div>
             <div class="privacy-item">
-              <input type="checkbox" name="privacy" id="privacy" value="">
+              <input type="checkbox" name="privacy" id="privacy" value="" />
               <label for="privacy">個人情報の取り扱いに同意する</label>
             </div>
           </div>
 
-          <input class="btn-submit" type="submit" name="send" value="送信">
+          <input class="btn-submit" type="submit" name="send" value="送信" />
         </form>
       </div>
     </main>
 
-    <footer id="footer">
-      <div class="info-area">
-        <a class="logo" href="index.html">
-          <img src="img/common/logo-w.png" alt="第18回北斗祭 HokutoFestival2026">
-        </a>
-        <div class="info">
-          <p>富山高等専門学校射水キャンパス
-          <p>〒933-0293<br>富山県射水市海老江練谷1番2</p>
-          <p>TEL: (0766)86-5135</p>
-          <p>FAX: (0766)86-5130</p>
-        </div>
-        <p class="copyright">© 2026 北斗祭実行委員会 All rights reserved.</p>
-      </div>
-
-      <div class="menu-area">
-        <div class="menu-col">
-          <p class="menu-title"><a href="company.html">「北斗祭」<br>　について</a></p>
-          <ul class="menu-list">
-            <li><a href="company.html#service">ご挨拶</a></li>
-            <li><a href="company.html#philosophy">テーマ</a></li>
-            <li><a href="company.html#overview">ニュース</a></li>
-            <li><a href="company.html#access">アクセス</a></li>
-          </ul>
-        </div>
-
-        <div class="menu-col">
-          <p class="menu-title"><a href="products.html">企画紹介<br></a></p>
-          <ul class="menu-list">
-            <li><a href="products.html#service">展示</a></li>
-            <li><a href="products.html#philosophy">模擬店</a></li>
-            <li><a href="products.html#overview">ステージ企画</a></li>
-            <li><a href="products.html#access">タイムテーブル</a></li>
-          </ul>
-        </div>
-        
-        <div class="menu-col">
-          <p class="menu-title"><a href="faq.html">ご来場の皆様へ</a></p>
-        </div>
-        
-        <div class="menu-col">
-          <p class="menu-title"><a href="faq.html">ご協賛企業様</a></p>
-          <p class="menu-title"><a href="contact.html">お問い合わせ</a></p>
-        </div>
-      </div>
-    </footer>
+    <div id="footer-box"></div>
   </body>
-</html> 
+</html>

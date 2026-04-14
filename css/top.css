@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400&display=swap");
 
 /* セクションタイトル */
 .section-title {
@@ -98,7 +99,7 @@ Company
   margin-left: -8%;
 }
 .company .text .title {
-  font-family: 'Zen Old Mincho', serif;
+  font-family: "Zen Old Mincho", serif;
   font-size: 24px;
   margin-bottom: 40px;
 }
@@ -228,7 +229,12 @@ Faq & Contact
   content: "";
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 50%, rgba(0,0,0,1));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 1)
+  );
   position: absolute;
   top: 0;
   left: 0;
@@ -344,7 +350,7 @@ Faq & Contact
   .products .products-list-area {
     margin-bottom: 20px;
   }
-  
+
   /*-------------------------------------------
   Works
   -------------------------------------------*/

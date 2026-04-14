@@ -1,117 +1,150 @@
-$(function(){
-  /*-------------------------------
-  ハンバーガーメニュー
-  ---------------------------------*/
-  $(".hamburger").click(function () {
-    $(this).toggleClass("active");
-    $("#header .navi").toggleClass("active");
-    $("#header .mask").toggleClass("active");
-  });
-  
-  $(".navi a").click(function () {
-    $(".hamburger").removeClass("active");
-    $("#header .navi").removeClass("active");
-    $("#header .mask").removeClass("active");
-  });
-  
-  $(".mask").click(function () {
-    $(".hamburger").removeClass("active");
-    $("#header .navi").removeClass("active");
-    $("#header .mask").removeClass("active");
-  });
-  
-  /*-------------------------------
-  ドロップダウンメニュー
-  ---------------------------------*/
-  $(".navi .menu .menu-first span").click(function () {
-    $(this).toggleClass("active");
-    $(this).next().slideToggle();
-  });
-  
-  $(".navi .menu .menu-second").click(function () {
-    $(this).prev().toggleClass("active");
-    $(this).slideToggle();
+// Animation
+const slideToggle = (el) => {
+  el.style.overflow = "hidden";
+
+  if (window.getComputedStyle(el).display === "none") {
+    el.style.display = "block";
+
+    const style = window.getComputedStyle(el);
+    const pt = style.paddingTop;
+    const pb = style.paddingBottom;
+
+    el.animate(
+      [
+        { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
+        {
+          height: el.scrollHeight + "px",
+          opacity: 1,
+          paddingTop: pt,
+          paddingBottom: pb,
+        },
+      ],
+      { duration: 300, easing: "ease" },
+    ).onfinish = () => {
+      el.style.overflow = "";
+    };
+  } else {
+    const style = window.getComputedStyle(el);
+    const pt = style.paddingTop;
+    const pb = style.paddingBottom;
+
+    const anime = el.animate(
+      [
+        {
+          height: el.scrollHeight + "px",
+          opacity: 1,
+          paddingTop: pt,
+          paddingBottom: pb,
+        },
+        { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
+      ],
+      { duration: 300, easing: "ease" },
+    );
+
+    anime.onfinish = () => {
+      el.style.display = "none";
+      el.style.overflow = "";
+    };
+  }
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+
+    /*-------------------------------
+    ハンバーガーメニュー
+    ---------------------------------*/
+    const hamburger = target.closest(".hamburger");
+    if (hamburger) {
+      hamburger.classList.toggle("active");
+      document.querySelector("#header .navi")?.classList.toggle("active");
+      document.querySelector("#header .mask")?.classList.toggle("active");
+    }
+
+    if (target.closest(".navi a") || target.closest(".mask")) {
+      document.querySelector(".hamburger")?.classList.remove("active");
+      document.querySelector("#header .navi")?.classList.remove("active");
+      document.querySelector("#header .mask")?.classList.remove("active");
+    }
+
+    /*-------------------------------
+    ドロップダウンメニュー
+    ---------------------------------*/
+    const firstSpan = target.closest(".navi .menu .menu-first span");
+    if (firstSpan) {
+      firstSpan.classList.toggle("active");
+      if (firstSpan.nextElementSibling) slideToggle(firstSpan.nextElementSibling);
+    }
+
+    const secondMenu = target.closest(".navi .menu .menu-second");
+    if (secondMenu) {
+      secondMenu.previousElementSibling?.classList.toggle("active");
+      slideToggle(secondMenu);
+    }
   });
 
-  /*-------------------------------
-  Inview
-  ---------------------------------*/
-  $(".fadein").on("inview", function () {
-    $(this).addClass("inview");
+  const fadeinElements = document.querySelectorAll(".fadein");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("inview");
+    });
   });
+  fadeinElements.forEach((el) => observer.observe(el));
 
   /*-------------------------------
   タブ切り替え
   ---------------------------------*/
-  $(".tab-list .tab-all").addClass("active");
-  $(".products-list.all").addClass("active");
+  const tabSections = document.querySelectorAll("section");
 
-  $(".tab-all").click(function () {
-    $(".tab-list li").removeClass("active");
-    $(".products-list").removeClass("active");
-    $(this).addClass("active");
-    $(".products-list.all").addClass("active");
-  });
-  
-  $(".tab-sofa").click(function () {
-    $(".tab-list li").removeClass("active");
-    $(".products-list").removeClass("active");
-    $(this).addClass("active");
-    $(".products-list.sofa").addClass("active");
-  });
-  
-  $(".tab-desk").click(function () {
-    $(".tab-list li").removeClass("active");
-    $(".products-list").removeClass("active");
-    $(this).addClass("active");
-    $(".products-list.desk").addClass("active");
-  });
-  
-  $(".tab-chair").click(function () {
-    $(".tab-list li").removeClass("active");
-    $(".products-list").removeClass("active");
-    $(this).addClass("active");
-    $(".products-list.chair").addClass("active");
-  });
-  
-  $(".tab-dining").click(function () {
-    $(".tab-list li").removeClass("active");
-    $(".products-list").removeClass("active");
-    $(this).addClass("active");
-    $(".products-list.dining").addClass("active");
+  tabSections.forEach((section) => {
+    const tabs = section.querySelectorAll(".tab-list li");
+    const contents = section.querySelectorAll(".products-list");
+
+    if (tabs.length > 0 && !section.querySelector(".tab-list li.active")) {
+      tabs[0].classList.add("active");
+      if (contents[0]) contents[0].classList.add("active");
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        contents.forEach((c) => c.classList.remove("active"));
+
+        tab.classList.add("active");
+        if (contents[index]) {
+          contents[index].classList.add("active");
+        }
+      });
+    });
   });
 
   /*-------------------------------
   モーダルウィンドウ
   ---------------------------------*/
   // オープン
-  $(".work1 .modal-open").click(function () {
-    $("body").css("overflow-y", "hidden");
-    $(".work1 .modal-container").addClass("active");
+  document.querySelectorAll(".modal-open").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      document.body.style.overflowY = "hidden";
+      this.closest("[class*='work']").querySelector(".modal-container").classList.add("active");
+    });
   });
-  
-  $(".work2 .modal-open").click(function () {
-    $("body").css("overflow-y", "hidden");
-    $(".work2 .modal-container").addClass("active");
-  });
-  
-  $(".work3 .modal-open").click(function () {
-    $("body").css("overflow-y", "hidden");
-    $(".work3 .modal-container").addClass("active");
-  });
-
   // クローズ
-  $(".modal-close").click(function () {
-    $("body").css("overflow-y", "auto");
-    $(".modal-container").removeClass("active");
+  document.querySelectorAll(".modal-close").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.body.style.overflowY = "auto";
+      document.querySelectorAll(".modal-container").forEach((m) => m.classList.remove("active"));
+    });
   });
 
   /*-------------------------------
   アコーディオン
   ---------------------------------*/
-  $(".faq-list dd").hide();
-  $(".faq-list dt").click(function () {
-    $(this).next().slideToggle();
-    $(this).toggleClass("active");
+  document.querySelectorAll(".faq-list dd").forEach((dd) => (dd.style.display = "none"));
+  document.querySelectorAll(".faq-list dt").forEach((dt) => {
+    dt.addEventListener("click", function () {
+      slideToggle(this.nextElementSibling);
+      this.classList.toggle("active");
+    });
   });
 });
