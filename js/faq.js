@@ -1,4 +1,4 @@
-const dataUrl = "../data/faq.json";
+const dataUrl = "./data/faq.json";
 const faqList = document.getElementById("faq-list");
 
 fetch(dataUrl)

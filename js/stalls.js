@@ -1,4 +1,4 @@
-const dataUrlStalls = "../data/stalls.json";
+const dataUrlStalls = "./data/stalls.json";
 
 /*
 List ID

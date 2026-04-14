@@ -1,4 +1,4 @@
-const dataUrlBus = "../data/bus.json";
+const dataUrlBus = "./data/bus.json";
 
 fetch(dataUrlBus)
   .then((response) => response.json())
@@ -15,7 +15,7 @@ function generateBusTable(items) {
     "<h2>本郷キャンパス／富山駅から射水キャンパスへ</h2><p>※1日目、2日目共通の時刻表です。</p>";
   let contents = "";
   for (let i = 0; i < 6; i++) {
-    const timeData = i < 3 ? items.HongoToImizu : items.ImizuToHongo;
+    const timeData = i < 3 ? items.HongoToImizu[i] : items.ImizuToHongo[i - 3];
     const times = timeData[i].map((t) => `<td>${t}</td>`).join("");
     console.log(i, timeData);
     contents += `

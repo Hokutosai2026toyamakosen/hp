@@ -1,4 +1,4 @@
-const dataUrlEvents = "../data/events.json";
+const dataUrlEvents = "./data/events.json";
 
 fetch(dataUrlEvents)
   .then((response) => response.json())

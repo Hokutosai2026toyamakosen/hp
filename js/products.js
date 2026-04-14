@@ -1,4 +1,4 @@
-const dataUrl = "../data/products.json";
+const dataUrl = "./data/products.json";
 
 /*
 List ID
