@@ -16,8 +16,7 @@ function generateBusTable(items) {
   let contents = "";
   for (let i = 0; i < 6; i++) {
     const timeData = i < 3 ? items.HongoToImizu[i] : items.ImizuToHongo[i - 3];
-    const times = timeData[i].map((t) => `<td>${t}</td>`).join("");
-    console.log(i, timeData);
+    const times = timeData.map((t) => `<td>${t}</td>`).join("");
     contents += `
             <tr>
                 <th>${items.route[i]}</th>
