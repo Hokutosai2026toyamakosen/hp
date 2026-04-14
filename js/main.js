@@ -3,7 +3,7 @@ const slideToggle = (el) => {
   el.style.overflow = "hidden";
 
   if (window.getComputedStyle(el).display === "none") {
-    el.style.display = "block";
+    el.style.display = "flex";
 
     const style = window.getComputedStyle(el);
     const pt = style.paddingTop;
@@ -136,15 +136,23 @@ window.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".modal-container").forEach((m) => m.classList.remove("active"));
     });
   });
+});
 
   /*-------------------------------
   アコーディオン
-  ---------------------------------*/
-  document.querySelectorAll(".faq-list dd").forEach((dd) => (dd.style.display = "none"));
-  document.querySelectorAll(".faq-list dt").forEach((dt) => {
-    dt.addEventListener("click", function () {
-      slideToggle(this.nextElementSibling);
-      this.classList.toggle("active");
+---------------------------------*/
+  function initAccordion() {
+    const faqList = document.querySelector("#faq-list");
+    if (!faqList) return;
+
+    const dds = faqList.querySelectorAll("dd");
+    const dts = faqList.querySelectorAll("dt");
+
+    dds.forEach((dd) => (dd.style.display = "none"));
+    dts.forEach((dt) => {
+      dt.onclick = function () {
+        slideToggle(this.nextElementSibling);
+        this.classList.toggle("active");
+      };
     });
-  });
-});
+  }
