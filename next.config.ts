@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   // reactCompiler: true,
   output: "export",
   distDir: "docs",
+  basePath: process.env.GITHUB_ACTIONS ? "/hp" : "",
   images: {
     unoptimized: true,
   },

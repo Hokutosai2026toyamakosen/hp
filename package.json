@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/swc-win32-x64-msvc": "^16.2.3",
     "next": "^15.5.15",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
