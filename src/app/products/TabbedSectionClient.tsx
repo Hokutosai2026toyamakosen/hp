@@ -16,10 +16,12 @@ const ProjectCard = ({ item }: { item: ProjectItemData }) => (
   <li>
     <Link href={`/products?name=${encodeURIComponent(item.name)}`}>
       {item.image && <img src={getPath(item.image)} alt={item.name} />}
-      <div className="info">
+      <div className="product-info">
         <p className="name">{item.name}</p>
-        {item.team && <p className="price">{item.team}</p>}
-        {item.place && <p className="place">{item.place}</p>}
+        <div className="product-info-second">
+          {item.team && <p className="price">{item.team}</p>}
+          {item.place && <p className="place">{item.place}</p>}
+        </div>
       </div>
     </Link>
   </li>
@@ -29,7 +31,9 @@ const OverviewList = ({ items }: { items: ProjectItemData[] }) => (
   <dl className="overview-list wrapper">
     {items.map((item, i) => (
       <React.Fragment key={i}>
-        <dt>{item.start}～{item.end}</dt>
+        <dt>
+          {item.start}～{item.end}
+        </dt>
         <dd>{item.name}</dd>
       </React.Fragment>
     ))}
@@ -54,7 +58,9 @@ const Timeline = ({ items }: { items: ProjectItemData[] }) => {
     <div className="timeline-container">
       <div className="time-axis">
         {labels.map((h) => (
-          <div key={h} className="time-label" style={{ height: "150px" }}>{h}</div>
+          <div key={h} className="time-label" style={{ height: "150px" }}>
+            {h}
+          </div>
         ))}
       </div>
       <div className="timeline">
@@ -67,7 +73,9 @@ const Timeline = ({ items }: { items: ProjectItemData[] }) => {
           return (
             <div key={i} className="event" style={{ top: `${topPos}px`, height: `${height}px` }}>
               <div className="event-name">{event.name}</div>
-              <div className="event-time">{event.start} - {event.end}</div>
+              <div className="event-time">
+                {event.start} - {event.end}
+              </div>
             </div>
           );
         })}
@@ -77,27 +85,43 @@ const Timeline = ({ items }: { items: ProjectItemData[] }) => {
 };
 
 export default function TabbedSectionClient({
-  id, title, tabs, data, type = "card"
+  id,
+  title,
+  tabs,
+  data,
+  type = "card",
 }: {
-  id: string; title: string; tabs: string[]; data: ProjectItemData[][]; type?: "card" | "list" | "timeline";
+  id: string;
+  title: string;
+  tabs: string[];
+  data: ProjectItemData[][];
+  type?: "card" | "list" | "timeline";
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const items = data[activeIndex] || [];
 
   return (
     <section id={id} className="fadein">
-      <h2 className="section-title"><span>{title}</span></h2>
+      <h2 className="section-title">
+        <span>{title}</span>
+      </h2>
       <div className="wrapper">
         <ul className="tab-list">
           {tabs.map((tab, i) => (
-            <li key={i} className={activeIndex === i ? "active" : ""} onClick={() => setActiveIndex(i)}>
+            <li
+              key={i}
+              className={activeIndex === i ? "active" : ""}
+              onClick={() => setActiveIndex(i)}
+            >
               {tab}
             </li>
           ))}
         </ul>
         {type === "card" && (
           <ul className="products-list active">
-            {items.map((item, i) => <ProjectCard key={i} item={item} />)}
+            {items.map((item, i) => (
+              <ProjectCard key={i} item={item} />
+            ))}
           </ul>
         )}
         {type === "list" && (
@@ -110,7 +134,9 @@ export default function TabbedSectionClient({
             <Timeline items={items} />
           </div>
         )}
-        {items.length === 0 && <p style={{ textAlign: "center", padding: "2rem", width: "100%" }}>データがありません</p>}
+        {items.length === 0 && (
+          <p style={{ textAlign: "center", padding: "2rem", width: "100%" }}>データがありません</p>
+        )}
       </div>
     </section>
   );

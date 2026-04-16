@@ -37,68 +37,36 @@
 
 .products-list {
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 32px;
   margin-bottom: 120px;
   display: grid;
 }
 
 .products-list li {
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 8px;
+  aspect-ratio: 4/5;
 }
 
-.products-list li .info {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #fff;
+.product-info {
   position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 0.6s ease;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: saturate(200%) blur(10px);
+  backdrop-filter: saturate(200%) blur(10px);
+  justify-items: center;
+  padding: 0.5em 0;
 }
 
-.products-list li:hover .info {
-  opacity: 1;
-}
-
-.products-list li .info .name {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.products-list li .info .price {
-  font-size: 14px;
-}
-
-.products-list li .info .place {
-  font-size: 14px;
-}
-
-@media screen and (max-width: 1024px) {
-  .products-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .tab-list {
-    margin-bottom: 10px;
-  }
-
-  .tab-list li {
-    font-size: 10px;
-    margin-right: 5px;
-  }
-
-  .products-list {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 60px;
-  }
+.product-info-second {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 0.8em !important;
 }
 
 .day-buttons button {
@@ -147,7 +115,7 @@
 .event {
   position: absolute;
   left: 40px;
-  width: 280px;
+  width: 300px;
   background: #ffffff;
   padding: 16px 18px;
   border-radius: 10px;
@@ -180,4 +148,40 @@
 #access .products-list.active {
   display: block;
   margin-bottom: 60px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+  .products-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .products-list {
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  main {
+    overflow-x: hidden;
+  }
+  .event {
+    left: 5vw;
+  }
+  .tab-list {
+    margin-bottom: 10px;
+  }
+
+  .tab-list li {
+    font-size: 10px;
+    margin-right: 5px;
+  }
+
+  .products-list {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 60px;
+  }
+  .products-list {
+    gap: 18px;
+  }
 }

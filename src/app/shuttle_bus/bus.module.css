@@ -1,45 +1,156 @@
 .main {
-  padding-top: 80px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 24px;
-  margin: 64px;
-}
-
-.timetable {
-  max-width: 900px;
-  margin: 0 auto;
-  background: white;
-  padding: 24px;
-  padding-top: 0;
-  left: 0;
-  right: 0;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 64px auto;
+  max-width: 1000px;
+  padding: 80px 20px 0;
 }
 
 .h1 {
   text-align: center;
+  margin-bottom: 10px;
+}
+
+.skipNav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 90px;
+  z-index: 5;
+}
+
+.skipBtn {
+  background: #1f1f1f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.skipBtn:hover {
+  background: #333;
+}
+
+.timetable {
+  width: 100%;
+  background: white;
+  padding: 40px;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .h2 {
-  padding-top: 0.5em;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1f1f1f;
+  scroll-margin-top: 140px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+.note {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+  word-break: auto-phrase;
 }
 
-.th,
-.td {
-  padding: 10px;
-  border: 1px solid #aaa;
-  text-align: center;
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-.th {
-  background: #e9f1ff;
+.tripCard {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.tripCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tripHeader {
+  background: #1f1f1f;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stopRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.stopRow:last-child {
+  border-bottom: none;
+}
+
+.stopName {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.stopTime {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #1f1f1f;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.toHongo {
+  padding-top: 3em;
+}
+
+@media screen and (max-width: 1024px) {
+  .main {
+    margin: 40px auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main {
+    padding-top: 60px;
+  }
+
+  .skipNav {
+    top: 70px;
+    gap: 10px;
+  }
+
+  .skipBtn {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+
+  .timetable {
+    padding: 20px;
+    border-radius: 30px;
+  }
+
+  .h2 {
+    font-size: 1.2rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stopTime {
+    font-size: 1rem;
+  }
 }
