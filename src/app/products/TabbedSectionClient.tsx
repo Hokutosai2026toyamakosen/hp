@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
-import { getPath } from "@/constants/paths";
+import Container from "@/components/ui/Container/Container";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import ItemCard from "@/components/ui/ItemCard/ItemCard";
 
 interface ProjectItemData {
   name: string;
@@ -12,23 +13,8 @@ interface ProjectItemData {
   end?: string;
 }
 
-const ProjectCard = ({ item }: { item: ProjectItemData }) => (
-  <li>
-    <Link href={`/products?name=${encodeURIComponent(item.name)}`}>
-      {item.image && <img src={getPath(item.image)} alt={item.name} />}
-      <div className="product-info">
-        <p className="name">{item.name}</p>
-        <div className="product-info-second">
-          {item.team && <p className="price">{item.team}</p>}
-          {item.place && <p className="place">{item.place}</p>}
-        </div>
-      </div>
-    </Link>
-  </li>
-);
-
 const OverviewList = ({ items }: { items: ProjectItemData[] }) => (
-  <dl className="overview-list wrapper">
+  <dl className="overview-list">
     {items.map((item, i) => (
       <React.Fragment key={i}>
         <dt>
@@ -102,10 +88,9 @@ export default function TabbedSectionClient({
 
   return (
     <section id={id} className="fadein">
-      <h2 className="section-title">
-        <span>{title}</span>
-      </h2>
-      <div className="wrapper">
+      <SectionTitle>{title}</SectionTitle>
+      
+      <Container>
         <ul className="tab-list">
           {tabs.map((tab, i) => (
             <li
@@ -120,7 +105,16 @@ export default function TabbedSectionClient({
         {type === "card" && (
           <ul className="products-list active">
             {items.map((item, i) => (
-              <ProjectCard key={i} item={item} />
+              <ItemCard 
+                key={i} 
+                data={{
+                  type: "product",
+                  name: item.name,
+                  team: item.team || "",
+                  place: item.place || "",
+                  image: item.image || ""
+                }} 
+              />
             ))}
           </ul>
         )}
@@ -137,7 +131,7 @@ export default function TabbedSectionClient({
         {items.length === 0 && (
           <p style={{ textAlign: "center", padding: "2rem", width: "100%" }}>データがありません</p>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

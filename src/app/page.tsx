@@ -1,5 +1,7 @@
 import styles from "./main.module.css";
 import { getPath } from "@/constants/paths";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import BaseButton from "@/components/ui/BaseButton/BaseButton";
 
 export default function Home() {
     return (
@@ -10,13 +12,12 @@ export default function Home() {
                 </div>
 
                 <section className={`${styles.company} fadein`}>
-                    <h2 className={styles["section-title"]}>VISITOR INFORMATION</h2>
+                    <SectionTitle type="top">VISITOR INFORMATION</SectionTitle>
 
                     <div className={styles.flex}>
                         <div className={styles.img}>
                             <img src={getPath("/img/top/company.jpg")} alt="" />
                         </div>
-
                         <div className={styles.text}>
                             <p className={styles.title}>ご来場の皆様へ</p>
                             <p className={styles.description}>
@@ -24,16 +25,14 @@ export default function Home() {
                                 <br />
                                 また、よくあるご質問に対する回答もご用意しておりますので、ぜひ一度ご覧ください。
                             </p>
-                            <a className={styles.btn} href="/faq">
-                                VIEW MORE
-                            </a>
+                            <BaseButton href="/faq">VIEW MORE</BaseButton>
                         </div>
                     </div>
                 </section>
 
                 <section className={`${styles.products} fadein`}>
                     <div className={styles.text}>
-                        <h2 className={styles["section-title"]}>PROJECTS</h2>
+                        <SectionTitle type="top">PROJECTS</SectionTitle>
                         <p className={styles.description}>
                             私たち富山高専生がつくる、色とりどりの展示や模擬店、
                             <br />
@@ -84,14 +83,12 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <a className={styles.btn} href="/products">
-                        VIEW MORE
-                    </a>
+                    <BaseButton href="/products" centered>VIEW MORE</BaseButton>
                 </section>
 
                 <section className={`${styles.works} fadein`}>
                     <div className={styles.text}>
-                        <h2 className={styles["section-title"]}>ABOUT</h2>
+                        <SectionTitle type="top">ABOUT</SectionTitle>
                         <p className={styles.description}>
                             富山高専のことや第18回北斗祭について
                             <br />
@@ -101,9 +98,7 @@ export default function Home() {
                             また、情報を発信するニュースや当日のアクセスの方法も掲載しています。
                         </p>
                         <p className={styles.description}>ぜひご活用ください。</p>
-                        <a className={styles.btn} href="/company">
-                            VIEW MORE
-                        </a>
+                        <BaseButton href="/company">VIEW MORE</BaseButton>
                     </div>
 
                     <ul className={styles["works-list"]}>

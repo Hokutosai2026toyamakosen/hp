@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400&display=swap");
+
 .main {
   display: flex;
   flex-direction: column;
@@ -109,7 +111,7 @@
   font-weight: bold;
   font-size: 1.1rem;
   color: #1f1f1f;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Zen Kaku Gothic New", sans-serif;
 }
 
 .toHongo {

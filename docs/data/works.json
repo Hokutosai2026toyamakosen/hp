@@ -1,22 +1,42 @@
 [
   {
-    "name": "Company",
+    "name": "Company1",
+    "url": "google.com",
+    "image": "/hp/img/products/products3.jpg"
+  },
+  {
+    "name": "Company2",
     "url": "google.com",
     "image": "/hp/img/products/products1.jpg"
   },
   {
-    "name": "Company",
+    "name": "Company3",
+    "url": "google.com",
+    "image": "/hp/img/products/products6.jpg"
+  },
+  {
+    "name": "Name",
+    "url": "url.com",
+    "image": "/hp/img/products/products9.jpg"
+  },
+  {
+    "name": "Company1",
+    "url": "google.com",
+    "image": "/hp/img/products/products3.jpg"
+  },
+  {
+    "name": "Company2",
     "url": "google.com",
     "image": "/hp/img/products/products1.jpg"
   },
   {
-    "name": "Company",
+    "name": "Company3",
     "url": "google.com",
-    "image": "/hp/img/products/products1.jpg"
+    "image": "/hp/img/products/products6.jpg"
   },
   {
-    "name": "Company",
-    "url": "google.com",
-    "image": "/hp/img/products/products1.jpg"
+    "name": "Name",
+    "url": "url.com",
+    "image": "/hp/img/products/products9.jpg"
   }
 ]

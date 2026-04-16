@@ -1,0 +1,46 @@
+.topTitle {
+  color: rgba(51, 51, 51, 0.9);
+  font-size: clamp(68px, 8vw, 130px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.subTitle {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 60px;
+  position: relative;
+  width: 100%;
+}
+
+.subTitle span {
+  max-width: 1000px;
+  display: block;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.subTitle::before {
+  content: "";
+  width: calc((100% - 1000px) / 2);
+  height: 1px;
+  background-color: #1f1f1f;
+  position: absolute;
+  top: 12px;
+  left: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .topTitle {
+    font-size: 12vw;
+  }
+
+  .subTitle {
+    margin-bottom: 10px;
+  }
+
+  .subTitle::before {
+    display: none;
+  }
+}

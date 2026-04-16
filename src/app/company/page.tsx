@@ -1,43 +1,32 @@
 import Link from "next/link";
 import "./company.css";
 import { getPath } from "@/constants/paths";
+import PageHeader from "@/components/ui/PageHeader/PageHeader";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import PageNav from "@/components/ui/PageNav/PageNav";
+import Container from "@/components/ui/Container/Container";
 
 export default function Company() {
   return (
     <main>
-      <div className="page-header">
-        <div className="img">
-          <img src={getPath("/img/company/mainvisual.jpg")} alt="" />
-        </div>
-        <div className="page-title-area">
-          <h1 className="page-title">
-            <span className="en">ABOUT</span>
-            <span className="ja">「北斗祭」について</span>
-          </h1>
-        </div>
-      </div>
+      <PageHeader
+        enTitle="ABOUT"
+        jaTitle="「北斗祭」について"
+        imgSrc={getPath("/img/company/mainvisual.jpg")}
+      />
 
-      <ul className="pagelink-list wrapper">
-        <li>
-          <Link href="#service">ご挨拶</Link>
-        </li>
-        <li>
-          <Link href="#philosophy">テーマ</Link>
-        </li>
-        <li>
-          <Link href="#overview">ニュース</Link>
-        </li>
-        <li>
-          <Link href="#access">アクセス</Link>
-        </li>
-      </ul>
+      <PageNav
+        items={[
+          { label: "ご挨拶", href: "#service" },
+          { label: "テーマ", href: "#philosophy" },
+          { label: "ニュース", href: "#overview" },
+          { label: "アクセス", href: "#access" },
+        ]}
+      />
 
       <section id="service">
-        <h2 className="section-title">
-          <span>ご挨拶</span>
-        </h2>
-
-        <div className="wrapper">
+        <SectionTitle>ご挨拶</SectionTitle>
+        <Container>
           <Link className="item interior" href="/products">
             <div className="text">
               <p className="title-ja">富山高等専門学校　校長</p>
@@ -73,15 +62,13 @@ export default function Company() {
               <img src={getPath("/img/company/products-interior.jpg")} alt="" />
             </div>
           </Link>
-        </div>
+        </Container>
       </section>
 
       <section id="philosophy">
-        <h2 className="section-title">
-          <span>テーマ</span>
-        </h2>
+        <SectionTitle>テーマ</SectionTitle>
 
-        <div className="wrapper">
+        <Container>
           <div className="text-area">
             <div className="inner">
               <p className="title">
@@ -96,21 +83,20 @@ export default function Company() {
           <div className="img-top">
             <img src={getPath("/img/common/mainlogo.jpg")} alt="" />
           </div>
-        </div>
+        </Container>
       </section>
 
       <section id="overview">
-        <h2 className="section-title">
-          <span>ニュース</span>
-        </h2>
+        <SectionTitle>ニュース</SectionTitle>
+        <Container>
+          <p>ニュ</p>
+        </Container>
       </section>
 
       <section id="access">
-        <h2 className="section-title">
-          <span>アクセス</span>
-        </h2>
+        <SectionTitle>アクセス</SectionTitle>
 
-        <div className="info wrapper">
+        <Container className="info">
           <p>
             当日は無料シャトルバスをご用意しております。
             <br />
@@ -119,15 +105,15 @@ export default function Company() {
           <Link href="/shuttle_bus" className="btn">
             時刻表
           </Link>
-        </div>
-        <div className="info wrapper">
+        </Container>
+        <Container className="info">
           <p>
             〒933-0293<br></br>富山県射水市海老江練谷1番2
           </p>
           <Link href="https://maps.app.goo.gl/qpgf2kbS3oXDsw3L6" target="_blank" className="btn">
             Google Mapsで開く ↗
           </Link>
-        </div>
+        </Container>
 
         <div className="map">
           <iframe

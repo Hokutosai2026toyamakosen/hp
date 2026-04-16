@@ -1,70 +1,45 @@
-"use client";
-import { useState, useEffect } from "react";
+import fs from "fs";
+import path from "path";
 import "./faq.css";
 import { getPath } from "@/constants/paths";
+import PageHeader from "@/components/ui/PageHeader/PageHeader";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import Container from "@/components/ui/Container/Container";
 
-const dataUrlFaq = getPath("/data/faq.json");
-
-interface FaqItem {
-    Q: string;
-    A: string;
+function getLocalData(fileName: string) {
+    const filePath = path.join(process.cwd(), "public/data", fileName);
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(fileContents);
 }
-type FaqData = FaqItem[];
-
-const FaqItemDOM = ({ faqdata }: { faqdata: FaqData }) => (
-    <>
-        {faqdata.map((faqitem, i) => (
-            <div className="item" key={i}>
-                <dt>
-                    <span className="question">Q</span>
-                    <span>{faqitem.Q}</span>
-                </dt>
-                <dd>
-                    <span className="answer">A</span>
-                    <span dangerouslySetInnerHTML={{ __html: faqitem.A }} />
-                </dd>
-            </div>
-        ))}
-    </>
-);
 
 export default function Faq() {
-    const [faq, setFaq] = useState<FaqData | null>(null);
+  const faqData = getLocalData("faq.json");
 
-    useEffect(() => {
-        fetch(dataUrlFaq)
-            .then((response) => response.json())
-            .then((data) => {
-                setFaq(data);
-            })
-            .catch((error) => {
-                console.error("Fetch error:", error);
-            });
-    }, []);
+  return (
+    <main>
+      <PageHeader 
+        enTitle="FAQ" 
+        jaTitle="よくあるご質問" 
+        imgSrc={getPath("/img/faq/mainvisual.jpg")} 
+      />
 
-    return (
-        <main>
-            <div className="page-header">
-                <div className="img">
-                    <img src={getPath("/img/faq/mainvisual.jpg")} alt="" />
-                </div>
-                <div className="page-title-area">
-                    <h1 className="page-title">
-                        <span className="en">FAQ</span>
-                        <span className="ja">よくある質問</span>
-                    </h1>
-                </div>
-            </div>
-
-            <p className="head-text">
-                お客様からよくいただく質問をまとめました。
-                <br />
-                その他、ご質問やご不明点がございましたらお気軽にお問い合わせください。
-            </p>
-
-            <dl className="faq-list" id="faq-list">
-                {!faq ? <h5>データ準備！</h5> : <FaqItemDOM faqdata={faq} />}
+      <Container>
+        <div className="faq-list">
+          <SectionTitle>ご来場の皆様へ</SectionTitle>
+          {faqData.map((item: { Q: string; A: string }, index: number) => (
+            <dl key={index} className="item">
+              <dt>
+                <span className="question">Q</span>
+                {item.Q}
+              </dt>
+              <dd>
+                <span className="answer">A</span>
+                <span dangerouslySetInnerHTML={{ __html: item.A }} />
+              </dd>
             </dl>
-        </main>
-    );
+          ))}
+        </div>
+      </Container>
+    </main>
+  );
 }
