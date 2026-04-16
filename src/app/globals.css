@@ -23,7 +23,7 @@ a {
   transition: all 0.3s ease;
 }
 a:hover {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 iframe {
   vertical-align: bottom;
