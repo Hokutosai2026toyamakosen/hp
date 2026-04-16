@@ -1,13 +1,13 @@
 import Link from "next/link";
 import "./company.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 export default function Company() {
     return (
         <main>
             <div className="page-header">
                 <div className="img">
-                    <img src={path("/img/company/mainvisual.jpg")} alt="" />
+                    <img src={getPath("/img/company/mainvisual.jpg")} alt="" />
                 </div>
                 <div className="page-title-area">
                     <h1 className="page-title">
@@ -38,7 +38,7 @@ export default function Company() {
                 </h2>
 
                 <div className="wrapper">
-                    <Link className="item interior" href={path("/products")}>
+                    <Link className="item interior" href="/products">
                         <div className="text">
                             <p className="title-ja">富山高等専門学校　校長</p>
                             <p className="title-en">名前</p>
@@ -46,11 +46,11 @@ export default function Company() {
                             <p className="view-more">VIEW MORE</p>
                         </div>
                         <div className="img">
-                            <img src={path("/img/company/products-interior.jpg")} alt="" />
+                            <img src={getPath("/img/company/products-interior.jpg")} alt="" />
                         </div>
                     </Link>
 
-                    <Link className="item store" href={path("/works")}>
+                    <Link className="item store" href="/works">
                         <div className="text">
                             <p className="title-ja">北斗祭実行委員長</p>
                             <p className="title-en">名前</p>
@@ -58,11 +58,11 @@ export default function Company() {
                             <p className="view-more">VIEW MORE</p>
                         </div>
                         <div className="img">
-                            <img src={path("/img/company/products-store.jpg")} alt="" />
+                            <img src={getPath("/img/company/products-store.jpg")} alt="" />
                         </div>
                     </Link>
 
-                    <Link className="item interior" href={path("/products")}>
+                    <Link className="item interior" href="/products">
                         <div className="text">
                             <p className="title-ja">射水キャンパス学生会長</p>
                             <p className="title-en">名前</p>
@@ -70,7 +70,7 @@ export default function Company() {
                             <p className="view-more">VIEW MORE</p>
                         </div>
                         <div className="img">
-                            <img src={path("/img/company/products-interior.jpg")} alt="" />
+                            <img src={getPath("/img/company/products-interior.jpg")} alt="" />
                         </div>
                     </Link>
                 </div>
@@ -94,7 +94,7 @@ export default function Company() {
                         </div>
                     </div>
                     <div className="img-top">
-                        <img src={path("/img/common/mainlogo.jpg")} alt="" />
+                        <img src={getPath("/img/common/mainlogo.jpg")} alt="" />
                     </div>
                 </div>
             </section>
@@ -134,7 +134,7 @@ export default function Company() {
                         <br />
                         ぜひ、ご利用ください。
                     </p>
-                    <Link href={path("/shuttle_bus")}>時刻表はこちら</Link>
+                    <Link href="/shuttle_bus">時刻表はこちら</Link>
                 </div>
             </section>
         </main>

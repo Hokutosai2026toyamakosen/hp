@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "BASE_PATH='' next dev",
-    "build": "BASE_PATH='/hp' next build",
+    "dev": "next dev",
+    "build": "next build && node scripts/fix-paths.mjs",
     "start": "next start",
     "lint": "next lint"
   },

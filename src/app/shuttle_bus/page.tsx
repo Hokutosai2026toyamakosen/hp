@@ -2,7 +2,9 @@
 import { useState, useEffect } from "react";
 import styles from "./bus.module.css";
 
-const dataUrlBus = "/data/bus.json";
+import { getPath } from "@/constants/paths";
+
+const dataUrlBus = getPath("/data/bus.json");
 
 interface BusData {
     HongoToImizu: {

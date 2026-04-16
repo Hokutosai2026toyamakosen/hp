@@ -4,13 +4,13 @@
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products3.jpg"
+            "image": "/hp/img/products/products3.jpg"
         },
         {
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products4.jpg"
+            "image": "/hp/img/products/products4.jpg"
         }
     ],
     "L2": [
@@ -18,19 +18,19 @@
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products1.jpg"
+            "image": "/hp/img/products/products1.jpg"
         },
         {
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products4.jpg"
+            "image": "/hp/img/products/products4.jpg"
         },
         {
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products2.jpg"
+            "image": "/hp/img/products/products2.jpg"
         }
     ],
     "L3": [
@@ -38,7 +38,7 @@
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products1.jpg"
+            "image": "/hp/img/products/products1.jpg"
         }
     ],
     "L4": [
@@ -46,13 +46,13 @@
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products3.jpg"
+            "image": "/hp/img/products/products3.jpg"
         },
         {
             "name": "展示名",
             "team": "団体名",
             "place": "場所名",
-            "image": "/img/products/products4.jpg"
+            "image": "/hp/img/products/products4.jpg"
         }
     ]
 }

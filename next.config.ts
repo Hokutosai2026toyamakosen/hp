@@ -1,20 +1,23 @@
 import type { NextConfig } from "next";
 
+const SUB_DIRECTORY = "/hp";
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
-    // reactCompiler: true,
-    output: "export",
-    distDir: "docs",
-    images: {
-        unoptimized: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    trailingSlash: true,
-    webpack: (config) => {
-        return config;
-    },
-    swcMinify: false,
+  output: "export",
+  distDir: "docs",
+  trailingSlash: true,
+  basePath: isProd ? SUB_DIRECTORY : "",
+  assetPrefix: isProd ? SUB_DIRECTORY : "",
+  publicRuntimeConfig: {
+    basePath: isProd ? SUB_DIRECTORY : "",
+  },
+  images: {
+    unoptimized: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

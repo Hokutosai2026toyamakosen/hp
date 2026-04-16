@@ -1,12 +1,12 @@
 import "./works.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 export default function () {
     return (
         <main>
             <div className="page-header">
                 <div className="img">
-                    <img src={path("/img/works/mainvisual.jpg")} alt="" />
+                    <img src={getPath("/img/works/mainvisual.jpg")} alt="" />
                 </div>
                 <div className="page-title-area">
                     <h1 className="page-title">
@@ -25,7 +25,7 @@ export default function () {
             <ul className="works-list">
                 <li className="work1">
                     <div className="img">
-                        <img src={path("/img/works/works1-1.jpg")} alt="" />
+                        <img src={getPath("/img/works/works1-1.jpg")} alt="" />
                     </div>
                     <div className="text">
                         <p className="name">PROJECT NAME NO.001</p>
@@ -45,21 +45,21 @@ export default function () {
                         </dl>
                         <div className="modal-open">
                             More Images
-                            <img src={path("/img/works/icon-modal-open.svg")} alt="" />
+                            <img src={getPath("/img/works/icon-modal-open.svg")} alt="" />
                         </div>
                     </div>
 
                     <div className="modal-container">
                         <div className="modal-content">
                             <div className="modal-close">
-                                <img src={path("/img/works/icon-modal-close.svg")} alt="" />
+                                <img src={getPath("/img/works/icon-modal-close.svg")} alt="" />
                             </div>
                             <p className="modal-name">PROJECT NAME NO.001</p>
                             <div className="modal-img">
-                                <img src={path("/img/works/works1-1.jpg")} alt="" />
-                                <img src={path("/img/works/works1-2.jpg")} alt="" />
-                                <img src={path("/img/works/works1-3.jpg")} alt="" />
-                                <img src={path("/img/works/works1-4.jpg")} alt="" />
+                                <img src={getPath("/img/works/works1-1.jpg")} alt="" />
+                                <img src={getPath("/img/works/works1-2.jpg")} alt="" />
+                                <img src={getPath("/img/works/works1-3.jpg")} alt="" />
+                                <img src={getPath("/img/works/works1-4.jpg")} alt="" />
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ export default function () {
 
                 <li className="work2">
                     <div className="img">
-                        <img src={path("/img/works/works2-1.jpg")} alt="" />
+                        <img src={getPath("/img/works/works2-1.jpg")} alt="" />
                     </div>
                     <div className="text">
                         <p className="name">PROJECT NAME NO.002</p>
@@ -87,21 +87,21 @@ export default function () {
                         </dl>
                         <div className="modal-open">
                             More Images
-                            <img src={path("/img/works/icon-modal-open.svg")} alt="" />
+                            <img src={getPath("/img/works/icon-modal-open.svg")} alt="" />
                         </div>
                     </div>
 
                     <div className="modal-container">
                         <div className="modal-content">
                             <div className="modal-close">
-                                <img src={path("/img/works/icon-modal-close.svg")} alt="" />
+                                <img src={getPath("/img/works/icon-modal-close.svg")} alt="" />
                             </div>
                             <p className="modal-name">PROJECT NAME NO.002</p>
                             <div className="modal-img">
-                                <img src={path("/img/works/works2-1.jpg")} alt="" />
-                                <img src={path("/img/works/works2-2.jpg")} alt="" />
-                                <img src={path("/img/works/works2-3.jpg")} alt="" />
-                                <img src={path("/img/works/works2-4.jpg")} alt="" />
+                                <img src={getPath("/img/works/works2-1.jpg")} alt="" />
+                                <img src={getPath("/img/works/works2-2.jpg")} alt="" />
+                                <img src={getPath("/img/works/works2-3.jpg")} alt="" />
+                                <img src={getPath("/img/works/works2-4.jpg")} alt="" />
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ export default function () {
 
                 <li className="work3">
                     <div className="img">
-                        <img src={path("/img/works/works3-1.jpg")} alt="" />
+                        <img src={getPath("/img/works/works3-1.jpg")} alt="" />
                     </div>
                     <div className="text">
                         <p className="name">PROJECT NAME NO.003</p>
@@ -129,21 +129,21 @@ export default function () {
                         </dl>
                         <div className="modal-open">
                             More Images
-                            <img src={path("/img/works/icon-modal-open.svg")} alt="" />
+                            <img src={getPath("/img/works/icon-modal-open.svg")} alt="" />
                         </div>
                     </div>
 
                     <div className="modal-container">
                         <div className="modal-content">
                             <div className="modal-close">
-                                <img src={path("/img/works/icon-modal-close.svg")} alt="" />
+                                <img src={getPath("/img/works/icon-modal-close.svg")} alt="" />
                             </div>
                             <p className="modal-name">PROJECT NAME NO.003</p>
                             <div className="modal-img">
-                                <img src={path("/img/works/works3-1.jpg")} alt="" />
-                                <img src={path("/img/works/works3-2.jpg")} alt="" />
-                                <img src={path("/img/works/works3-3.jpg")} alt="" />
-                                <img src={path("/img/works/works3-4.jpg")} alt="" />
+                                <img src={getPath("/img/works/works3-1.jpg")} alt="" />
+                                <img src={getPath("/img/works/works3-2.jpg")} alt="" />
+                                <img src={getPath("/img/works/works3-3.jpg")} alt="" />
+                                <img src={getPath("/img/works/works3-4.jpg")} alt="" />
                             </div>
                         </div>
                     </div>

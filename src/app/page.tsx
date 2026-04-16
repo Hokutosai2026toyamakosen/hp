@@ -1,12 +1,12 @@
 import "./main.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 export default function Home() {
     return (
         <div>
             <main className="top-page">
                 <div className="mainvisual">
-                    <img src={path("/img/common/mainlogo.jpg")} alt="" />
+                    <img src={getPath("/img/common/mainlogo.jpg")} alt="" />
                 </div>
 
                 <section className="company fadein">
@@ -14,7 +14,7 @@ export default function Home() {
 
                     <div className="flex">
                         <div className="img">
-                            <img src={path("/img/top/company.jpg")} alt="" />
+                            <img src={getPath("/img/top/company.jpg")} alt="" />
                         </div>
 
                         <div className="text">
@@ -24,7 +24,7 @@ export default function Home() {
                                 <br />
                                 また、よくあるご質問に対する回答もご用意しておりますので、ぜひ一度ご覧ください。
                             </p>
-                            <a className="btn" href={path("/faq")}>
+                            <a className="btn" href="/faq">
                                 VIEW MORE
                             </a>
                         </div>
@@ -44,47 +44,47 @@ export default function Home() {
                     <div className="products-list-area">
                         <ul className="products-list">
                             <li>
-                                <img src={path("/img/top/products1.jpg")} alt="" />
+                                <img src={getPath("/img/top/products1.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products2.jpg")} alt="" />
+                                <img src={getPath("/img/top/products2.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products3.jpg")} alt="" />
+                                <img src={getPath("/img/top/products3.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products4.jpg")} alt="" />
+                                <img src={getPath("/img/top/products4.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products5.jpg")} alt="" />
+                                <img src={getPath("/img/top/products5.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products6.jpg")} alt="" />
+                                <img src={getPath("/img/top/products6.jpg")} alt="" />
                             </li>
                         </ul>
                         <ul className="products-list">
                             <li>
-                                <img src={path("/img/top/products1.jpg")} alt="" />
+                                <img src={getPath("/img/top/products1.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products2.jpg")} alt="" />
+                                <img src={getPath("/img/top/products2.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products3.jpg")} alt="" />
+                                <img src={getPath("/img/top/products3.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products4.jpg")} alt="" />
+                                <img src={getPath("/img/top/products4.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products5.jpg")} alt="" />
+                                <img src={getPath("/img/top/products5.jpg")} alt="" />
                             </li>
                             <li>
-                                <img src={path("/img/top/products6.jpg")} alt="" />
+                                <img src={getPath("/img/top/products6.jpg")} alt="" />
                             </li>
                         </ul>
                     </div>
 
-                    <a className="btn" href={path("/products")}>
+                    <a className="btn" href="/products">
                         VIEW MORE
                     </a>
                 </section>
@@ -101,51 +101,51 @@ export default function Home() {
                             また、情報を発信するニュースや当日のアクセスの方法も掲載しています。
                         </p>
                         <p className="description">ぜひご活用ください。</p>
-                        <a className="btn" href={path("/company")}>
+                        <a className="btn" href="/company">
                             VIEW MORE
                         </a>
                     </div>
 
                     <ul className="works-list">
                         <li>
-                            <img src={path("/img/top/works1.jpg")} alt="" />
+                            <img src={getPath("/img/top/works1.jpg")} alt="" />
                         </li>
                         <li>
-                            <img src={path("/img/top/works2.jpg")} alt="" />
+                            <img src={getPath("/img/top/works2.jpg")} alt="" />
                         </li>
                         <li>
-                            <img src={path("/img/top/works3.jpg")} alt="" />
+                            <img src={getPath("/img/top/works3.jpg")} alt="" />
                         </li>
                         <li>
-                            <img src={path("/img/top/works4.jpg")} alt="" />
+                            <img src={getPath("/img/top/works4.jpg")} alt="" />
                         </li>
                     </ul>
                 </section>
 
                 <div className="faq-contact fadein">
-                    <a className="item" href={path("/faq")}>
+                    <a className="item" href="/faq">
                         <div className="img">
-                            <img src={path("/img/top/faq.jpg")} alt="" />
+                            <img src={getPath("/img/top/faq.jpg")} alt="" />
                         </div>
                         <p className="title">
                             <span className="en">MAP</span>
                             <span className="ja">キャンパスマップ</span>
                         </p>
                         <div className="arrow">
-                            <img src={path("/img/top/arrow.svg")} alt="" />
+                            <img src={getPath("/img/top/arrow.svg")} alt="" />
                         </div>
                     </a>
 
-                    <a className="item" href={path("/faq")}>
+                    <a className="item" href="/faq">
                         <div className="img">
-                            <img src={path("/img/top/contact.jpg")} alt="" />
+                            <img src={getPath("/img/top/contact.jpg")} alt="" />
                         </div>
                         <p className="title">
                             <span className="en">SPONSORS</span>
                             <span className="ja">ご協賛企業様</span>
                         </p>
                         <div className="arrow">
-                            <img src={path("/img/top/arrow.svg")} alt="" />
+                            <img src={getPath("/img/top/arrow.svg")} alt="" />
                         </div>
                     </a>
                 </div>

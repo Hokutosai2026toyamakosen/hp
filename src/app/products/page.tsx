@@ -4,7 +4,7 @@ import Link from "next/link";
 import TabbedSectionClient from "./TabbedSectionClient";
 import "./products.css";
 import "../company/company.css";
-import { path as customPath } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 function getLocalData(fileName: string) {
     const filePath = path.join(process.cwd(), "public/data", fileName);
@@ -27,7 +27,7 @@ export default function Products() {
         <main>
             <div className="page-header">
                 <div className="img">
-                    <img src={customPath("/img/company/mainvisual.jpg")} alt="" />
+                    <img src={getPath("/img/company/mainvisual.jpg")} alt="" />
                 </div>
                 <div className="page-title-area">
                     <h1 className="page-title">

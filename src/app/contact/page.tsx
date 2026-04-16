@@ -1,12 +1,12 @@
 import "./contact.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 export default function Contact() {
     return (
         <main>
             <div className="page-header">
                 <div className="img">
-                    <img src={path("/img/contact/mainvisual.jpg")} alt="" />
+                    <img src={getPath("/img/contact/mainvisual.jpg")} alt="" />
                 </div>
                 <div className="page-title-area">
                     <h1 className="page-title">

@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import "./faq.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
-const dataUrlFaq = path("/data/faq.json");
+const dataUrlFaq = getPath("/data/faq.json");
 
 interface FaqItem {
     Q: string;
@@ -46,7 +46,7 @@ export default function Faq() {
         <main>
             <div className="page-header">
                 <div className="img">
-                    <img src={path("/img/faq/mainvisual.jpg")} alt="" />
+                    <img src={getPath("/img/faq/mainvisual.jpg")} alt="" />
                 </div>
                 <div className="page-title-area">
                     <h1 className="page-title">

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import "./header_footer.css";
-import { path } from "@/lib/path";
+import { getPath } from "@/constants/paths";
 
 const Footer = () => {
     return (
         <footer className="footer">
             <div className="info-area">
-                <Link className="logo" href={path("/")}>
-                    <img src={path("/img/common/logo-w.png")} alt="第18回北斗祭 HokutoFestival2026" />
+                <Link className="logo" href="/">
+                    <img src={getPath("/img/common/logo-w.png")} alt="第18回北斗祭 HokutoFestival2026" />
                 </Link>
                 <div className="info">
                     <p>富山高等専門学校射水キャンパス</p>
@@ -25,7 +25,7 @@ const Footer = () => {
             <div className="menu-area">
                 <div className="menu-col">
                     <p className="menu-title">
-                        <Link href={path("/company")}>
+                        <Link href="/company">
                             「北斗祭」
                             <br />
                             　について
@@ -33,55 +33,55 @@ const Footer = () => {
                     </p>
                     <ul className="menu-list">
                         <li>
-                            <Link href={path("/company#service")}>ご挨拶</Link>
+                            <Link href="/company#service">ご挨拶</Link>
                         </li>
                         <li>
-                            <Link href={path("/company#philosophy")}>テーマ</Link>
+                            <Link href="/company#philosophy">テーマ</Link>
                         </li>
                         <li>
-                            <Link href={path("/company#overview")}>ニュース</Link>
+                            <Link href="/company#overview">ニュース</Link>
                         </li>
                         <li>
-                            <Link href={path("/company#access")}>アクセス</Link>
+                            <Link href="/company#access">アクセス</Link>
                         </li>
                     </ul>
                 </div>
 
                 <div className="menu-col">
                     <p className="menu-title">
-                        <Link href={path("/products")}>企画紹介</Link>
+                        <Link href="/products">企画紹介</Link>
                     </p>
                     <ul className="menu-list">
                         <li>
-                            <Link href={path("/products#service")}>
+                            <Link href="/products#service">
                                 展示
                                 <br />
                             </Link>
                         </li>
                         <li>
-                            <Link href={path("/products#philosophy")}>模擬店</Link>
+                            <Link href="/products#philosophy">模擬店</Link>
                         </li>
                         <li>
-                            <Link href={path("/products#overview")}>ステージ企画</Link>
+                            <Link href="/products#overview">ステージ企画</Link>
                         </li>
                         <li>
-                            <Link href={path("/products#access")}>タイムテーブル</Link>
+                            <Link href="/products#access">タイムテーブル</Link>
                         </li>
                     </ul>
                 </div>
 
                 <div className="menu-col">
                     <p className="menu-title">
-                        <Link href={path("/faq")}>ご来場の皆様へ</Link>
+                        <Link href="/faq">ご来場の皆様へ</Link>
                     </p>
                 </div>
 
                 <div className="menu-col">
                     <p className="menu-title">
-                        <Link href={path("/works")}>ご協賛企業様</Link>
+                        <Link href="/works">ご協賛企業様</Link>
                     </p>
                     <p className="menu-title">
-                        <Link href={path("/contact")}>お問い合わせ</Link>
+                        <Link href="/contact">お問い合わせ</Link>
                     </p>
                 </div>
             </div>
