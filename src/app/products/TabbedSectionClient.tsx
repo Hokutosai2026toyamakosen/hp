@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { getPath } from "@/constants/paths";
 
 interface ProjectItemData {
   name: string;
@@ -14,7 +15,7 @@ interface ProjectItemData {
 const ProjectCard = ({ item }: { item: ProjectItemData }) => (
   <li>
     <Link href={`/products?name=${encodeURIComponent(item.name)}`}>
-      {item.image && <img src={item.image} alt={item.name} />}
+      {item.image && <img src={getPath(item.image)} alt={item.name} />}
       <div className="info">
         <p className="name">{item.name}</p>
         {item.team && <p className="price">{item.team}</p>}
