@@ -53,8 +53,19 @@ const Header = () => {
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <Link href="/faq">ご来場の皆様へ</Link>
+                    <li className="menu-first">
+                        <span>ご来場の皆様へ</span>
+                        <ul className="menu-second">
+                            <li>
+                                <Link href="/visitor?tab=notice">お願い</Link>
+                            </li>
+                            <li>
+                                <Link href="/visitor?tab=maps">校内マップ</Link>
+                            </li>
+                            <li>
+                                <Link href="/visitor?tab=faq">よくあるご質問</Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <Link href="/works">ご協賛企業様</Link>

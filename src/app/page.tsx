@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./main.module.css";
 import { getPath } from "@/constants/paths";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
@@ -25,8 +26,8 @@ export default function Home() {
                                 <br />
                                 また、よくあるご質問に対する回答もご用意しておりますので、ぜひ一度ご覧ください。
                             </p>
-                            <BaseButton href="/faq">VIEW MORE</BaseButton>
-                        </div>
+                            <BaseButton href="/visitor">VIEW MORE</BaseButton>
+                        </div>{" "}
                     </div>
                 </section>
 
@@ -83,7 +84,9 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <BaseButton href="/products" centered>VIEW MORE</BaseButton>
+                    <BaseButton href="/products" centered>
+                        VIEW MORE
+                    </BaseButton>
                 </section>
 
                 <section className={`${styles.works} fadein`}>
@@ -117,8 +120,8 @@ export default function Home() {
                     </ul>
                 </section>
 
-                <div className={`${styles["faq-contact"]} fadein`}>
-                    <a className={styles.item} href="/faq">
+                <div className={`${styles.faqContact} fadein`}>
+                    <Link className={styles.item} href="/visitor?tab=maps">
                         <div className={styles.img}>
                             <img src={getPath("/img/top/faq.jpg")} alt="" />
                         </div>
@@ -129,9 +132,9 @@ export default function Home() {
                         <div className={styles.arrow}>
                             <img src={getPath("/img/top/arrow.svg")} alt="" />
                         </div>
-                    </a>
+                    </Link>
 
-                    <a className={styles.item} href="/works">
+                    <Link className={styles.item} href="/works">
                         <div className={styles.img}>
                             <img src={getPath("/img/top/contact.jpg")} alt="" />
                         </div>
@@ -142,7 +145,7 @@ export default function Home() {
                         <div className={styles.arrow}>
                             <img src={getPath("/img/top/arrow.svg")} alt="" />
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </main>
         </div>
