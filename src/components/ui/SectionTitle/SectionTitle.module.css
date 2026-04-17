@@ -7,7 +7,7 @@
 }
 
 .subTitle {
-  font-size: 16px;
+  font-size: 1.4em;
   font-weight: 500;
   margin-bottom: 60px;
   position: relative;
@@ -27,7 +27,7 @@
   height: 1px;
   background-color: #1f1f1f;
   position: absolute;
-  top: 12px;
+  top: 0.7em;
   left: 0;
 }
 
@@ -37,10 +37,31 @@
   }
 
   .subTitle {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+  }
+
+  .subTitle span {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
   }
 
   .subTitle::before {
     display: none;
+  }
+
+  .subTitle::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #1f1f1f;
+    margin-left: 15px;
+    display: block;
+    position: static;
   }
 }

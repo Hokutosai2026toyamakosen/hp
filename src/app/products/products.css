@@ -6,45 +6,35 @@
   display: flex;
   justify-content: center;
   padding: 0 20px;
-  margin-bottom: 40px;
+  margin: 40px 0 60px;
+  gap: 20px;
 }
 
-.tab-list li {
-  width: 100%;
+.tab-list .tab-btn {
+  flex: 1;
   max-width: 150px;
-  height: 40px;
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: 1px solid #1f1f1f;
+  background: transparent;
+  color: #1f1f1f;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: solid 1px #1f1f1f;
-  border-left: solid 1px #1f1f1f;
-  border-right: solid 1px #1f1f1f;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 10px;
-  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.tab-list li:last-child {
-  margin-right: 0;
+.tab-list .tab-btn:hover {
+  background-color: rgba(31, 31, 31, 0.05);
 }
 
-.tab-list li:hover {
-  background-color: #1f1f1f;
+.tab-list .tab-btn.active {
+  background: #1f1f1f;
   color: #fff;
-}
-
-.tab-list li.active {
-  background-color: #1f1f1f;
-  color: #fff;
-}
-
-.products-list {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  margin-bottom: 120px;
-  display: grid;
-  margin: 0 auto;
 }
 
 .overview-list {
@@ -150,21 +140,6 @@
   line-height: 1.2;
 }
 
-#overview .products-list.active,
-#access .products-list.active {
-  display: block;
-  margin-bottom: 60px;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 1024px) {
-  .products-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 800px;
-  }
-}
-
 @media screen and (max-width: 767px) {
   main {
     overflow-x: hidden;
@@ -173,43 +148,19 @@
     left: 5vw;
   }
   .tab-list {
-    margin-bottom: 10px;
-  }
-
-  .tab-list li {
-    font-size: 10px;
-    margin-right: 5px;
-  }
-
-  .products-list {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 60px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 150px));
+    justify-content: center;
     gap: 18px;
-    max-width: 500px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  main {
-    overflow-x: hidden;
-  }
-  .event {
-    left: 5vw;
-  }
-  .tab-list {
-    margin-bottom: 10px;
+    padding: 0 20px;
   }
 
-  .tab-list li {
-    font-size: 10px;
-    margin-right: 5px;
-  }
-
-  .products-list {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 60px;
-  }
-  .products-list {
-    gap: 18px;
+  .tab-list .tab-btn {
+    width: 100%;
+    max-width: none;
+    font-size: 13px;
+    height: auto;
+    border-radius: 30px;
   }
 }

@@ -3,20 +3,36 @@ import Link from 'next/link';
 import styles from './BaseButton.module.css';
 
 interface BaseButtonProps {
-  href: string;
+  href?: string;
   children: React.ReactNode;
   className?: string;
   centered?: boolean;
+  onClick?: () => void;
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({ href, children, className = '', centered = false }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ href, children, className = '', centered = false, onClick }) => {
+  const commonClassName = `${styles.btn} ${centered ? styles.centered : ''} ${className}`;
+
+  if (href) {
+    return (
+      <Link 
+        href={href} 
+        className={commonClassName}
+        onClick={onClick}
+      >
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <Link 
-      href={href} 
-      className={`${styles.btn} ${centered ? styles.centered : ''} ${className}`}
+    <button 
+      type="button" 
+      className={commonClassName} 
+      onClick={onClick}
     >
       {children}
-    </Link>
+    </button>
   );
 };
 

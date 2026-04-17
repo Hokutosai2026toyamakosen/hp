@@ -4,8 +4,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import WorksSection from "./WorksSection";
 import ThanksSection from "./ThanksSection";
-import "./works.css";
-import "../visitor/visitor.css"
 
 interface worksDataType {
     worksData: any;

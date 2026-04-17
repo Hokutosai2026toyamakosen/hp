@@ -3,7 +3,8 @@ import path from "path";
 import { getPath } from "@/constants/paths";
 import PageHeader from "@/components/ui/PageHeader/PageHeader";
 import WorksContent from "./worksContent";
-import "./works.css";
+import "../sitenavi/sitenavi.css"
+import "../visitor/visitor.css"
 
 function getLocalData(fileName: string) {
     const filePath = path.join(process.cwd(), "public/data", fileName);

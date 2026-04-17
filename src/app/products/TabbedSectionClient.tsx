@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Container from "@/components/ui/Container/Container";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
 import ItemCard from "@/components/ui/ItemCard/ItemCard";
+import PageWrapper from "@/components/layout/PageWrapper/PageWrapper";
+import CardWrapper from "@/components/layout/CardWrapper/CardWrapper";
 
 interface ProjectItemData {
   name: string;
@@ -89,40 +91,36 @@ export default function TabbedSectionClient({
   return (
     <section id={id} className="fadein">
       <SectionTitle>{title}</SectionTitle>
-      
-      <Container>
-        <ul className="tab-list">
-          {tabs.map((tab, i) => (
-            <li
+      <ul className="tab-list">
+        {tabs.map((tab, i) => (
+          <button
+            key={i}
+            className={`tab-btn ${activeIndex === i ? "active" : ""}`}
+            onClick={() => setActiveIndex(i)}
+          >
+            {tab}
+          </button>
+        ))}
+      </ul>
+
+      {type === "card" && (
+        <CardWrapper>
+          {items.map((item, i) => (
+            <ItemCard
               key={i}
-              className={activeIndex === i ? "active" : ""}
-              onClick={() => setActiveIndex(i)}
-            >
-              {tab}
-            </li>
+              data={{
+                type: "product",
+                name: item.name,
+                team: item.team || "",
+                place: item.place || "",
+                image: item.image || "",
+              }}
+            />
           ))}
-        </ul>
-        {type === "card" && (
-          <ul className="products-list active">
-            {items.map((item, i) => (
-              <ItemCard 
-                key={i} 
-                data={{
-                  type: "product",
-                  name: item.name,
-                  team: item.team || "",
-                  place: item.place || "",
-                  image: item.image || ""
-                }} 
-              />
-            ))}
-          </ul>
-        )}
-        {type === "list" && (
-          <div className="products-list active">
-            <OverviewList items={items} />
-          </div>
-        )}
+        </CardWrapper>
+      )}
+      <Container>
+        {type === "list" && <OverviewList items={items} />}
         {type === "timeline" && (
           <div className="active">
             <Timeline items={items} />
