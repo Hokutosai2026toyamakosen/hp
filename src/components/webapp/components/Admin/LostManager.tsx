@@ -57,7 +57,16 @@ export default function LostManager() {
       content: (
         <div style={{ marginTop: "10px" }}>
           <p style={{ marginBottom: "10px" }}>この落とし物情報を削除します</p>
-          <div style={{ padding: "10px", background: "#f5f5f5", borderRadius: "8px", fontSize: "12px", color: "#666", border: "1px solid #ddd" }}>
+          <div
+            style={{
+              padding: "10px",
+              background: "#f5f5f5",
+              borderRadius: "8px",
+              fontSize: "12px",
+              color: "#666",
+              border: "1px solid #ddd",
+            }}
+          >
             {name}
           </div>
         </div>
@@ -65,7 +74,7 @@ export default function LostManager() {
       getContainer: () => document.querySelector(".webapp-root") || document.body,
       onOk: async () => {
         const originalItems = [...items];
-        setItems(prev => prev.filter(item => item.id !== id));
+        setItems((prev) => prev.filter((item) => item.id !== id));
         try {
           await mockSupabase.lostAndFound.delete(id);
           message.success("削除しました");
@@ -113,33 +122,71 @@ export default function LostManager() {
       <CardInside>
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
           <p style={{ textAlign: "left", margin: 0 }}>新規登録</p>
-          <Input placeholder="落とし物の名前" value={name} onChange={e => setName(e.target.value)} size="large" />
-          <Input placeholder="落ちていた場所" value={place} onChange={e => setPlace(e.target.value)} size="large" />
-          <Button type={isSuccess ? "default" : "primary"} block onClick={handlePost} loading={loading} disabled={isSuccess} className="main-push-btn" size="large">
+          <Input placeholder="落とし物の名前" value={name} onChange={(e) => setName(e.target.value)} size="large" />
+          <Input placeholder="落ちていた場所" value={place} onChange={(e) => setPlace(e.target.value)} size="large" />
+          <Button
+            type={isSuccess ? "default" : "primary"}
+            block
+            onClick={handlePost}
+            loading={loading}
+            disabled={isSuccess}
+            className="main-push-btn"
+            size="large"
+          >
             {isSuccess ? "投稿完了！" : "落とし物を登録"}
           </Button>
         </div>
         <p style={{ textAlign: "left", margin: "20px 0 10px", paddingTop: "10%" }}>登録済みアイテム</p>
         {items.length > 0 ? (
-          items.map(item => (
-            <div key={item.id} style={{ textAlign: "left", padding: "15px", background: "#eee", borderRadius: "8px", marginTop: "5%" }}>
+          items.map((item) => (
+            <div
+              key={item.id}
+              style={{ textAlign: "left", padding: "15px", background: "#eee", borderRadius: "8px", marginTop: "5%" }}
+            >
               <p style={{ fontWeight: "bold", margin: 0 }}>{item.name}</p>
               <p style={{ fontSize: "12px", color: "#666", margin: "4px 0" }}>場所: {item.place}</p>
               {item.edit_reason && <p className="edited-text">編集済み: {item.edit_reason}</p>}
               <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
                 <Button onClick={() => startEdit(item)}>編集</Button>
-                <Button danger onClick={() => handleDelete(item.id, item.name)}>削除</Button>
+                <Button danger onClick={() => handleDelete(item.id, item.name)}>
+                  削除
+                </Button>
               </div>
             </div>
           ))
         ) : (
-          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>登録されているアイテムはありません</p>
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>
+            登録されているアイテムはありません
+          </p>
         )}
-        <Modal title="落とし物の編集" open={!!editingItem} onOk={handleUpdate} onCancel={() => setEditingItem(null)} okText="更新" cancelText="キャンセル" confirmLoading={loading} getContainer={() => document.querySelector(".webapp-root") || document.body}>
+        <Modal
+          title="落とし物の編集"
+          open={!!editingItem}
+          onOk={handleUpdate}
+          onCancel={() => setEditingItem(null)}
+          okText="更新"
+          cancelText="キャンセル"
+          confirmLoading={loading}
+          getContainer={() => document.querySelector(".webapp-root") || document.body}
+        >
           <div style={{ display: "flex", flexDirection: "column", gap: "15px", paddingTop: "10px" }}>
-            <Input size="large" placeholder="品名" value={editName} onChange={e => setEditName(e.target.value)} />
-            <Input size="large" placeholder="場所" value={editPlace} onChange={e => setEditPlace(e.target.value)} />
-            <Input size="large" placeholder="編集理由 (必須)" value={editReason} onChange={e => setEditReason(e.target.value)} />
+            <div>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>・落とし物の名前</p>
+              <Input size="large" placeholder="品名" value={editName} onChange={(e) => setEditName(e.target.value)} />
+            </div>
+            <div>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>・落ちていた場所</p>
+              <Input size="large" placeholder="場所" value={editPlace} onChange={(e) => setEditPlace(e.target.value)} />
+            </div>
+            <div>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>・編集理由</p>
+              <Input
+                size="large"
+                placeholder="編集理由 (必須)"
+                value={editReason}
+                onChange={(e) => setEditReason(e.target.value)}
+              />
+            </div>
           </div>
         </Modal>
       </CardInside>

@@ -125,7 +125,7 @@ export default function QAManager() {
   const answeredQuestions = questions.filter((q) => q.answer);
 
   return (
-    <CardBase title="Admin: Q & A Manager">
+    <CardBase title="Q & A Manager (Admin)">
       <CardInside>
         <p className="section-text" style={{ fontWeight: "bold", textAlign: "left" }}>
           未回答の質問 ({pendingQuestions.length}件)

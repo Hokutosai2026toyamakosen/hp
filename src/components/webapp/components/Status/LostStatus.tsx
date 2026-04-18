@@ -29,7 +29,7 @@ export default function LostStatus() {
   }, []);
 
   return (
-    <CardBase title="LOST & FOUND">
+    <CardBase title="Lost">
       <CardInside className="no-vertical-padding">
         {items.length > 0 ? (
           items.map((item, index) => (
