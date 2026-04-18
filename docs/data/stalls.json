@@ -1,13 +1,13 @@
 {
     "L1": [
         {
-            "name": "展示名",
+            "name": "たこ焼き",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products3.jpg"
         },
         {
-            "name": "展示名",
+            "name": "焼きそば",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products4.jpg"
@@ -15,19 +15,19 @@
     ],
     "L2": [
         {
-            "name": "展示名",
+            "name": "チョコバナナ",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products1.jpg"
         },
         {
-            "name": "展示名",
+            "name": "チュロス",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products4.jpg"
         },
         {
-            "name": "展示名",
+            "name": "わたあめ",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products2.jpg"
@@ -35,7 +35,7 @@
     ],
     "L3": [
         {
-            "name": "展示名",
+            "name": "フランクフルト",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products1.jpg"
@@ -43,13 +43,13 @@
     ],
     "L4": [
         {
-            "name": "展示名",
+            "name": "ポテト",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products3.jpg"
         },
         {
-            "name": "展示名",
+            "name": "唐揚げ",
             "team": "団体名",
             "place": "場所名",
             "image": "/hp/img/products/products4.jpg"

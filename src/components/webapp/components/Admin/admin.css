@@ -1,0 +1,24 @@
+.webapp-root .main-push-btn {
+  font-weight: bold !important;
+  background-color: #1f1f1f !important;
+  border-color: #1f1f1f !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.webapp-root .main-push-btn:hover {
+  background-color: #444 !important;
+}
+
+.webapp-root .main-push-btn:active {
+  transform: scale(0.98);
+}
+
+.webapp-root .section-text {
+  font-size: 16px !important;
+  color: var(--main-color);
+  margin: 0 0 20px 0;
+  text-align: left !important;
+}
