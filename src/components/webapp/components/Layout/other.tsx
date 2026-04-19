@@ -2,7 +2,7 @@ import React from "react";
 import "@/components/webapp/App.css";
 import Settings from "@/components/webapp/components/Misc/Settings";
 import { CardBase, CardInside, SubList } from "@/components/webapp/components/Layout/CardComp";
-import useContexts from "@/components/webapp/scripts/Data/Contexts";
+import { useTranslation } from "react-i18next";
 
 function cardMake(title: string, children: React.ReactNode) {
   return (
@@ -17,14 +17,14 @@ function cardMake(title: string, children: React.ReactNode) {
 }
 
 export default function Other() {
-  const { CardTitleContexts, InfoContexts } = useContexts();
+  const { t } = useTranslation();
 
   return (
     <div className="drawerBar">
       <Settings />
-      {cardMake(CardTitleContexts.Info, [
+      {cardMake(t("CardTitles.UPDATES"), [
         <h4 className="lastText" key="version" style={{ textAlign: "left" }}>
-          {InfoContexts.UpdateTitle} {InfoContexts.UpdateVersion}
+          First Commit. 4.19.26
         </h4>,
       ])}
     </div>

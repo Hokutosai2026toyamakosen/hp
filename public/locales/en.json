@@ -1,42 +1,99 @@
 {
-	"CardTitleContexts": {
-		"SubjectList_Main": "Up Next",
-		"SubjectList_Module": "Timetable",
-		"ChangeInteg_SC": "Subject Change",
-		"ChangeInteg_HW": "Homework",
-		"Calendar_MonthlyList": "Monthly Schedule",
-		"Settings": "Settings",
-		"PlannedFeatures": "Planned Features",
-		"Info": "Info",
-		"Credit": "Credit Check"
-	},
-	"CardInsideContexts": {
-		"NoData": "No Data",
-		"FailedFetch": "Failed to Fetch",
-		"NoSchedule": "No Schedule",
-		"Holiday": "Holiday"
-	},
-	"ButtonContexts": {
-		"Update": "Update",
-		"Change": "Change",
-		"Submit": "Add",
-		"Delete": "Delete"
-	},
-	"Settings": {
-		"DarkTheme": "Dark Theme",
-		"Color": "Color",
-		"Language": "Language"
-	},
-	"Credit": {
-		"Subject": " subjects",
-		"Test": "Test ",
-		"MidTest": "Mid Test Score",
-		"FinalTest": "Final Test Score",
-		"HW": "Homework, Report",
-		"Score": " Points",
-		"Credit": "Credit ",
-		"Year": "Full year",
-		"FirstH": "First term",
-		"SecondH": "Second term"
-	}
+  "CardTitles": {
+    "EVENTS": "Events",
+    "BOOTH": "Booth",
+    "BUS": "Bus",
+    "NEWS": "News",
+    "LOST_FOUND": "Lost",
+    "QA": "Q & A",
+    "SETTINGS": "Settings",
+    "UPDATES": "Update"
+  },
+  "Bus": {
+    "Departure": "Departure",
+    "Arrival": "Arrival",
+    "FilterHour": "In 1 hour",
+    "FilterAll": "All",
+    "Destinations": "Destination",
+    "From": "From",
+    "To": "To",
+    "Departed": "Departed",
+    "NoBuses": "No buses in this section",
+    "ToImizu": "To Imizu Campus",
+    "ToToyamaHongo": "To Toyama St. / Hongo",
+    "ToToyamaStation": "To Toyama Station",
+    "ArriveShort": "Arr.",
+    "InNMins": "In {{count}} mins",
+    "Stops": {
+      "本郷キャンパス 発": "Hongo Campus (Dep.)",
+      "本郷キャンパス 着": "Hongo Campus (Arr.)",
+      "富山駅北口 発": "Toyama St. (Dep.)",
+      "富山駅北口 着": "Toyama St. (Arr.)",
+      "射水キャンパス 発": "Imizu Campus (Dep.)",
+      "射水キャンパス 着": "Imizu Campus (Arr.)"
+    }
+  },
+  "Booth": {
+    "Crowd": {
+      "Green": "No Crowded",
+      "Yellow": "Busy",
+      "Red": "Crowded"
+    },
+    "Stock": {
+      "Green": "Available",
+      "Yellow": "Few",
+      "Red": "Sold out"
+    },
+    "Name": "Booth Name",
+    "CrowdLabel": "Crowd",
+    "StockLabel": "Stock",
+    "EmptyAvailable": "Empty / Available",
+    "BusyFew": "Busy / Few",
+    "CrowdedSoldOut": "Crowded / Sold out",
+    "NoData": "No booth information"
+  },
+  "LostFound": {
+    "NoItems": "No items found",
+    "Location": "Location",
+    "Time": "Time",
+    "NoData": "No lost items"
+  },
+  "QA": {
+    "AskAdmin": "Ask admin",
+    "Reply": "Reply",
+    "Answered": "Answered",
+    "Placeholder": "Enter your question",
+    "Send": "Send",
+    "Sent": "Sent!",
+    "SuccessMsg": "Question sent.",
+    "FailureMsg": "Failed to send.",
+    "AnsweredSection": "Answered Questions",
+    "NoData": "No answered questions"
+  },
+  "Event": {
+    "Finished": "Finished",
+    "NoData": "No events in 1 hour",
+    "Now": "NOW"
+  },
+  "Time": {
+    "HoursLater": "In {{count}} hours",
+    "MinsLater": "In {{count}} mins",
+    "EditReason": "Edit",
+    "HotNews": "In {{count}} Mins"
+  },
+  "Common": {
+    "Loading": "Loading...",
+    "Error": "An error occurred",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Cancel": "Cancel",
+    "Confirm": "Confirm",
+    "HotNews": "Hot"
+  },
+  "Settings": {
+    "Dark": "Dark Theme",
+    "Language": "言語",
+    "Reset": "Reset App",
+    "Cache": "Delete Cache"
+  }
 }

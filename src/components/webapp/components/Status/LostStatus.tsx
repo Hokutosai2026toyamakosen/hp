@@ -1,45 +1,32 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  CardBase,
-  CardInside,
-  SubList,
-  Divider,
-} from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, LostItem, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { CardBase, CardInside, SubList, Divider } from "@/components/webapp/components/Layout/CardComp";
 import dayjs from "dayjs";
+import { useData } from "@/components/webapp/contexts/DataContext";
 
 export default function LostStatus() {
-  const [items, setItems] = useState<LostItem[]>([]);
-
-  useEffect(() => {
-    let isMounted = true;
-    const loadItems = async () => {
-      const data = await mockSupabase.lostAndFound.fetch();
-      if (isMounted) setItems(data);
-    };
-
-    loadItems();
-    const interval = setInterval(loadItems, FETCH_INTERVAL);
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+  const { t } = useTranslation();
+  const {
+    api: { fetchedData, isLoading },
+  } = useData();
+  const items = fetchedData?.lostItems || [];
 
   return (
-    <CardBase title="Lost">
+    <CardBase title={t("CardTitles.LOST_FOUND")}>
       <CardInside className="no-vertical-padding">
-        {items.length > 0 ? (
+        {isLoading ? (
+          <SubList>
+            <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>読み込み中...</p>
+          </SubList>
+        ) : items.length > 0 ? (
           items.map((item, index) => (
             <React.Fragment key={item.id}>
               {index !== 0 && <Divider />}
               <SubList>
                 <div style={{ textAlign: "left", width: "100%" }}>
-                  <p style={{ fontSize: "16px", fontWeight: "bold", margin: "0 0 4px 0" }}>
-                    {item.name}
-                  </p>
+                  <p style={{ fontSize: "16px", fontWeight: "bold", margin: "0 0 4px 0" }}>{item.name}</p>
                   <div
                     style={{
                       display: "flex",

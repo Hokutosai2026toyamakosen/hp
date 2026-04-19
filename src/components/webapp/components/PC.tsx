@@ -7,6 +7,9 @@ import EventStatus from "@/components/webapp/components/Status/EventStatus";
 import BoothStatus from "@/components/webapp/components/Status/BoothStatus";
 import NewsStatus from "@/components/webapp/components/Status/NewsStatus";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
+import { useData } from "@/components/webapp/contexts/DataContext";
+import { useAppTime } from "@/components/webapp/contexts/TimeContext";
+import dayjs from "dayjs";
 
 const BusStatus = React.lazy(() => import("@/components/webapp/components/Status/BusStatus"));
 const LostStatus = React.lazy(() => import("@/components/webapp/components/Status/LostStatus"));
@@ -21,8 +24,22 @@ const FallbackLoader = () => (
   <div style={{ textAlign: "center", padding: "20px", color: "var(--text-sub-color)" }}>Loading Panel...</div>
 );
 
-export default function PC(props: { baseDate: Date }) {
+export default function PC({ baseDate }: { baseDate: Date }) {
   const { isAdmin, isStallAdmin } = useRole();
+  const {
+    api: { fetchedData },
+  } = useData();
+  const { currentTime } = useAppTime();
+  const news = fetchedData?.news || [];
+  const hotTime = 20;
+
+  const hasHotNews = useMemo(() => {
+    const now = currentTime.valueOf();
+    return news.some((item) => {
+      const diffMin = (now - dayjs(item.created_at).valueOf()) / (1000 * 60);
+      return diffMin > -1 && diffMin <= hotTime;
+    });
+  }, [news, currentTime]);
 
   const MainContent = useMemo(() => {
     if (isAdmin) {
@@ -39,14 +56,16 @@ export default function PC(props: { baseDate: Date }) {
         </Suspense>
       );
     }
+
     return (
       <>
+        {hasHotNews && <NewsStatus onlyHot={true} hotTime={hotTime} />}
         <EventStatus />
         <BoothStatus />
         <NewsStatus />
       </>
     );
-  }, [isAdmin, isStallAdmin]);
+  }, [isAdmin, isStallAdmin, hasHotNews]);
 
   const SubContent = useMemo(() => {
     if (isAdmin) {
@@ -68,7 +87,7 @@ export default function PC(props: { baseDate: Date }) {
         <MapSection />
       </Suspense>
     );
-  }, [isAdmin, isStallAdmin]);
+  }, [isAdmin, isStallAdmin, hasHotNews, news, currentTime]);
 
   return (
     <div className="mainCanvas">

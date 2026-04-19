@@ -2,14 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { Input, Button, App, Modal } from "antd";
-import {
-  CardBase,
-  CardInside,
-  Divider,
-  SubList,
-} from "@/components/webapp/components/Layout/CardComp";
+import { CardBase, CardInside, Divider, SubList } from "@/components/webapp/components/Layout/CardComp";
 import { mockSupabase, Question, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
 import "@/components/webapp/components/Admin/admin.css";
+import "@/components/webapp/App.css";
 
 export default function QAManager() {
   const { message, modal } = App.useApp();
@@ -40,8 +36,8 @@ export default function QAManager() {
     }
 
     const originalQuestions = [...questions];
-    setQuestions(prev => prev.map(q => q.id === id ? { ...q, answer: answer } : q));
-    
+    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, answer: answer } : q)));
+
     setLoading(true);
     try {
       await mockSupabase.qa.reply(id, answer);
@@ -68,7 +64,16 @@ export default function QAManager() {
       content: (
         <div style={{ marginTop: "10px" }}>
           <p style={{ marginBottom: "10px" }}>この質問を削除してもよろしいですか？</p>
-          <div style={{ padding: "10px", background: "#f5f5f5", borderRadius: "8px", fontSize: "12px", color: "#666", border: "1px solid #ddd" }}>
+          <div
+            style={{
+              padding: "10px",
+              background: "#f5f5f5",
+              borderRadius: "8px",
+              fontSize: "12px",
+              color: "#666",
+              border: "1px solid #ddd",
+            }}
+          >
             {text}
           </div>
         </div>
@@ -79,7 +84,7 @@ export default function QAManager() {
       getContainer: () => document.querySelector(".webapp-root") || document.body,
       onOk: async () => {
         const originalQuestions = [...questions];
-        setQuestions(prev => prev.filter(q => q.id !== id));
+        setQuestions((prev) => prev.filter((q) => q.id !== id));
         try {
           await mockSupabase.qa.delete(id);
           message.success("削除しました");
@@ -109,7 +114,9 @@ export default function QAManager() {
     try {
       await mockSupabase.qa.reply(id, editAnswer, editReason);
       message.success("編集しました");
-      setQuestions(prev => prev.map(q => q.id === id ? { ...q, answer: editAnswer, edit_reason: editReason } : q));
+      setQuestions((prev) =>
+        prev.map((q) => (q.id === id ? { ...q, answer: editAnswer, edit_reason: editReason } : q)),
+      );
       setEditingItem(null);
       loadQuestions();
     } catch (error) {
@@ -152,33 +159,57 @@ export default function QAManager() {
                     {isSuccess ? "返信完了！" : "返信"}
                   </Button>
                 </div>
-                <Button size="small" danger onClick={() => handleDelete(q.id, q.text)}>削除</Button>
+                <Button size="small" danger onClick={() => handleDelete(q.id, q.text)}>
+                  削除
+                </Button>
               </div>
             </React.Fragment>
           ))
         ) : (
-          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>未回答の質問はありません</p>
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>
+            未回答の質問はありません
+          </p>
         )}
-        <p className="section-text" style={{ fontWeight: "bold" }}>回答済みの質問 ({answeredQuestions.length}件)</p>
+        <p className="section-text" style={{ fontWeight: "bold" }}>
+          回答済みの質問 ({answeredQuestions.length}件)
+        </p>
         {answeredQuestions.length > 0 ? (
           answeredQuestions.map((q, index) => (
-            <div key={q.id} style={{ textAlign: "left", padding: "15px", background: "#eee", borderRadius: "8px", marginTop: "5%" }}>
-              <React.Fragment key={q.id}>
-                {index !== 0 && <SubList><Divider /></SubList>}
+            <React.Fragment key={q.id}>
+              <div
+                key={q.id}
+                style={{
+                  textAlign: "left",
+                  padding: "15px",
+                  background: "var(--mainCanvas-color)",
+                  borderRadius: "8px",
+                  marginTop: "5%",
+                }}
+              >
                 <div style={{ textAlign: "left" }}>
-                  <p style={{ fontSize: "11px", color: "#666" }}><span style={{ color: "#007AFF", marginRight: "8px" }}>Q:</span>{q.text}</p>
-                  <p style={{ fontSize: "11px", color: "#666", whiteSpace: "pre-wrap" }}><span style={{ color: "#ff4d4f", marginRight: "8px" }}>A:</span>{q.answer}</p>
+                  <p style={{ fontSize: "11px", color: "#666" }}>
+                    <span style={{ color: "#007AFF", marginRight: "8px" }}>Q:</span>
+                    {q.text}
+                  </p>
+                  <p style={{ fontSize: "11px", color: "#666", whiteSpace: "pre-wrap" }}>
+                    <span style={{ color: "#ff4d4f", marginRight: "8px" }}>A:</span>
+                    {q.answer}
+                  </p>
                   {q.edit_reason && <p className="edited-text">編集済み: {q.edit_reason}</p>}
                   <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
                     <Button onClick={() => startEdit(q)}>編集</Button>
-                    <Button danger onClick={() => handleDelete(q.id, q.text)}>削除</Button>
+                    <Button danger onClick={() => handleDelete(q.id, q.text)}>
+                      削除
+                    </Button>
                   </div>
                 </div>
-              </React.Fragment>
-            </div>
+              </div>
+            </React.Fragment>
           ))
         ) : (
-          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>回答済みの質問はありません</p>
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>
+            回答済みの質問はありません
+          </p>
         )}
         <Modal
           title="回答の編集"
@@ -191,11 +222,21 @@ export default function QAManager() {
           getContainer={() => document.querySelector(".webapp-root") || document.body}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "15px", paddingTop: "10px" }}>
-            <div><p style={{ fontSize: "12px" }}>・質問</p><p>{editingItem?.text}</p></div>
-            <div><p style={{ fontSize: "12px", marginBottom: "5px" }}>・回答</p>
-              <Input.TextArea rows={3} value={editAnswer} onChange={(e) => setEditAnswer(e.target.value)} size="large" />
+            <div>
+              <p style={{ fontSize: "12px" }}>・質問</p>
+              <p>{editingItem?.text}</p>
             </div>
-            <div><p style={{ fontSize: "12px", marginBottom: "5px" }}>・編集理由 (必須)</p>
+            <div>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>・回答</p>
+              <Input.TextArea
+                rows={3}
+                value={editAnswer}
+                onChange={(e) => setEditAnswer(e.target.value)}
+                size="large"
+              />
+            </div>
+            <div>
+              <p style={{ fontSize: "12px", marginBottom: "5px" }}>・編集理由 (必須)</p>
               <Input value={editReason} onChange={(e) => setEditReason(e.target.value)} size="large" />
             </div>
           </div>

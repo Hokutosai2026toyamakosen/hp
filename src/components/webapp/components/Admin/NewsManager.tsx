@@ -150,7 +150,7 @@ export default function NewsManager() {
             style={{
               textAlign: "left",
               padding: "10px",
-              background: "#eee",
+              background: "var(--mainCanvas-color)",
               borderRadius: "8px",
               marginBottom: "10px",
             }}

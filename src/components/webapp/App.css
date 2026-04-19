@@ -634,6 +634,8 @@
 
 .webapp-root .mapCard .maps-container {
   border-radius: 0 0 24px 24px !important;
+  border: none !important;
+  background-color: transparent !important;
 }
 
 .webapp-root .mapCard .maps-nav-table {
@@ -644,6 +646,33 @@
   z-index: 5;
 }
 
+.webapp-root .maps-nav-cell-category {
+  background-color: var(--mainCanvas-color) !important;
+  color: var(--text-color) !important;
+}
+
+.webapp-root .maps-button {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border: solid var(--border-color) 0.5px !important;
+}
+
+.webapp-root .maps-button.active {
+  background-color: var(--text-color) !important;
+  color: var(--bg-color) !important;
+}
+
+.webapp-root .maps-nav-row {
+  border: solid var(--border-color) 0.5px !important;
+}
+
+.webapp-root .maps-nav-row:first-child {
+  border-top: none !important;
+}
+
+.webapp-root .leaflet-container {
+  background-color: var(--bg-color) !important;
+}
 
 .webapp-root .edited-text {
   font-size: 0.9em !important;

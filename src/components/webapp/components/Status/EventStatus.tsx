@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Radio } from "antd";
 import { CardBase, CardInside, Divider } from "@/components/webapp/components/Layout/CardComp";
 import eventData from "@/../public/data/events.json";
@@ -14,6 +15,7 @@ interface Event {
 }
 
 export default function EventStatus() {
+  const { t } = useTranslation();
   const [filterMode, setFilterMode] = useState<"hour" | "all">("hour");
   const { currentTime } = useAppTime();
   const nowTimeStr = currentTime.format("HH:mm");
@@ -33,7 +35,7 @@ export default function EventStatus() {
   }, [nowTimeStr, oneHourLaterStr, currentDate, filterMode]);
 
   return (
-    <CardBase title="Events">
+    <CardBase title={t("CardTitles.EVENTS")}>
       <CardInside>
         <div
           style={{
@@ -42,8 +44,8 @@ export default function EventStatus() {
           }}
         >
           <Radio.Group value={filterMode} onChange={(e) => setFilterMode(e.target.value)} buttonStyle="solid">
-            <Radio.Button value="hour">1時間以内</Radio.Button>
-            <Radio.Button value="all">すべて表示</Radio.Button>
+            <Radio.Button value="hour">{t("Bus.FilterHour")}</Radio.Button>
+            <Radio.Button value="all">{t("Bus.FilterAll")}</Radio.Button>
           </Radio.Group>
         </div>
         <div style={{ marginTop: "5%" }}>
@@ -90,7 +92,7 @@ export default function EventStatus() {
                           NOW
                         </span>
                       ) : isFinished ? (
-                        <span style={{ fontSize: "11px", color: "#999" }}>終了済み</span>
+                        <span style={{ fontSize: "11px", color: "#999" }}>{t("Event.Finished")}</span>
                       ) : (
                         <p style={{ fontSize: "11px", color: "var(--main-color)", margin: 0 }}>
                           {(() => {
@@ -100,9 +102,9 @@ export default function EventStatus() {
                             );
                             if (diffMin >= 60) {
                               const hours = Math.floor(diffMin / 60);
-                              return `${hours} 時間後`;
+                              return t("Time.HoursLater", { count: hours });
                             }
-                            return `${diffMin} 分後`;
+                            return t("Time.MinsLater", { count: diffMin });
                           })()}
                         </p>
                       )}
@@ -113,9 +115,7 @@ export default function EventStatus() {
             })
           ) : (
             <div style={{ padding: "20px 0" }}>
-              <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>
-                1時間以内にイベントはありません
-              </p>
+              <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>{t("Event.NoData")}</p>
             </div>
           )}
         </div>

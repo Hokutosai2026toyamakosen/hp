@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import { Drawer, Button } from "antd";
-import AppsIcon from "@mui/icons-material/Apps";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 const Other = React.lazy(() => import("@/components/webapp/components/Layout/other"));
 
@@ -22,7 +22,7 @@ export default function MenuDrawer() {
           color: "var(--main-color)",
         }}
       >
-        <AppsIcon style={{ fontSize: "32px" }} />
+        <SettingsOutlinedIcon style={{ color: "var(--text-sub-color)", fontSize: "32px" }} />
       </Button>
 
       <Drawer

@@ -1,43 +1,72 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { CardBase, CardInside, SubList, Divider } from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, NewsItem, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
-import "@/components/webapp/App.css";
 import dayjs from "dayjs";
+import { useAppTime } from "@/components/webapp/contexts/TimeContext";
+import { useTranslation } from "react-i18next";
+import { useData } from "@/components/webapp/contexts/DataContext";
 
-export default function NewsStatus() {
-  const [news, setNews] = useState<NewsItem[]>([]);
+export default function NewsStatus({ onlyHot = false, hotTime = 10 }: { onlyHot?: boolean; hotTime?: number }) {
+  const { t } = useTranslation();
+  const {
+    api: { fetchedData, isLoading },
+  } = useData();
+  const { currentTime } = useAppTime();
+  const news = fetchedData?.news || [];
+  const processedNews = useMemo(() => {
+    const nowMs = currentTime.valueOf();
+    const newsWithHot = news.map((item) => {
+      const diff = (nowMs - dayjs(item.created_at).valueOf()) / (1000 * 60);
+      return { ...item, isHot: diff >= -1 && diff <= hotTime };
+    });
 
-  useEffect(() => {
-    const loadNews = async () => {
-      const data = await mockSupabase.news.fetch();
-      setNews(data);
-    };
-    loadNews();
+    const filtered = onlyHot ? newsWithHot.filter((n) => n.isHot) : newsWithHot;
 
-    const interval = setInterval(loadNews, FETCH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
+    return filtered.sort((a, b) => {
+      if (a.isHot && !b.isHot) return -1;
+      if (!a.isHot && b.isHot) return 1;
+      return dayjs(b.created_at).valueOf() - dayjs(a.created_at).valueOf();
+    });
+  }, [news, currentTime, onlyHot]);
+
+  if (onlyHot && processedNews.length === 0) return null;
 
   return (
-    <CardBase title="News">
+    <CardBase
+      title={onlyHot ? `${t("CardTitles.NEWS")} / ${t("Time.HotNews", { count: hotTime })}` : t("CardTitles.NEWS")}
+    >
       <CardInside className="no-vertical-padding">
-        {news.length > 0 ? (
-          news.map((item, index) => (
+        {isLoading ? (
+          <SubList>
+            <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>Loading...</p>
+          </SubList>
+        ) : processedNews.length > 0 ? (
+          processedNews.map((item, index) => (
             <React.Fragment key={item.id}>
               {index !== 0 && <Divider />}
               <SubList>
-                <div style={{ textAlign: "left", width: "100%" }}>
+                <div
+                  style={{
+                    textAlign: "left",
+                    width: "100%",
+                    borderLeft: item.isHot && !onlyHot ? "4px solid #ff4d4f" : "none",
+                    paddingLeft: item.isHot && !onlyHot ? "10px" : "0",
+                    transition: "all 0.3s",
+                  }}
+                >
                   <div className="subProp">
                     <p
                       style={{
                         fontSize: "14px",
                         fontWeight: "bold",
-                        color: "var(--main-color)",
+                        color: item.isHot ? "#ff4d4f" : "var(--main-color)",
                         margin: "0 0 4px 0",
                       }}
                     >
+                      {item.isHot && !onlyHot && (
+                        <span style={{ marginRight: "8px", color: "#ff4d4f" }}>{t("Common.HotNews")}</span>
+                      )}
                       {item.title}
                     </p>
                     <p style={{ fontSize: "10px", color: "#999", margin: 0, textAlign: "right" }}>
@@ -45,14 +74,18 @@ export default function NewsStatus() {
                     </p>
                   </div>
                   <p style={{ fontSize: "13px", margin: "0 0 8px 0", whiteSpace: "pre-wrap" }}>{item.content}</p>
-                  {item.edit_reason && <p className="edited-text">修正履歴: {item.edit_reason}</p>}
+                  {item.edit_reason && (
+                    <p style={{ fontSize: "10px", color: "#999", margin: 0, fontStyle: "italic" }}>
+                      ({t("Time.EditReason")}: {item.edit_reason})
+                    </p>
+                  )}
                 </div>
               </SubList>
             </React.Fragment>
           ))
         ) : (
           <SubList>
-            <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>ニュースはありません</p>
+            <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>{t("QA.NoData")}</p>
           </SubList>
         )}
       </CardInside>

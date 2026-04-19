@@ -7,80 +7,86 @@ import { getCookie } from "@/components/webapp/scripts/Server/Cookie";
 import DarkClick from "@/components/webapp/scripts/Data/DarkClick";
 
 type ThemeContextType = {
-    primaryColor: string;
-    isDarkMode: boolean;
-    setIsDarkMode: Dispatch<SetStateAction<boolean>>;
-    localeLang: typeof jaJP | typeof enUS;
-    setLocaleLang: Dispatch<SetStateAction<typeof jaJP | typeof enUS>>;
-    isPerformanceMode: boolean;
-    setIsPerformanceMode: Dispatch<SetStateAction<boolean>>;
+  primaryColor: string;
+  isDarkMode: boolean;
+  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
+  localeLang: typeof jaJP | typeof enUS;
+  setLocaleLang: Dispatch<SetStateAction<typeof jaJP | typeof enUS>>;
+  isPerformanceMode: boolean;
+  setIsPerformanceMode: Dispatch<SetStateAction<boolean>>;
 };
 
 type ThemeProviderProps = {
-    children: ReactNode;
+  children: ReactNode;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-    const { i18n } = useTranslation();
-    const primaryColor = "#1f1f1f"; 
-    const { defaultAlgorithm, darkAlgorithm } = theme;
-    
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [isPerformanceMode, setIsPerformanceMode] = useState(true);
-    const [localeLang, setLocaleLang] = useState(i18n.languages[0] == "ja" ? jaJP : enUS);
+  const { i18n } = useTranslation();
+  const primaryColor = "#1f1f1f";
+  const { defaultAlgorithm, darkAlgorithm } = theme;
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isPerformanceMode, setIsPerformanceMode] = useState(true);
+  const [localeLang, setLocaleLang] = useState(i18n.languages[0] == "ja" ? jaJP : enUS);
 
-    useEffect(() => {
-        const root = document.querySelector(".webapp-root") as HTMLElement || document.querySelector(":root") as HTMLElement;
-        
-        if (getCookie("dark") === "true") {
-            setTimeout(() => {
-                setIsDarkMode(true);
-                DarkClick(true);
-            }, 0);
-        }
+  useEffect(() => {
+    const root =
+      (document.querySelector(".webapp-root") as HTMLElement) || (document.querySelector(":root") as HTMLElement);
 
-        if (root) {
-            root.style.setProperty("--main-color", primaryColor);
-        }
-    }, []);
+    if (getCookie("dark") === "true") {
+      setTimeout(() => {
+        setIsDarkMode(true);
+        DarkClick(true);
+      }, 0);
+    }
 
-    const themeValue = useMemo(
-        () => ({
-            primaryColor,
-            isDarkMode,
-            setIsDarkMode,
-            localeLang,
-            setLocaleLang,
-            isPerformanceMode,
-            setIsPerformanceMode,
-        }),
-        [isDarkMode, localeLang, isPerformanceMode]
-    );
+    if (root) {
+      root.style.setProperty("--main-color", primaryColor);
+    }
+  }, []);
 
-    return (
-        <ThemeContext.Provider value={themeValue}>
-            <ConfigProvider
-                locale={localeLang}
-                theme={{
-                    algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-                    token: {
-                        colorPrimary: primaryColor,
-                        colorInfo: primaryColor,
-                    },
-                    components: {
-                        Select: {
-                            optionSelectedColor: "#ffffff",
-                            optionSelectedBg: "#1f1f1f",
-                        },
-                    },
-                }}
-            >
-                {children}
-            </ConfigProvider>
-        </ThemeContext.Provider>
-    );
+  const themeValue = useMemo(() => {
+    const currentPrimary = isDarkMode ? "#f0f0f0" : "#1f1f1f";
+    return {
+      primaryColor: currentPrimary,
+      isDarkMode,
+      setIsDarkMode,
+      localeLang,
+      setLocaleLang,
+      isPerformanceMode,
+      setIsPerformanceMode,
+    };
+  }, [isDarkMode, localeLang, isPerformanceMode]);
+
+  return (
+    <ThemeContext.Provider value={themeValue}>
+      <ConfigProvider
+        locale={localeLang}
+        theme={{
+          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+          token: {
+            colorPrimary: themeValue.primaryColor,
+            colorInfo: themeValue.primaryColor,
+          },
+          components: {
+            Select: {
+              optionSelectedColor: isDarkMode ? "#000000" : "#ffffff",
+              optionSelectedBg: isDarkMode ? "#f0f0f0" : "#1f1f1f",
+            },
+            Radio: {
+              buttonSolidCheckedColor: isDarkMode ? "#000000" : "#ffffff",
+            },
+            Button: {
+              primaryColor: isDarkMode ? "#000" : "#fff",
+            },
+          },
+        }}
+      >
+        {children}
+      </ConfigProvider>
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => useContext(ThemeContext);

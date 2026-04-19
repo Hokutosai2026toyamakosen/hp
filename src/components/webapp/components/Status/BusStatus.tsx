@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Select, Tag, Radio } from "antd";
+import { useTranslation } from "react-i18next";
 import { CardBase, CardInside, Divider } from "@/components/webapp/components/Layout/CardComp";
 import busData from "@/../public/data/bus.json";
 import { useAppTime } from "@/components/webapp/contexts/TimeContext";
@@ -18,10 +19,21 @@ interface BusTrip {
 }
 
 export default function BusStatus() {
-  const [fromStop, setFromStop] = useState("富山駅北口 発");
-  const [toStop, setToStop] = useState("射水キャンパス 着");
-  const [filterMode, setFilterMode] = useState<"hour" | "all">("hour");
+  const { t } = useTranslation();
   const { currentTime } = useAppTime();
+  const nowTimeStr = currentTime.format("HH:mm");
+  const oneHourLaterStr = currentTime.add(1, "hour").format("HH:mm");
+  const lastArrivalAtImizu = useMemo(() => {
+    const imizuArrivalIdx = busData.HongoToImizu.route.indexOf("射水キャンパス 着");
+    if (imizuArrivalIdx === -1) return "00:00";
+    const arrivalTimes = busData.HongoToImizu.time[imizuArrivalIdx].filter((t) => t !== "");
+    return arrivalTimes.length > 0 ? arrivalTimes[arrivalTimes.length - 1] : "00:00";
+  }, []);
+
+  const isAfternoon = nowTimeStr > lastArrivalAtImizu;
+  const [fromStop, setFromStop] = useState(isAfternoon ? "射水キャンパス 発" : "富山駅北口 発");
+  const [toStop, setToStop] = useState(isAfternoon ? "富山駅北口 着" : "射水キャンパス 着");
+  const [filterMode, setFilterMode] = useState<"hour" | "all">("hour");
 
   const normalizeTime = (t: string) => {
     if (!t) return "";
@@ -29,10 +41,9 @@ export default function BusStatus() {
     return `${h.padStart(2, "0")}:${m.padStart(2, "0")}`;
   };
 
-  const nowTimeStr = currentTime.format("HH:mm");
-  const oneHourLaterStr = currentTime.add(1, "hour").format("HH:mm");
   const filteredBuses = useMemo(() => {
     const results: BusTrip[] = [];
+
     const processRoute = (routeData: any, direction: "to-imizu" | "to-hongo") => {
       const fromIdx = routeData.route.indexOf(fromStop);
       const toIdx = routeData.route.indexOf(toStop);
@@ -47,21 +58,20 @@ export default function BusStatus() {
             const isWithinHour = isUpcoming && isoTime <= oneHourLaterStr;
 
             if (filterMode === "all" || isWithinHour) {
-              let label = direction === "to-imizu" ? "射水キャンパス 行" : "富山駅・本郷 行";
+              let label = direction === "to-imizu" ? t("Bus.ToImizu") : t("Bus.ToToyamaHongo");
               if (toStop === "富山駅北口 着") {
-                label = "富山駅 行";
+                label = t("Bus.ToToyamaStation");
               }
 
-              results.push({ 
-                time, 
+              results.push({
+                time,
                 arrivalTime,
                 isoTime,
-                routeTitle: label, 
-                direction 
+                routeTitle: label,
+                direction,
               });
             }
           }
-
         });
       }
     };
@@ -70,45 +80,50 @@ export default function BusStatus() {
     processRoute(busData.ImizuToHongo, "to-hongo");
 
     return results.sort((a, b) => a.isoTime.localeCompare(b.isoTime));
-  }, [fromStop, toStop, nowTimeStr, oneHourLaterStr, filterMode]);
+  }, [fromStop, toStop, nowTimeStr, oneHourLaterStr, filterMode, t]);
 
-  const stopOptions = allStops.filter((s) => s.includes("発") || s.includes("着")).map((s) => ({ value: s, label: s }));
+  const stopOptions = allStops
+    .filter((s) => s.includes("発") || s.includes("着"))
+    .map((s) => ({
+      value: s,
+      label: t(`Bus.Stops.${s}`, s),
+    }));
 
   return (
-    <CardBase title="Bus">
-      <CardInside>
+    <CardBase title={t("CardTitles.BUS")}>
+      <CardInside style={{ padding: "15px" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "15px" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Radio.Group value={filterMode} onChange={(e) => setFilterMode(e.target.value)} buttonStyle="solid">
-              <Radio.Button value="hour">1時間以内</Radio.Button>
-              <Radio.Button value="all">すべて表示</Radio.Button>
+              <Radio.Button value="hour">{t("Bus.FilterHour")}</Radio.Button>
+              <Radio.Button value="all">{t("Bus.FilterAll")}</Radio.Button>
             </Radio.Group>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "1.2em", width: "40px" }}>乗場</span>
+            <span style={{ fontSize: "1.2em", width: "40px" }}>{t("Bus.From")}</span>
             <Select
               value={fromStop}
               options={stopOptions.filter((o) => o.value.includes("発"))}
               onChange={setFromStop}
               style={{ flex: 1 }}
-              getPopupContainer={(trigger) => trigger.parentElement}
               size="large"
+              getPopupContainer={(trigger) => trigger.parentElement}
             />
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "1.2em", width: "40px" }}>降場</span>
+            <span style={{ fontSize: "1.2em", width: "40px" }}>{t("Bus.To")}</span>
             <Select
               value={toStop}
               options={stopOptions.filter((o) => o.value.includes("着"))}
               onChange={setToStop}
               style={{ flex: 1 }}
-              getPopupContainer={(trigger) => trigger.parentElement}
               size="large"
+              getPopupContainer={(trigger) => trigger.parentElement}
             />
           </div>
         </div>
 
-        <div style={{ marginTop: "5%" }}>
+        <div style={{ marginTop: "15px" }}>
           {filteredBuses.length > 0 ? (
             filteredBuses.map((bus, index) => {
               const isPast = bus.isoTime <= nowTimeStr;
@@ -124,7 +139,8 @@ export default function BusStatus() {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      opacity: isPast ? 0.25 : 1,
+                      padding: "4px 0",
+                      opacity: isPast ? 0.4 : 1,
                     }}
                   >
                     <div style={{ textAlign: "left" }}>
@@ -134,17 +150,16 @@ export default function BusStatus() {
                       >
                         {bus.routeTitle}
                       </Tag>
-                      <p
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: "bold",
-                          margin: 0,
-                          color: "#1f1f1f",
-                        }}
-                      >
-                        {bus.time} <span style={{ fontSize: "12px", color: "#666", fontWeight: "normal" }}>発 →</span>{" "}
+                      <p style={{ fontSize: "20px", fontWeight: "bold", margin: 0, color: "var(--text-color)" }}>
+                        {bus.time}
+                        <span style={{ fontSize: "12px", fontWeight: "normal", color: "#666", marginLeft: "4px" }}>
+                          {t("Bus.Departure")}
+                        </span>
+                        <span style={{ fontSize: "12px", color: "#888", fontWeight: "normal" }}> →</span>{" "}
                         {bus.arrivalTime}
-                        <span style={{ fontSize: "12px", fontWeight: "normal", color: "#666" }}> 着</span>
+                        <span style={{ fontSize: "12px", fontWeight: "normal", color: "#666", marginLeft: "4px" }}>
+                          {t("Bus.Arrival")}
+                        </span>
                       </p>
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -157,13 +172,13 @@ export default function BusStatus() {
                             );
                             if (diffMin >= 60) {
                               const hours = Math.floor(diffMin / 60);
-                              return `${hours} 時間後`;
+                              return t("Time.HoursLater", { count: hours });
                             }
-                            return `${diffMin} 分後`;
+                            return t("Time.MinsLater", { count: diffMin });
                           })()}
                         </p>
                       ) : (
-                        <p style={{ fontSize: "11px", color: "#999", margin: 0 }}>出発済み</p>
+                        <p style={{ fontSize: "11px", color: "#999", margin: 0 }}>{t("Bus.Departed")}</p>
                       )}
                     </div>
                   </div>
@@ -171,7 +186,7 @@ export default function BusStatus() {
               );
             })
           ) : (
-            <span style={{ color: "#1f1f1f", padding: "10px 0" }}>指定された区間で運行するバスはありません</span>
+            <p style={{ fontSize: "13px", color: "#999", padding: "10px 0" }}>{t("Bus.NoBuses")}</p>
           )}
         </div>
       </CardInside>

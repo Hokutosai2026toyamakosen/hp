@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { CardBase, CardInside, SubList, Divider } from "@/components/webapp/components/Layout/CardComp";
-import {
-  mockSupabaseStalls,
-  StallStatus,
-  StatusLevel,
-  FETCH_INTERVAL,
-  mockSupabase,
-} from "@/components/webapp/scripts/Server/mockSupabase";
+import { mockSupabaseStalls, StatusLevel } from "@/components/webapp/scripts/Server/mockSupabase";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
+import { useData } from "@/components/webapp/contexts/DataContext";
 
 const TrafficLight = ({
   level,
@@ -43,38 +39,24 @@ const TrafficLight = ({
   );
 };
 
+const LegendItem = ({ level, crowd, stock }: { level: StatusLevel; crowd: string; stock: string }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <TrafficLight level={level} disabled />
+    <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+      <span style={{ fontSize: "10px", color: "var(--clock-color)" , lineHeight: "1.2" }}>{crowd}</span>
+      <span style={{ fontSize: "10px", color: "var(--clock-color)", lineHeight: "1.2" }}>{stock}</span>
+    </div>
+  </div>
+);
+
 export default function BoothStatus() {
-  const [statuses, setStatuses] = useState<StallStatus[]>([]);
+  const { t } = useTranslation();
+  const {
+    api: { fetchedData, isLoading, fetchData },
+  } = useData();
+  const statuses = fetchedData?.stalls || [];
   const { isAdmin } = useRole();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isVisibleRef = useRef(true);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisibleRef.current = entry.isIntersecting;
-    });
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    let timerId: NodeJS.Timeout;
-    let isMounted = true;
-    const loadData = async () => {
-      if (!isMounted) return;
-      const isMainTab = !!containerRef.current?.closest("#main");
-      if (isVisibleRef.current || isMainTab) {
-        const data = await mockSupabaseStalls.fetch();
-        if (isMounted) setStatuses(data);
-      }
-      timerId = setTimeout(loadData, FETCH_INTERVAL + mockSupabase.getJitter());
-    };
-    loadData();
-    return () => {
-      isMounted = false;
-      clearTimeout(timerId);
-    };
-  }, []);
 
   const cycleStatus = (current: StatusLevel): StatusLevel => {
     if (current === 0) return 1;
@@ -82,62 +64,55 @@ export default function BoothStatus() {
     return 0;
   };
 
-  const handleCrowdClick = (stallName: string, currentLevel: StatusLevel) => {
+  const handleCrowdClick = async (stallName: string, currentLevel: StatusLevel) => {
     if (!isAdmin) return;
     const newLevel = cycleStatus(currentLevel);
-    setStatuses((prev) => prev.map((s) => (s.stallName === stallName ? { ...s, crowdLevel: newLevel } : s)));
-    mockSupabaseStalls.update(stallName, { crowdLevel: newLevel });
+    await mockSupabaseStalls.update(stallName, { crowdLevel: newLevel });
+    fetchData();
   };
 
-  const handleStockClick = (stallName: string, currentLevel: StatusLevel) => {
+  const handleStockClick = async (stallName: string, currentLevel: StatusLevel) => {
     if (!isAdmin) return;
     const newLevel = cycleStatus(currentLevel);
-    setStatuses((prev) => prev.map((s) => (s.stallName === stallName ? { ...s, stockLevel: newLevel } : s)));
-    mockSupabaseStalls.update(stallName, { stockLevel: newLevel });
+    await mockSupabaseStalls.update(stallName, { stockLevel: newLevel });
+    fetchData();
   };
 
   return (
     <div ref={containerRef}>
-      <CardBase title="Booth (Live)">
+      <CardBase title={t("CardTitles.BOOTH")}>
         <CardInside className="no-vertical-padding">
           <div
             style={{
               display: "flex",
-              gap: "12px",
-              justifyContent: "center",
-              fontSize: "11px",
-              color: "#666",
-              padding: "5% 0 12px",
-              flexWrap: "wrap",
+              justifyContent: "space-evenly",
+              padding: "5% 0 0",
+              gap: "10px",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <TrafficLight level={0} disabled /> <span>空き/あり</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <TrafficLight level={1} disabled /> <span>やや混雑/少なめ</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <TrafficLight level={2} disabled /> <span>混雑/品切れ</span>
-            </div>
+            <LegendItem level={0} crowd={t("Booth.Crowd.Green")} stock={t("Booth.Stock.Green")} />
+            <LegendItem level={1} crowd={t("Booth.Crowd.Yellow")} stock={t("Booth.Stock.Yellow")} />
+            <LegendItem level={2} crowd={t("Booth.Crowd.Red")} stock={t("Booth.Stock.Red")} />
           </div>
 
-          <div style={{ display: "flex", padding: "8px 5% 0", fontSize: "12px", color: "#666", fontWeight: "bold" }}>
-            <div style={{ flex: 1, textAlign: "left" }}>模擬店名</div>
-            <div style={{ width: "50px", textAlign: "right" }}>混雑</div>
-            <div style={{ width: "50px", textAlign: "right" }}>在庫</div>
+          <div style={{ display: "flex", padding: "12px 5% 0", fontSize: "12px", color: "var(--clock-color)" }}>
+            <div style={{ flex: 1, textAlign: "left" }}>{t("Booth.Name")}</div>
+            <div style={{ width: "50px", textAlign: "right" }}>{t("Booth.CrowdLabel")}</div>
+            <div style={{ width: "50px", textAlign: "right" }}>{t("Booth.StockLabel")}</div>
           </div>
 
-          {statuses.length > 0 ? (
+          {isLoading ? (
+            <SubList>
+              <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>Loading...</p>
+            </SubList>
+          ) : statuses.length > 0 ? (
             statuses.map((status, index) => (
               <React.Fragment key={`${status.stallName}-${index}`}>
                 {index !== 0 && <Divider />}
                 <SubList>
                   <div style={{ display: "flex", alignItems: "center", width: "100%", padding: "4px 0" }}>
                     <div style={{ flex: 1, textAlign: "left" }}>
-                      <p style={{ fontSize: "14px", fontWeight: "bold", margin: 0, color: "#333" }}>
-                        {status.stallName}
-                      </p>
+                      <p style={{ fontSize: "14px", margin: 0, color: "#333" }}>{status.stallName}</p>
                     </div>
                     <div style={{ width: "50px", display: "flex", justifyContent: "center" }}>
                       <TrafficLight
@@ -159,9 +134,7 @@ export default function BoothStatus() {
             ))
           ) : (
             <SubList>
-              <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>
-                模擬店情報がありません
-              </p>
+              <p style={{ fontSize: "14px", color: "#999", textAlign: "center", width: "100%" }}>{t("Booth.NoData")}</p>
             </SubList>
           )}
         </CardInside>

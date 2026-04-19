@@ -1,39 +1,38 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Input, Button, App } from "antd";
 import { CardBase, CardInside, Divider } from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, Question, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
+import { mockSupabase } from "@/components/webapp/scripts/Server/mockSupabase";
+import { useData } from "@/components/webapp/contexts/DataContext";
+import { useTheme } from "@/components/webapp/ThemeContext";
 
 export default function QAStatus() {
+  const { t } = useTranslation();
   const { message } = App.useApp();
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const {
+    api: { fetchedData, isLoading, fetchData },
+  } = useData();
+  const questions = fetchedData?.questions || [];
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
-  useEffect(() => {
-    const loadQuestions = async () => {
-      const data = await mockSupabase.qa.fetch();
-      setQuestions(data);
-    };
-    loadQuestions();
-
-    const interval = setInterval(loadQuestions, FETCH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
+  const theme = useTheme();
+  const isDark = theme?.isDarkMode || false;
 
   const handleAsk = async () => {
     if (!text) return;
     setLoading(true);
     try {
       await mockSupabase.qa.ask(text);
-      message.success("質問を送信しました。運営からの回答をお待ちください。");
+      message.success(t("QA.SuccessMsg"));
       setIsSuccess(true);
+      fetchData();
       setTimeout(() => setIsSuccess(false), 1500);
       setText("");
     } catch (e) {
-      message.error("質問の送信に失敗しました。");
+      message.error(t("QA.FailureMsg"));
     } finally {
       setLoading(false);
     }
@@ -42,11 +41,11 @@ export default function QAStatus() {
   const answeredQuestions = questions.filter((q) => q.answer);
 
   return (
-    <CardBase title="Q & A">
+    <CardBase title={t("CardTitles.QA")}>
       <CardInside>
         <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
           <Input.TextArea
-            placeholder="運営への質問を入力..."
+            placeholder={t("QA.Placeholder")}
             autoSize={{ minRows: 1, maxRows: 4 }}
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -59,12 +58,12 @@ export default function QAStatus() {
             disabled={isSuccess}
             style={{
               height: "auto",
-              background: isSuccess ? "#52c41a" : "#1f1f1f",
-              borderColor: isSuccess ? "#52c41a" : "#1f1f1f",
+              background: isSuccess ? "#52c41a" : isDark ? "#f0f0f0" : "#1f1f1f",
+              borderColor: isSuccess ? "#52c41a" : isDark ? "#f0f0f0" : "#1f1f1f",
             }}
             size="large"
           >
-            {isSuccess ? "送信完了！" : "送信"}
+            {isSuccess ? t("QA.Sent") : t("QA.Send")}
           </Button>
         </div>
         <p
@@ -76,10 +75,12 @@ export default function QAStatus() {
             fontWeight: "bold",
           }}
         >
-          回答済みの質問
+          {t("QA.AnsweredSection")}
         </p>
 
-        {answeredQuestions.length > 0 ? (
+        {isLoading ? (
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "10px" }}>読み込み中...</p>
+        ) : answeredQuestions.length > 0 ? (
           answeredQuestions.map((q, index) => (
             <React.Fragment key={q.id}>
               {index !== 0 && (
@@ -98,16 +99,14 @@ export default function QAStatus() {
                 </p>
                 {q.edit_reason && (
                   <p style={{ fontSize: "10px", color: "#999", margin: "4px 0 0 0", fontStyle: "italic" }}>
-                    (編集: {q.edit_reason})
+                    ({t("Time.EditReason")}: {q.edit_reason})
                   </p>
                 )}
               </div>
             </React.Fragment>
           ))
         ) : (
-          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "10px" }}>
-            回答済みの質問はまだありません
-          </p>
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "10px" }}>{t("QA.NoData")}</p>
         )}
       </CardInside>
     </CardBase>

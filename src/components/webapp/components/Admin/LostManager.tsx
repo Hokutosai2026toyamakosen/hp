@@ -141,7 +141,13 @@ export default function LostManager() {
           items.map((item) => (
             <div
               key={item.id}
-              style={{ textAlign: "left", padding: "15px", background: "#eee", borderRadius: "8px", marginTop: "5%" }}
+              style={{
+                textAlign: "left",
+                padding: "15px",
+                background: "var(--mainCanvas-color)",
+                borderRadius: "8px",
+                marginTop: "5%",
+              }}
             >
               <p style={{ fontWeight: "bold", margin: 0 }}>{item.name}</p>
               <p style={{ fontSize: "12px", color: "#666", margin: "4px 0" }}>場所: {item.place}</p>

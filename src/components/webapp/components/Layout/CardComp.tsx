@@ -1,6 +1,6 @@
 import React from "react";
-import { Skeleton } from "antd";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
+import { useTheme } from "@/components/webapp/ThemeContext";
 
 function CardBase(props: { title: string; children: React.ReactNode; SubjectUpdated?: React.ReactNode }) {
   return (
@@ -16,7 +16,11 @@ function CardBase(props: { title: string; children: React.ReactNode; SubjectUpda
 
 function CardTitle(props: { title: string }) {
   const { isAdmin } = useRole();
-  const firstCharColor = isAdmin ? "#ff4d4f" : "#007AFF";
+  const theme = useTheme();
+  const isDark = theme?.isDarkMode || false;
+  const titleRed = isDark ? "#ff5c53" : "#FF3B30";
+  const titleBlue = isDark ? "#46a2ff" : "#007AFF";
+  const firstCharColor = isAdmin ? titleRed : titleBlue;
 
   return (
     <div className="cardTitle">

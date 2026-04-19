@@ -22,51 +22,47 @@ interface CacheEntry<T> {
 const cache: Record<string, CacheEntry<unknown>> = {};
 const pendingRequests: Record<string, Promise<unknown> | null> = {};
 
-export const FETCH_INTERVAL = 30000;
-const CACHE_TTL = 28000;
+// ms
+export const FETCH_INTERVAL = 15000;
+const CACHE_TTL = 13000;
+const Jitter_Time = 2000;
 
 export const mockSupabase = {
   loginAsAdmin: async (password: string) => {
     const email = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-    if (!email) {
-      console.error("[Supabase] NEXT_PUBLIC_ADMIN_EMAIL is not set in .env");
-      return;
-    }
+    if (!email) return;
 
+    console.log("[Supabase] Auth: Login Attempt");
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
+      email,
       password,
     });
 
     if (error) throw error;
-    console.log("[Supabase] Authenticated as Admin via manual password");
     return data;
   },
 
-  getJitter: () => Math.floor(Math.random() * 10000),
+  getJitter: () => Math.floor(Math.random() * Jitter_Time),
+
   _fetchWithCache: async <T>(key: string, fetcher: () => Promise<T>): Promise<T> => {
     const now = Date.now();
     const pending = pendingRequests[key];
-    if (pending) {
-      console.log(`[Supabase] Waiting for existing request: ${key}`);
-      return pending as Promise<T>;
-    }
+    if (pending) return pending as Promise<T>;
 
     const cached = cache[key] as CacheEntry<T> | undefined;
-    if (cached && now - cached.time < CACHE_TTL) {
-      console.log(`[Supabase] Cache Hit: ${key}`);
-      return cached.data;
-    }
+    if (cached && now - cached.time < CACHE_TTL) return cached.data;
 
-    console.log(`[Supabase] RPC: Fetching from Server: ${key}...`);
-    const requestPromise = fetcher().then((data) => {
-      cache[key] = { data, time: Date.now() };
-      pendingRequests[key] = null;
-      return data;
-    }).catch(err => {
-      pendingRequests[key] = null;
-      throw err;
-    });
+    console.log(`[Supabase] Network Request: ${key}`);
+    const requestPromise = fetcher()
+      .then((data) => {
+        cache[key] = { data, time: Date.now() };
+        pendingRequests[key] = null;
+        return data;
+      })
+      .catch((err) => {
+        pendingRequests[key] = null;
+        throw err;
+      });
 
     pendingRequests[key] = requestPromise;
     return requestPromise as Promise<T>;
@@ -74,28 +70,27 @@ export const mockSupabase = {
 
   fetchAllData: async () => {
     const now = Date.now();
-    if (cache["all"] && (now - cache["all"].time < CACHE_TTL)) {
+    if (cache["all"] && now - cache["all"].time < CACHE_TTL) {
       return cache["all"].data;
     }
-    
+
     return mockSupabase._fetchWithCache("all", async () => {
-      console.log("[Supabase] RPC: Fetching All Data in ONE request...");
       const { data, error } = await supabase.rpc("get_all_data");
       if (error) throw error;
 
       const timestamp = Date.now();
-      cache["stalls"] = { 
+      cache["stalls"] = {
         data: (data.stalls || []).map((s: { stall_name: string; crowd_level: number; stock_level: number }) => ({
-          stallName: s.stall_name, 
-          crowdLevel: s.crowd_level as StatusLevel, 
-          stockLevel: s.stock_level as StatusLevel
-        })), 
-        time: timestamp 
+          stallName: s.stall_name,
+          crowdLevel: s.crowd_level as StatusLevel,
+          stockLevel: s.stock_level as StatusLevel,
+        })),
+        time: timestamp,
       };
       cache["news"] = { data: data.news || [], time: timestamp };
       cache["lost"] = { data: data.lost_items || [], time: timestamp };
       cache["qa"] = { data: data.questions || [], time: timestamp };
-      
+
       return data;
     });
   },
@@ -106,6 +101,7 @@ export const mockSupabase = {
       return (cache["stalls"]?.data as StallStatus[]) || [];
     },
     update: async (stallName: string, updates: Partial<StallStatus>) => {
+      console.log(`[Supabase] Update Sent: Stall (${stallName})`);
       const dbUpdates: Record<string, number> = {};
       if (updates.crowdLevel !== undefined) dbUpdates.crowd_level = updates.crowdLevel;
       if (updates.stockLevel !== undefined) dbUpdates.stock_level = updates.stockLevel;
@@ -121,22 +117,28 @@ export const mockSupabase = {
       return (cache["lost"]?.data as LostItem[]) || [];
     },
     post: async (item: { name: string; place: string }) => {
+      console.log("[Supabase] Update Sent: New Lost Item");
       const { error } = await supabase.from("lost_items").insert([item]);
       if (error) throw error;
       delete cache["all"];
     },
     update: async (id: string, updates: { name: string; place: string; reason: string }) => {
+      console.log(`[Supabase] Update Sent: Edit Lost Item (${id})`);
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-      const { error } = await supabase.from("lost_items").update({
-          name: updates.name, 
-          place: updates.place, 
-          edit_reason: `${updates.reason} (${timeStr})`
-      }).eq("id", id);
+      const { error } = await supabase
+        .from("lost_items")
+        .update({
+          name: updates.name,
+          place: updates.place,
+          edit_reason: `${updates.reason} (${timeStr})`,
+        })
+        .eq("id", id);
       if (error) throw error;
       delete cache["all"];
     },
     delete: async (id: string) => {
+      console.log(`[Supabase] Update Sent: Delete Lost Item (${id})`);
       const { error } = await supabase.from("lost_items").delete().eq("id", id);
       if (error) throw error;
       delete cache["all"];
@@ -149,11 +151,13 @@ export const mockSupabase = {
       return (cache["qa"]?.data as Question[]) || [];
     },
     ask: async (text: string) => {
+      console.log("[Supabase] Update Sent: New Question");
       const { error } = await supabase.from("questions").insert([{ text }]);
       if (error) throw error;
       delete cache["all"];
     },
     reply: async (id: string, answer: string, reason?: string) => {
+      console.log(`[Supabase] Update Sent: Reply/Edit Question (${id})`);
       const updates: { answer: string; edit_reason?: string } = { answer };
       if (reason && reason.trim() !== "") {
         const now = new Date();
@@ -165,6 +169,7 @@ export const mockSupabase = {
       delete cache["all"];
     },
     delete: async (id: string) => {
+      console.log(`[Supabase] Update Sent: Delete Question (${id})`);
       const { error } = await supabase.from("questions").delete().eq("id", id);
       if (error) throw error;
       delete cache["all"];
@@ -177,22 +182,28 @@ export const mockSupabase = {
       return (cache["news"]?.data as NewsItem[]) || [];
     },
     post: async (title: string, content: string) => {
+      console.log("[Supabase] Update Sent: New News");
       const { error } = await supabase.from("news").insert([{ title, content }]);
       if (error) throw error;
       delete cache["all"];
     },
     update: async (id: string, updates: { title: string; content: string; reason: string }) => {
+      console.log(`[Supabase] Update Sent: Edit News (${id})`);
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-      const { error } = await supabase.from("news").update({
-          title: updates.title, 
-          content: updates.content, 
-          edit_reason: `${updates.reason} (${timeStr})`
-      }).eq("id", id);
+      const { error } = await supabase
+        .from("news")
+        .update({
+          title: updates.title,
+          content: updates.content,
+          edit_reason: `${updates.reason} (${timeStr})`,
+        })
+        .eq("id", id);
       if (error) throw error;
       delete cache["all"];
     },
     delete: async (id: string) => {
+      console.log(`[Supabase] Update Sent: Delete News (${id})`);
       const { error } = await supabase.from("news").delete().eq("id", id);
       if (error) throw error;
       delete cache["all"];
@@ -201,6 +212,24 @@ export const mockSupabase = {
 };
 
 export const mockSupabaseStalls = mockSupabase.stalls;
-export interface LostItem { id: string; name: string; place: string; created_at: string; edit_reason?: string; }
-export interface Question { id: string; text: string; answer: string | null; created_at: string; edit_reason?: string; }
-export interface NewsItem { id: string; title: string; content: string; created_at: string; edit_reason?: string; }
+export interface LostItem {
+  id: string;
+  name: string;
+  place: string;
+  created_at: string;
+  edit_reason?: string;
+}
+export interface Question {
+  id: string;
+  text: string;
+  answer: string | null;
+  created_at: string;
+  edit_reason?: string;
+}
+export interface NewsItem {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+  edit_reason?: string;
+}

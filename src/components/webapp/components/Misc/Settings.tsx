@@ -4,7 +4,6 @@ import React from "react";
 import { useTheme } from "@/components/webapp/ThemeContext";
 import { CardBase, CardInside, SubList } from "@/components/webapp/components/Layout/CardComp";
 import DarkSwitch from "@/components/webapp/components/Misc/DarkSwitch";
-import useContexts from "@/components/webapp/scripts/Data/Contexts";
 import { Select, Button as AntButton, Modal } from "antd";
 import { languages } from "@/components/webapp/scripts/Data/DataPack";
 import { useTranslation } from "react-i18next";
@@ -15,15 +14,13 @@ import { useRole } from "@/components/webapp/contexts/RoleContext";
 import dayjs from "dayjs";
 
 export default function Settings() {
-  const { i18n } = useTranslation();
-  const { CardTitleContexts, SettingsContexts } = useContexts();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const { currentTime, setCurrentTime, resetTime, isMocked } = useAppTime();
   const { isAdmin, isStallAdmin, setRole } = useRole();
 
   if (!theme) return <></>;
   const { localeLang, setLocaleLang } = theme;
-
   const langChange = (e: string) => {
     setLocaleLang(e == "ja" ? jaJP : enUS);
     i18n.changeLanguage(e);
@@ -67,12 +64,12 @@ export default function Settings() {
   };
 
   return (
-    <CardBase title={CardTitleContexts.Settings}>
+    <CardBase title={t("CardTitles.SETTINGS")}>
       <CardInside className="no-vertical-padding">
-        {SettingOptionFC(SettingsContexts.DarkTheme, <DarkSwitch />)}
+        {SettingOptionFC(t("Settings.Dark"), <DarkSwitch />)}
 
         {SettingOptionFC(
-          SettingsContexts.Language,
+          t("Settings.Language"),
           <Select
             value={localeLang.locale}
             onChange={langChange}
@@ -83,9 +80,9 @@ export default function Settings() {
         )}
 
         {SettingOptionFC(
-          "Reset App",
+          t("Settings.Reset"),
           <AntButton danger onClick={handleReset} size="small">
-            キャッシュ削除
+            {t("Settings.Cache")}
           </AntButton>,
         )}
 

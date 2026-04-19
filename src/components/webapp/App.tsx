@@ -9,6 +9,7 @@ const PC = React.lazy(() => import("@/components/webapp/components/PC"));
 const Phone = React.lazy(() => import("@/components/webapp/components/Phone"));
 
 const DEBUG_MOCK_TIME_STR: string | null = "2026-05-23T14:10:00";
+// const DEBUG_MOCK_TIME_STR = null;
 
 function App() {
   const aspectRatio = AspectDetector();
