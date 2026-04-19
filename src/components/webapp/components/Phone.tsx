@@ -4,8 +4,9 @@ import React, { Suspense, useState, useMemo } from "react";
 import "@/components/webapp/App.css";
 import BottomNavigator from "@/components/webapp/components/Layout/Bottom";
 import EventStatus from "@/components/webapp/components/Status/EventStatus";
-import StallsStatus from "@/components/webapp/components/Status/BoothStatus";
+import BoothStatus from "@/components/webapp/components/Status/BoothStatus";
 import NewsStatus from "@/components/webapp/components/Status/NewsStatus";
+import ServerConfig from "@/components/webapp/components/Misc/ServerConfig";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
 import { useAppTime } from "@/components/webapp/contexts/TimeContext";
 import { useData } from "@/components/webapp/contexts/DataContext";
@@ -18,8 +19,8 @@ const QAStatus = React.lazy(() => import("@/components/webapp/components/Status/
 const Other = React.lazy(() => import("@/components/webapp/components/Layout/other"));
 const MapModal = React.lazy(() => import("@/components/webapp/components/Map/MapModal"));
 const NewsManager = React.lazy(() => import("@/components/webapp/components/Admin/NewsManager"));
-const StallManager = React.lazy(() => import("@/components/webapp/components/Admin/BoothManager"));
-const LostAndFoundManager = React.lazy(() => import("@/components/webapp/components/Admin/LostManager"));
+const BoothManager = React.lazy(() => import("@/components/webapp/components/Admin/BoothManager"));
+const LostManager = React.lazy(() => import("@/components/webapp/components/Admin/LostManager"));
 const QAManager = React.lazy(() => import("@/components/webapp/components/Admin/QAManager"));
 
 const FallbackLoader = ({ text = "Loading..." }: { text?: string }) => (
@@ -28,8 +29,8 @@ const FallbackLoader = ({ text = "Loading..." }: { text?: string }) => (
   </div>
 );
 
-export default function Phone({ baseDate }: { baseDate: Date }) {
-  const { isAdmin, isStallAdmin } = useRole();
+export default function Phone() {
+  const { isAdmin, isStallAdmin, assignedStall } = useRole();
   const { currentTime } = useAppTime();
   const {
     api: { fetchedData },
@@ -48,21 +49,23 @@ export default function Phone({ baseDate }: { baseDate: Date }) {
     });
   }, [news, currentTime]);
 
-  const MainTabContent = useMemo(() => {
+  const MainContent = useMemo(() => {
+    const isServerAdmin = assignedStall === "server";
+
     if (isAdmin) {
       return (
         <Suspense fallback={<FallbackLoader text="Admin Tools..." />}>
-          <NewsManager />
-          <StallManager />
-          <LostAndFoundManager />
-          <QAManager />
+          {isServerAdmin && <ServerConfig />}
+          {isServerAdmin ? <NewsStatus /> : <NewsManager />}
         </Suspense>
       );
     }
+
     if (isStallAdmin) {
       return (
         <Suspense fallback={<FallbackLoader text="Stall Manager..." />}>
-          <StallManager />
+          <BoothManager />
+          <NewsStatus />
         </Suspense>
       );
     }
@@ -71,11 +74,32 @@ export default function Phone({ baseDate }: { baseDate: Date }) {
       <>
         {hasHotNews && <NewsStatus onlyHot={true} hotTime={hotTime} />}
         <EventStatus />
-        <StallsStatus />
+        <BoothStatus />
         <NewsStatus />
       </>
     );
   }, [isAdmin, isStallAdmin, hasHotNews, news, currentTime]);
+
+  const SubContent = useMemo(() => {
+    if (isAdmin) {
+      return (
+        <Suspense fallback={<FallbackLoader text="Admin Tools..." />}>
+          <LostManager />
+          <QAManager />
+        </Suspense>
+      );
+    }
+    if (isStallAdmin) {
+      return <></>;
+    }
+    return (
+      <>
+        <LostStatus />
+        <BusStatus />
+        <QAStatus />
+      </>
+    );
+  }, [isAdmin, isStallAdmin]);
 
   return (
     <div className="mainCanvas">
@@ -83,20 +107,12 @@ export default function Phone({ baseDate }: { baseDate: Date }) {
         <MapModal isOpen={isMapOpen} onClose={() => setIsMapMapOpen(false)} />
       </Suspense>
 
-      <div className="canvas">
+      <div className="canvas" id="canvas">
         <div className="main" id="main">
-          <div className="mainCards">{MainTabContent}</div>
+          <div className="mainCards">{MainContent}</div>
         </div>
         <div className="sche" id="sche">
-          <div className="mainCards">
-            {!isAdmin && !isStallAdmin && (
-              <Suspense fallback={<FallbackLoader text="Tools..." />}>
-                <BusStatus />
-                <LostStatus />
-                <QAStatus />
-              </Suspense>
-            )}
-          </div>
+          <div className="mainCards">{SubContent}</div>
         </div>
         <div className="others" id="others">
           <div className="otherCards">
@@ -107,12 +123,10 @@ export default function Phone({ baseDate }: { baseDate: Date }) {
         </div>
       </div>
 
-      {!isAdmin && !isStallAdmin && (
-        <button className="map-float-btn" onClick={() => setIsMapMapOpen(true)}>
-          <MapIcon style={{ fontSize: "28px" }} />
-          <span style={{ fontSize: "10px", fontWeight: "bold" }}>MAP</span>
-        </button>
-      )}
+      <button className="map-float-btn" onClick={() => setIsMapMapOpen(true)}>
+        <MapIcon style={{ fontSize: "28px" }} />
+        <span style={{ fontSize: "10px", fontWeight: "bold" }}>MAP</span>
+      </button>
 
       <div className="bottomCanvas">
         <BottomNavigator value={tabValue} setValue={setTabValue} isMoving={isMoving} setIsMoving={setIsMoving} />

@@ -21,8 +21,6 @@ function App() {
     }
   }, [setCurrentTime]);
 
-  const baseDate = currentTime.toDate();
-
   return (
     <DataProvider>
       <Suspense
@@ -39,7 +37,7 @@ function App() {
           </div>
         }
       >
-        {aspectRatio ? <Phone baseDate={baseDate} /> : <PC baseDate={baseDate} />}
+        {aspectRatio ? <Phone/> : <PC/>}
       </Suspense>
     </DataProvider>
   );

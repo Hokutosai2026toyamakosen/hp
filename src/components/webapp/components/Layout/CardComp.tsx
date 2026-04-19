@@ -15,12 +15,12 @@ function CardBase(props: { title: string; children: React.ReactNode; SubjectUpda
 }
 
 function CardTitle(props: { title: string }) {
-  const { isAdmin } = useRole();
+  const { isAdmin, isStallAdmin } = useRole();
   const theme = useTheme();
   const isDark = theme?.isDarkMode || false;
   const titleRed = isDark ? "#ff5c53" : "#FF3B30";
   const titleBlue = isDark ? "#46a2ff" : "#007AFF";
-  const firstCharColor = isAdmin ? titleRed : titleBlue;
+  const firstCharColor = isAdmin || isStallAdmin ? titleRed : titleBlue;
 
   return (
     <div className="cardTitle">

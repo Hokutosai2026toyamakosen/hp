@@ -16,27 +16,32 @@ interface RoleContextType {
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined);
 
-function RoleProviderInner({ children, initialRole = "user" }: { children: ReactNode, initialRole?: Role }) {
+function RoleProviderInner({ children, initialRole = "user" }: { children: ReactNode; initialRole?: Role }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [role, setRole] = useState<Role>(initialRole);
+  const [role, setRoleState] = useState<Role>(initialRole);
   const [assignedStall, setAssignedStall] = useState<string | null>(null);
+  const stallParam = searchParams.get("booth");
+  const adminAuth = typeof window !== "undefined" ? localStorage.getItem("admin_auth") : null;
+  const isAdminPath = pathname?.includes("/admin");
 
-  useEffect(() => {
-    const stallParam = searchParams.get("booth");
-    const adminAuth = typeof window !== "undefined" ? localStorage.getItem("admin_auth") : null;
-    const isAdminPath = pathname?.includes("/admin");
+  let targetRole: Role = "user";
+  let targetStall: string | null = null;
 
-    if (stallParam) {
-      setRole("stall-admin");
-      setAssignedStall(stallParam);
-    } else if (isAdminPath && adminAuth === "true") {
-      setRole("admin");
+  if (stallParam) {
+    if (stallParam === "server") {
+      targetRole = "admin";
+      targetStall = "server";
     } else {
-      setRole("user");
-      setAssignedStall(null);
+      targetRole = "stall-admin";
+      targetStall = stallParam;
     }
-  }, [searchParams, pathname]);
+  } else if (isAdminPath && adminAuth === "true") {
+    targetRole = "admin";
+  }
+
+  if (targetRole !== role) setRoleState(targetRole);
+  if (targetStall !== assignedStall) setAssignedStall(targetStall);
 
   useEffect(() => {
     if (role === "admin" || role === "stall-admin") {
@@ -45,7 +50,7 @@ function RoleProviderInner({ children, initialRole = "user" }: { children: React
         mockSupabase.loginAsAdmin(savedPass).catch(() => {
           localStorage.removeItem("admin_auth");
           localStorage.removeItem("admin_pass");
-          setRole("user");
+          setRoleState("user");
         });
       }
     }
@@ -54,25 +59,21 @@ function RoleProviderInner({ children, initialRole = "user" }: { children: React
   const value = {
     role,
     setRole: (newRole: Role) => {
-        setRole(newRole);
-        if (typeof window !== "undefined") {
-          if (newRole === "admin") localStorage.setItem("admin_auth", "true");
-          if (newRole === "user") localStorage.removeItem("admin_auth");
-        }
+      setRoleState(newRole);
+      if (typeof window !== "undefined") {
+        if (newRole === "admin") localStorage.setItem("admin_auth", "true");
+        if (newRole === "user") localStorage.removeItem("admin_auth");
+      }
     },
     isAdmin: role === "admin",
     isStallAdmin: role === "stall-admin",
-    assignedStall
+    assignedStall,
   };
 
-  return (
-    <RoleContext.Provider value={value}>
-      {children}
-    </RoleContext.Provider>
-  );
+  return <RoleContext.Provider value={value}>{children}</RoleContext.Provider>;
 }
 
-export function RoleProvider(props: { children: ReactNode, initialRole?: Role }) {
+export function RoleProvider(props: { children: ReactNode; initialRole?: Role }) {
   return (
     <Suspense fallback={null}>
       <RoleProviderInner {...props} />

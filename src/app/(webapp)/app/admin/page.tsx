@@ -92,7 +92,7 @@ export default function AdminPage(props: PageProps) {
           textAlign: "center",
         }}
       >
-        <h3 style={{ marginBottom: "30px", color: "#1f1f1f" }}>運営ログイン</h3>
+        <h3 style={{ marginBottom: "30px", color: "#1f1f1f" }}>運営としてログイン</h3>
         <input
           type="password"
           placeholder="パスワードを入力"

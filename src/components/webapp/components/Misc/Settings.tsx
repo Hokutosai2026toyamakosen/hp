@@ -4,7 +4,7 @@ import React from "react";
 import { useTheme } from "@/components/webapp/ThemeContext";
 import { CardBase, CardInside, SubList } from "@/components/webapp/components/Layout/CardComp";
 import DarkSwitch from "@/components/webapp/components/Misc/DarkSwitch";
-import { Select, Button as AntButton, Modal } from "antd";
+import { Select, Button as AntButton, Modal, Switch } from "antd";
 import { languages } from "@/components/webapp/scripts/Data/DataPack";
 import { useTranslation } from "react-i18next";
 import enUS from "antd/lib/locale/en_US";
@@ -18,9 +18,9 @@ export default function Settings() {
   const theme = useTheme();
   const { currentTime, setCurrentTime, resetTime, isMocked } = useAppTime();
   const { isAdmin, isStallAdmin, setRole } = useRole();
-
   if (!theme) return <></>;
-  const { localeLang, setLocaleLang } = theme;
+  const { localeLang, setLocaleLang, isDebugMode, setIsDebugMode } = theme;
+
   const langChange = (e: string) => {
     setLocaleLang(e == "ja" ? jaJP : enUS);
     i18n.changeLanguage(e);
@@ -35,7 +35,7 @@ export default function Settings() {
   const handleReset = () => {
     Modal.confirm({
       title: "アプリのリセット",
-      content: "すべての設定（テーマ、ログイン情報、キャッシュ）を削除して初期状態に戻します。よろしいですか？",
+      content: "すべての設定を削除して初期状態に戻します。よろしいですか？",
       okText: "リセットする",
       okType: "danger",
       cancelText: "キャンセル",
@@ -79,6 +79,8 @@ export default function Settings() {
           />,
         )}
 
+        {SettingOptionFC("Debug Mode", <Switch checked={isDebugMode} onChange={setIsDebugMode} size="small" />)}
+
         {SettingOptionFC(
           t("Settings.Reset"),
           <AntButton danger onClick={handleReset} size="small">
@@ -86,28 +88,20 @@ export default function Settings() {
           </AntButton>,
         )}
 
-        {(isAdmin || isStallAdmin) && (
-          <>
-            {SettingOptionFC(
-              "Logout",
-              <AntButton danger onClick={handleLogout} size="small">
-                ログアウト
-              </AntButton>,
-            )}
-          </>
-        )}
+        {(isAdmin || isStallAdmin) &&
+          SettingOptionFC(
+            "Logout",
+            <AntButton danger onClick={handleLogout} size="small">
+              ログアウト
+            </AntButton>,
+          )}
 
         {SettingOptionFC(
           "Time",
           <div style={{ display: "flex", flexDirection: "row", gap: "5px", width: "100%", justifyContent: "flex-end" }}>
             <input
               type="datetime-local"
-              style={{
-                fontSize: "12px",
-                padding: "4px",
-                borderRadius: "4px",
-                border: "1px solid #ddd",
-              }}
+              style={{ fontSize: "12px", padding: "4px", borderRadius: "4px", border: "1px solid #ddd" }}
               value={currentTime.format("YYYY-MM-DDTHH:mm")}
               onChange={(e) => setCurrentTime(dayjs(e.target.value))}
             />

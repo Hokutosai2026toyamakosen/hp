@@ -1,33 +1,33 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Radio, Button, App } from "antd";
+import { Radio, Button, App, Spin } from "antd";
 import { CardBase, CardInside } from "@/components/webapp/components/Layout/CardComp";
 import { mockSupabaseStalls, StallStatus, StatusLevel } from "@/components/webapp/scripts/Server/mockSupabase";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
+import { useData } from "@/components/webapp/contexts/DataContext";
 import "@/components/webapp/App.css";
 
 export default function BoothManager() {
   const { message } = App.useApp();
   const { assignedStall } = useRole();
+  const {
+    api: { fetchedData, fetchData, isLoading },
+  } = useData();
   const [crowd, setCrowd] = useState<StatusLevel>(0);
   const [stock, setStock] = useState<StatusLevel>(0);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    if (assignedStall) {
-      const loadCurrentStatus = async () => {
-        const currentData = await mockSupabaseStalls.fetch();
-        const stall = currentData.find((s: StallStatus) => s.stallName === assignedStall);
-        if (stall) {
-          setCrowd(stall.crowdLevel);
-          setStock(stall.stockLevel);
-        }
-      };
-      loadCurrentStatus();
+    if (assignedStall && fetchedData?.stalls) {
+      const stall = fetchedData.stalls.find((s: StallStatus) => s.stallName === assignedStall);
+      if (stall) {
+        setCrowd(stall.crowdLevel);
+        setStock(stall.stockLevel);
+      }
     }
-  }, [assignedStall]);
+  }, [assignedStall, fetchedData]);
 
   const handleUpdate = async () => {
     if (!assignedStall) {
@@ -44,6 +44,7 @@ export default function BoothManager() {
       message.success(`${assignedStall} の状況を更新しました`);
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 1500);
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("エラー");
@@ -53,6 +54,18 @@ export default function BoothManager() {
   };
 
   if (!assignedStall) return null;
+
+  if (isLoading && !fetchedData) {
+    return (
+      <CardBase title={`${assignedStall}`}>
+        <CardInside>
+          <div style={{ textAlign: "center", padding: "50px" }}>
+            <Spin size="large" />
+          </div>
+        </CardInside>
+      </CardBase>
+    );
+  }
 
   return (
     <CardBase title={`${assignedStall}`}>

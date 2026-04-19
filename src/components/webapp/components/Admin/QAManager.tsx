@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Input, Button, App, Modal } from "antd";
-import { CardBase, CardInside, Divider, SubList } from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, Question, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
+import React, { useState } from "react";
+import { Input, Button, App, Modal, Spin } from "antd";
+import { CardBase, CardInside, Divider } from "@/components/webapp/components/Layout/CardComp";
+import { mockSupabase, Question } from "@/components/webapp/scripts/Server/mockSupabase";
+import { useData } from "@/components/webapp/contexts/DataContext";
 import "@/components/webapp/components/Admin/admin.css";
 import "@/components/webapp/App.css";
 
 export default function QAManager() {
   const { message, modal } = App.useApp();
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const {
+    api: { fetchedData, fetchData, isLoading },
+  } = useData();
   const [replies, setReplies] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -17,16 +20,7 @@ export default function QAManager() {
   const [editAnswer, setEditAnswer] = useState("");
   const [editReason, setEditReason] = useState("");
 
-  const loadQuestions = async () => {
-    const data = await mockSupabase.qa.fetch();
-    setQuestions(data);
-  };
-
-  useEffect(() => {
-    loadQuestions();
-    const interval = setInterval(loadQuestions, FETCH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
+  const questions = fetchedData?.questions || [];
 
   const handleReply = async (id: string) => {
     const answer = replies[id];
@@ -34,9 +28,6 @@ export default function QAManager() {
       message.warning("回答を入力してください");
       return;
     }
-
-    const originalQuestions = [...questions];
-    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, answer: answer } : q)));
 
     setLoading(true);
     try {
@@ -49,10 +40,10 @@ export default function QAManager() {
         delete next[id];
         return next;
       });
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("送信に失敗しました");
-      setQuestions(originalQuestions);
     } finally {
       setLoading(false);
     }
@@ -83,15 +74,13 @@ export default function QAManager() {
       cancelText: "キャンセル",
       getContainer: () => document.querySelector(".webapp-root") || document.body,
       onOk: async () => {
-        const originalQuestions = [...questions];
-        setQuestions((prev) => prev.filter((q) => q.id !== id));
         try {
           await mockSupabase.qa.delete(id);
           message.success("削除しました");
+          await fetchData();
         } catch (error) {
           console.error(error);
           message.error("削除に失敗しました");
-          setQuestions(originalQuestions);
         }
       },
     });
@@ -109,24 +98,31 @@ export default function QAManager() {
       return;
     }
     const id = editingItem!.id;
-    const originalQuestions = [...questions];
     setLoading(true);
     try {
       await mockSupabase.qa.reply(id, editAnswer, editReason);
       message.success("編集しました");
-      setQuestions((prev) =>
-        prev.map((q) => (q.id === id ? { ...q, answer: editAnswer, edit_reason: editReason } : q)),
-      );
       setEditingItem(null);
-      loadQuestions();
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("更新に失敗しました");
-      setQuestions(originalQuestions);
     } finally {
       setLoading(false);
     }
   };
+
+  if (isLoading && !fetchedData) {
+    return (
+      <CardBase title="Q & A Manager (Admin)">
+        <CardInside>
+          <div style={{ textAlign: "center", padding: "50px" }}>
+            <Spin size="large" />
+          </div>
+        </CardInside>
+      </CardBase>
+    );
+  }
 
   const pendingQuestions = questions.filter((q) => !q.answer);
   const answeredQuestions = questions.filter((q) => q.answer);

@@ -1,33 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Input, Button, App, Modal } from "antd";
+import React, { useState } from "react";
+import { Input, Button, App, Modal, Spin } from "antd";
 import { CardBase, CardInside, Divider } from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, NewsItem, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
+import { mockSupabase, NewsItem } from "@/components/webapp/scripts/Server/mockSupabase";
+import { useData } from "@/components/webapp/contexts/DataContext";
 import "@/components/webapp/components/Admin/admin.css";
 
 export default function NewsManager() {
   const { message, modal } = App.useApp();
+  const {
+    api: { fetchedData, fetchData, isLoading },
+  } = useData();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [news, setNews] = useState<NewsItem[]>([]);
   const [editingItem, setEditingItem] = useState<NewsItem | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
   const [editReason, setEditReason] = useState("");
 
-  const load = async () => {
-    const data = await mockSupabase.news.fetch();
-    setNews(data);
-  };
-
-  useEffect(() => {
-    load();
-    const interval = setInterval(load, FETCH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
+  const news = fetchedData?.news || [];
 
   const handlePost = async () => {
     if (!title || !content) {
@@ -42,7 +36,7 @@ export default function NewsManager() {
       setTimeout(() => setIsSuccess(false), 1500);
       setTitle("");
       setContent("");
-      load();
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("エラーが発生しました");
@@ -73,15 +67,13 @@ export default function NewsManager() {
       ),
       getContainer: () => document.querySelector(".webapp-root") || document.body,
       onOk: async () => {
-        const originalNews = [...news];
-        setNews((prev) => prev.filter((n) => n.id !== id));
         try {
           await mockSupabase.news.delete(id);
           message.success("削除しました");
+          await fetchData();
         } catch (error) {
           console.error(error);
           message.error("削除に失敗しました");
-          setNews(originalNews);
         }
       },
     });
@@ -108,7 +100,7 @@ export default function NewsManager() {
       });
       message.success("編集しました");
       setEditingItem(null);
-      load();
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("エラーが発生しました");
@@ -116,6 +108,18 @@ export default function NewsManager() {
       setLoading(false);
     }
   };
+
+  if (isLoading && !fetchedData) {
+    return (
+      <CardBase title="News Manager (Admin)">
+        <CardInside>
+          <div style={{ textAlign: "center", padding: "50px" }}>
+            <Spin size="large" />
+          </div>
+        </CardInside>
+      </CardBase>
+    );
+  }
 
   return (
     <CardBase title="News Manager (Admin)">
@@ -144,28 +148,34 @@ export default function NewsManager() {
         </div>
         <Divider />
         <p style={{ textAlign: "left", margin: "20px 0 10px", paddingTop: "10%" }}>配信済みニュース</p>
-        {news.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              textAlign: "left",
-              padding: "10px",
-              background: "var(--mainCanvas-color)",
-              borderRadius: "8px",
-              marginBottom: "10px",
-            }}
-          >
-            <p style={{ fontWeight: "bold", margin: 0 }}>{item.title}</p>
-            <p style={{ fontSize: "12px", color: "#666", margin: "4px 0" }}>{item.content}</p>
-            {item.edit_reason && <p className="edited-text">編集済み: {item.edit_reason}</p>}
-            <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
-              <Button onClick={() => startEdit(item)}>編集</Button>
-              <Button danger onClick={() => handleDelete(item.id, item.title)}>
-                削除
-              </Button>
+        {news.length > 0 ? (
+          news.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                textAlign: "left",
+                padding: "10px",
+                background: "var(--mainCanvas-color)",
+                borderRadius: "8px",
+                marginTop: "5%",
+              }}
+            >
+              <p style={{ fontWeight: "bold", margin: 0 }}>{item.title}</p>
+              <p style={{ fontSize: "12px", color: "#666", margin: "4px 0" }}>{item.content}</p>
+              {item.edit_reason && <p className="edited-text">編集済み: {item.edit_reason}</p>}
+              <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
+                <Button onClick={() => startEdit(item)}>編集</Button>
+                <Button danger onClick={() => handleDelete(item.id, item.title)}>
+                  削除
+                </Button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p style={{ fontSize: "12px", color: "#999", textAlign: "center", padding: "20px" }}>
+            配信済みのニュースはありません
+          </p>
+        )}
         <Modal
           title="ニュースの編集"
           open={!!editingItem}

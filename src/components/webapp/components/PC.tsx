@@ -6,10 +6,12 @@ import Menu from "@/components/webapp/components/Layout/menu";
 import EventStatus from "@/components/webapp/components/Status/EventStatus";
 import BoothStatus from "@/components/webapp/components/Status/BoothStatus";
 import NewsStatus from "@/components/webapp/components/Status/NewsStatus";
+import ServerConfig from "@/components/webapp/components/Misc/ServerConfig";
 import { useRole } from "@/components/webapp/contexts/RoleContext";
 import { useData } from "@/components/webapp/contexts/DataContext";
 import { useAppTime } from "@/components/webapp/contexts/TimeContext";
 import dayjs from "dayjs";
+import { MapContainer } from "react-leaflet";
 
 const BusStatus = React.lazy(() => import("@/components/webapp/components/Status/BusStatus"));
 const LostStatus = React.lazy(() => import("@/components/webapp/components/Status/LostStatus"));
@@ -20,12 +22,13 @@ const BoothManager = React.lazy(() => import("@/components/webapp/components/Adm
 const LostManager = React.lazy(() => import("@/components/webapp/components/Admin/LostManager"));
 const QAManager = React.lazy(() => import("@/components/webapp/components/Admin/QAManager"));
 
-const FallbackLoader = () => (
-  <div style={{ textAlign: "center", padding: "20px", color: "var(--text-sub-color)" }}>Loading Panel...</div>
+const FallbackLoader = ({ text = "Loading..." }: { text?: string }) => (
+  <div style={{ textAlign: "center", padding: "40px 20px", color: "var(--text-sub-color)", fontSize: "13px" }}>
+    {text}
+  </div>
 );
-
-export default function PC({ baseDate }: { baseDate: Date }) {
-  const { isAdmin, isStallAdmin } = useRole();
+export default function PC() {
+  const { isAdmin, isStallAdmin, assignedStall } = useRole();
   const {
     api: { fetchedData },
   } = useData();
@@ -42,16 +45,19 @@ export default function PC({ baseDate }: { baseDate: Date }) {
   }, [news, currentTime]);
 
   const MainContent = useMemo(() => {
+    const isServerAdmin = assignedStall === "server";
+
     if (isAdmin) {
       return (
-        <Suspense fallback={<FallbackLoader />}>
-          <NewsManager />
+        <Suspense fallback={<FallbackLoader text="Admin Tools..." />}>
+          {isServerAdmin ? <ServerConfig /> : <NewsManager />}
         </Suspense>
       );
     }
+
     if (isStallAdmin) {
       return (
-        <Suspense fallback={<FallbackLoader />}>
+        <Suspense fallback={<FallbackLoader text="Stall Manager..." />}>
           <BoothManager />
         </Suspense>
       );
@@ -65,14 +71,21 @@ export default function PC({ baseDate }: { baseDate: Date }) {
         <NewsStatus />
       </>
     );
-  }, [isAdmin, isStallAdmin, hasHotNews]);
+  }, [isAdmin, isStallAdmin, hasHotNews, news, currentTime]);
 
   const SubContent = useMemo(() => {
+    const isServerAdmin = assignedStall === "server";
     if (isAdmin) {
       return (
-        <Suspense fallback={<FallbackLoader />}>
-          <QAManager />
-          <LostManager />
+        <Suspense fallback={<FallbackLoader text="Admin Tools..." />}>
+          {!isServerAdmin ? (
+            <>
+              <LostManager />
+              <QAManager />
+            </>
+          ) : (
+            <NewsStatus />
+          )}
         </Suspense>
       );
     }
@@ -80,14 +93,14 @@ export default function PC({ baseDate }: { baseDate: Date }) {
       return <NewsStatus />;
     }
     return (
-      <Suspense fallback={<FallbackLoader />}>
+      <>
         <LostStatus />
         <BusStatus />
         <QAStatus />
         <MapSection />
-      </Suspense>
+      </>
     );
-  }, [isAdmin, isStallAdmin, hasHotNews, news, currentTime]);
+  }, [isAdmin, isStallAdmin]);
 
   return (
     <div className="mainCanvas">

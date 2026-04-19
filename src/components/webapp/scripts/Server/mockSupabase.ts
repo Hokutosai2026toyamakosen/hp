@@ -22,11 +22,6 @@ interface CacheEntry<T> {
 const cache: Record<string, CacheEntry<unknown>> = {};
 const pendingRequests: Record<string, Promise<unknown> | null> = {};
 
-// ms
-export const FETCH_INTERVAL = 15000;
-const CACHE_TTL = 13000;
-const Jitter_Time = 2000;
-
 export const mockSupabase = {
   loginAsAdmin: async (password: string) => {
     const email = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
@@ -42,15 +37,18 @@ export const mockSupabase = {
     return data;
   },
 
-  getJitter: () => Math.floor(Math.random() * Jitter_Time),
+  getJitter: () => Math.floor(Math.random() * 2000),
 
-  _fetchWithCache: async <T>(key: string, fetcher: () => Promise<T>): Promise<T> => {
+  _fetchWithCache: async <T>(key: string, fetcher: () => Promise<T>, ttl: number): Promise<T> => {
     const now = Date.now();
+
     const pending = pendingRequests[key];
     if (pending) return pending as Promise<T>;
 
     const cached = cache[key] as CacheEntry<T> | undefined;
-    if (cached && now - cached.time < CACHE_TTL) return cached.data;
+    if (cached && now - cached.time < ttl) {
+      return cached.data;
+    }
 
     console.log(`[Supabase] Network Request: ${key}`);
     const requestPromise = fetcher()
@@ -68,38 +66,31 @@ export const mockSupabase = {
     return requestPromise as Promise<T>;
   },
 
-  fetchAllData: async () => {
-    const now = Date.now();
-    if (cache["all"] && now - cache["all"].time < CACHE_TTL) {
-      return cache["all"].data;
-    }
+  fetchAllData: async (ttl: number = 0) => {
+    return mockSupabase._fetchWithCache(
+      "all",
+      async () => {
+        const { data, error } = await supabase.rpc("get_all_data");
+        if (error) throw error;
+        return data;
+      },
+      ttl,
+    );
+  },
 
-    return mockSupabase._fetchWithCache("all", async () => {
-      const { data, error } = await supabase.rpc("get_all_data");
-      if (error) throw error;
-
-      const timestamp = Date.now();
-      cache["stalls"] = {
-        data: (data.stalls || []).map((s: { stall_name: string; crowd_level: number; stock_level: number }) => ({
-          stallName: s.stall_name,
-          crowdLevel: s.crowd_level as StatusLevel,
-          stockLevel: s.stock_level as StatusLevel,
-        })),
-        time: timestamp,
-      };
-      cache["news"] = { data: data.news || [], time: timestamp };
-      cache["lost"] = { data: data.lost_items || [], time: timestamp };
-      cache["qa"] = { data: data.questions || [], time: timestamp };
-
-      return data;
-    });
+  fetchStallsOnly: async (ttl: number = 0) => {
+    return mockSupabase._fetchWithCache(
+      "stalls_only",
+      async () => {
+        const { data, error } = await supabase.rpc("get_stalls_only");
+        if (error) throw error;
+        return data;
+      },
+      ttl,
+    );
   },
 
   stalls: {
-    fetch: async (): Promise<StallStatus[]> => {
-      await mockSupabase.fetchAllData();
-      return (cache["stalls"]?.data as StallStatus[]) || [];
-    },
     update: async (stallName: string, updates: Partial<StallStatus>) => {
       console.log(`[Supabase] Update Sent: Stall (${stallName})`);
       const dbUpdates: Record<string, number> = {};
@@ -108,14 +99,11 @@ export const mockSupabase = {
       const { error } = await supabase.from("stalls_status").update(dbUpdates).eq("stall_name", stallName);
       if (error) throw error;
       delete cache["all"];
+      delete cache["stalls_only"];
     },
   },
 
   lostAndFound: {
-    fetch: async (): Promise<LostItem[]> => {
-      await mockSupabase.fetchAllData();
-      return (cache["lost"]?.data as LostItem[]) || [];
-    },
     post: async (item: { name: string; place: string }) => {
       console.log("[Supabase] Update Sent: New Lost Item");
       const { error } = await supabase.from("lost_items").insert([item]);
@@ -146,10 +134,6 @@ export const mockSupabase = {
   },
 
   qa: {
-    fetch: async (): Promise<Question[]> => {
-      await mockSupabase.fetchAllData();
-      return (cache["qa"]?.data as Question[]) || [];
-    },
     ask: async (text: string) => {
       console.log("[Supabase] Update Sent: New Question");
       const { error } = await supabase.from("questions").insert([{ text }]);
@@ -177,10 +161,6 @@ export const mockSupabase = {
   },
 
   news: {
-    fetch: async (): Promise<NewsItem[]> => {
-      await mockSupabase.fetchAllData();
-      return (cache["news"]?.data as NewsItem[]) || [];
-    },
     post: async (title: string, content: string) => {
       console.log("[Supabase] Update Sent: New News");
       const { error } = await supabase.from("news").insert([{ title, content }]);
@@ -212,6 +192,7 @@ export const mockSupabase = {
 };
 
 export const mockSupabaseStalls = mockSupabase.stalls;
+
 export interface LostItem {
   id: string;
   name: string;

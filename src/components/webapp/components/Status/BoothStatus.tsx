@@ -43,7 +43,7 @@ const LegendItem = ({ level, crowd, stock }: { level: StatusLevel; crowd: string
   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
     <TrafficLight level={level} disabled />
     <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-      <span style={{ fontSize: "10px", color: "var(--clock-color)" , lineHeight: "1.2" }}>{crowd}</span>
+      <span style={{ fontSize: "10px", color: "var(--clock-color)", lineHeight: "1.2" }}>{crowd}</span>
       <span style={{ fontSize: "10px", color: "var(--clock-color)", lineHeight: "1.2" }}>{stock}</span>
     </div>
   </div>

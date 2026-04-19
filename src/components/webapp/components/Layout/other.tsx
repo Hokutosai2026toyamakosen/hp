@@ -24,7 +24,7 @@ export default function Other() {
       <Settings />
       {cardMake(t("CardTitles.UPDATES"), [
         <h4 className="lastText" key="version" style={{ textAlign: "left" }}>
-          First Commit. 4.19.26
+          Dark, English. 4.19.26
         </h4>,
       ])}
     </div>

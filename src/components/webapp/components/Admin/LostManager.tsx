@@ -1,33 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Input, Button, App, Modal } from "antd";
+import React, { useState } from "react";
+import { Input, Button, App, Modal, Spin } from "antd";
 import { CardBase, CardInside } from "@/components/webapp/components/Layout/CardComp";
-import { mockSupabase, LostItem, FETCH_INTERVAL } from "@/components/webapp/scripts/Server/mockSupabase";
+import { mockSupabase, LostItem } from "@/components/webapp/scripts/Server/mockSupabase";
+import { useData } from "@/components/webapp/contexts/DataContext";
 import "@/components/webapp/components/Admin/admin.css";
 
 export default function LostManager() {
   const { message, modal } = App.useApp();
+  const {
+    api: { fetchedData, fetchData, isLoading },
+  } = useData();
   const [name, setName] = useState("");
   const [place, setPlace] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [items, setItems] = useState<LostItem[]>([]);
   const [editingItem, setEditingItem] = useState<LostItem | null>(null);
   const [editName, setEditName] = useState("");
   const [editPlace, setEditPlace] = useState("");
   const [editReason, setEditReason] = useState("");
 
-  const loadItems = async () => {
-    const data = await mockSupabase.lostAndFound.fetch();
-    setItems(data);
-  };
-
-  useEffect(() => {
-    loadItems();
-    const interval = setInterval(loadItems, FETCH_INTERVAL);
-    return () => clearInterval(interval);
-  }, []);
+  const items = fetchedData?.lostItems || [];
 
   const handlePost = async () => {
     if (!name || !place) {
@@ -42,7 +36,7 @@ export default function LostManager() {
       setTimeout(() => setIsSuccess(false), 1500);
       setName("");
       setPlace("");
-      loadItems();
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("エラー");
@@ -73,15 +67,13 @@ export default function LostManager() {
       ),
       getContainer: () => document.querySelector(".webapp-root") || document.body,
       onOk: async () => {
-        const originalItems = [...items];
-        setItems((prev) => prev.filter((item) => item.id !== id));
         try {
           await mockSupabase.lostAndFound.delete(id);
           message.success("削除しました");
+          await fetchData();
         } catch (error) {
           console.error(error);
           message.error("削除に失敗しました");
-          setItems(originalItems);
         }
       },
     });
@@ -108,7 +100,7 @@ export default function LostManager() {
       });
       message.success("編集しました");
       setEditingItem(null);
-      loadItems();
+      await fetchData();
     } catch (error) {
       console.error(error);
       message.error("エラー");
@@ -116,6 +108,18 @@ export default function LostManager() {
       setLoading(false);
     }
   };
+
+  if (isLoading && !fetchedData) {
+    return (
+      <CardBase title="Lost Manager (Admin)">
+        <CardInside>
+          <div style={{ textAlign: "center", padding: "50px" }}>
+            <Spin size="large" />
+          </div>
+        </CardInside>
+      </CardBase>
+    );
+  }
 
   return (
     <CardBase title="Lost Manager (Admin)">

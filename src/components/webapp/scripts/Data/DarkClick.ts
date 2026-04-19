@@ -1,34 +1,9 @@
-import { postCookie } from "@/components/webapp/scripts/Server/Cookie";
-
-export default function DarkClick(isDarkMode: boolean) {
-   postCookie("dark", !isDarkMode);
-   darkSet(isDarkMode);
-}
-
-function darkSet(isDarkMode: boolean) {
+export default function DarkClick(isDark: boolean) {
    if (typeof document === "undefined") return;
    const root = document.querySelector(".webapp-root") as HTMLElement || document.querySelector(":root") as HTMLElement;
    if (!root) return;
    
-   if (isDarkMode) {
-      //root.style.setProperty("--main-color", "#1677ff");
-      root.style.setProperty("--bg-color", "#fff");
-      root.style.setProperty("--bg-sub-color", "#ddd");
-      root.style.setProperty("--mainCanvas-color", "#f4f7fc");
-      root.style.setProperty("--text-color", "#000");
-      root.style.setProperty("--text-sub-color", "rgba(0, 0, 0, 0.65)");
-      root.style.setProperty("--clock-color", "#556");
-      root.style.setProperty("--border-color", "#ccc");
-      root.style.setProperty("--shadow-out", "rgba(0, 0, 0, 0.2) 0 0 1.8vh");
-      root.style.setProperty("--shadow-in", "inset #ddd 0 0 0.7vh 0.2vh");
-      root.style.setProperty("--input-color", "rgba(255, 255, 255, 0.6)");
-      root.style.setProperty("--disable-day-color", "rgba(0, 0, 0, 0.25)");
-      root.style.setProperty("--glass-bg", "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1))");
-      root.style.setProperty("--glass-border", "rgba(255, 255, 255, 0.6)");
-      root.style.setProperty("--glass-shadow-1", "rgba(0, 0, 0, 0.2)");
-      root.style.setProperty("--scheme", "light");
-   } else {
-      //root.style.setProperty("--main-color", "#6fabff");
+   if (isDark) {
       root.style.setProperty("--bg-color", "#18181a");
       root.style.setProperty("--bg-sub-color", "#39383c");
       root.style.setProperty("--mainCanvas-color", "#000");
@@ -44,5 +19,21 @@ function darkSet(isDarkMode: boolean) {
       root.style.setProperty("--glass-border", "rgba(255, 255, 255, 0.2)");
       root.style.setProperty("--glass-shadow-1", "rgba(255, 255, 255, 0.2)");
       root.style.setProperty("--scheme", "dark");
+   } else {
+      root.style.setProperty("--bg-color", "#fff");
+      root.style.setProperty("--bg-sub-color", "#ddd");
+      root.style.setProperty("--mainCanvas-color", "#f4f7fc");
+      root.style.setProperty("--text-color", "#000");
+      root.style.setProperty("--text-sub-color", "rgba(0, 0, 0, 0.65)");
+      root.style.setProperty("--clock-color", "#556");
+      root.style.setProperty("--border-color", "#ccc");
+      root.style.setProperty("--shadow-out", "rgba(0, 0, 0, 0.2) 0 0 1.8vh");
+      root.style.setProperty("--shadow-in", "inset #ddd 0 0 0.7vh 0.2vh");
+      root.style.setProperty("--input-color", "rgba(255, 255, 255, 0.6)");
+      root.style.setProperty("--disable-day-color", "rgba(0, 0, 0, 0.25)");
+      root.style.setProperty("--glass-bg", "linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1))");
+      root.style.setProperty("--glass-border", "rgba(255, 255, 255, 0.6)");
+      root.style.setProperty("--glass-shadow-1", "rgba(0, 0, 0, 0.2)");
+      root.style.setProperty("--scheme", "light");
    }
 }
